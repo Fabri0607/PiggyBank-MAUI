@@ -1,4 +1,6 @@
-﻿namespace PiggyBank_MAUI
+﻿using PiggyBank_MAUI.Views;
+
+namespace PiggyBank_MAUI
 {
     public partial class App : Application
     {
@@ -6,7 +8,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new MainPage());
         }
     }
 }

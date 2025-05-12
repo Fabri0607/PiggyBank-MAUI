@@ -1,4 +1,6 @@
-﻿namespace PiggyBank_MAUI
+﻿using PiggyBank_MAUI.Views;
+
+namespace PiggyBank_MAUI
 {
     public partial class MainPage : ContentPage
     {
@@ -19,6 +21,11 @@
                 CounterBtn.Text = $"Clicked {count} times";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
+        }
+
+        private void LoginPage_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PaginaInicioDeSesion());
         }
     }
 
