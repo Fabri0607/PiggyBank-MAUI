@@ -40,7 +40,7 @@
                         Stroke="{StaticResource Verde-muy-claro}"
                         StrokeThickness="0"
                         BackgroundColor="{StaticResource Verde-muy-claro}"
-                        StrokeShape="RoundRectangle 12">
+                        StrokeShape="RoundRectangle 20">
 
                         <Entry
                             Placeholder="ejemplo@gmail.com"
@@ -62,7 +62,7 @@
                         Stroke="{StaticResource Verde-muy-claro}"
                         StrokeThickness="0"
                         BackgroundColor="{StaticResource Verde-muy-claro}"
-                        StrokeShape="RoundRectangle 12">
+                        StrokeShape="RoundRectangle 20">
                         
                         <Entry
                             IsPassword="True"
