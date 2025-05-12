@@ -13,6 +13,9 @@ namespace PiggyBank_MAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
+                    fonts.AddFont("Poppins-Medium.ttf", "PoppinsMedium");
+                    fonts.AddFont("Poppins-Bold.ttf", "PoppinsBold");
                 });
 
 #if DEBUG
