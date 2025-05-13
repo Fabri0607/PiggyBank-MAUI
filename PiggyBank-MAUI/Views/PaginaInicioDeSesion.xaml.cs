@@ -7,4 +7,9 @@ public partial class PaginaInicioDeSesion : ContentPage
 		InitializeComponent();
 		NavigationPage.SetHasNavigationBar(this, false);
     }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        DisplayAlert("Redirección", "Redirección a cambiar contraseña", "OK");
+    }
 }

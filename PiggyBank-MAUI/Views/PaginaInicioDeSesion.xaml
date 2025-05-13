@@ -50,7 +50,7 @@
                             BackgroundColor="Transparent"
                             TextColor="Black"
                             Margin="10,0"
-                            PlaceholderColor="Black"
+                            PlaceholderColor="Gray"
                             FontFamily="PoppinsRegular"
                         />
                     </Border>
@@ -75,7 +75,7 @@
                             BackgroundColor="Transparent"
                             TextColor="Black"
                             Margin="10,0"
-                            PlaceholderColor="Black"
+                            PlaceholderColor="Gray"
                             FontFamily="PoppinsRegular"
                         />
                     </Border>
@@ -97,8 +97,12 @@
                         <Label 
                             Text="¿Olvidaste tu contraseña?"
                             HorizontalOptions="Center"
-                            TextColor="{StaticResource Azul-Botones}"
-                        />
+                            TextColor="{StaticResource Azul-Botones}">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                     </VerticalStackLayout>
 
                     <Grid ColumnDefinitions="*,Auto,*">

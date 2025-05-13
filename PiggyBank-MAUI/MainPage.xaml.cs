@@ -27,6 +27,11 @@ namespace PiggyBank_MAUI
         {
             Navigation.PushAsync(new PaginaInicioDeSesion());
         }
+
+        private void test_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new test());
+        }
     }
 
 }

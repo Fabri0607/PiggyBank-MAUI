@@ -36,6 +36,12 @@
                 Text="Ir a Login Page"
                 Clicked="LoginPage_Clicked"
             />
+
+            <Button 
+                x:Name="test"
+                Text="Ir a test"
+                Clicked="test_Clicked"
+            />
         </VerticalStackLayout>
     </ScrollView>
 
