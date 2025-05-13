@@ -25,4 +25,18 @@ public partial class test : ContentPage
     {
         DisplayAlert("Seleccionada", "Card selecionada", "OK");
     }
+
+
+    private async void OnShowModalClicked(object sender, EventArgs e)
+    {
+        modalView.IsVisible = true;
+        modalView.Opacity = 0;
+        await modalView.FadeTo(1, 250); // Animación de entrada
+    }
+
+    private async void OnCancelClicked(object sender, EventArgs e)
+    {
+        await modalView.FadeTo(0, 250); // Animación de salida
+        modalView.IsVisible = false;
+    }
 }
