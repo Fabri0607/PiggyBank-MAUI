@@ -32,6 +32,18 @@
                 HorizontalOptions="Fill" />
 
             <Button 
+                x:Name="BotonBienvenida"
+                Text="Ir a pagina bienvenida"
+                Clicked="BotonBienvenida_Clicked"
+            />
+
+            <Button 
+                x:Name="BotonApp"
+                Text="Ir a la app"
+                Clicked="BotonApp_Clicked"
+            />
+
+            <Button 
                 x:Name="LoginPage"
                 Text="Ir a Login Page"
                 Clicked="LoginPage_Clicked"
@@ -41,6 +53,18 @@
                 x:Name="test"
                 Text="Ir a test"
                 Clicked="test_Clicked"
+            />
+
+            <Button 
+                x:Name="Registrarse"
+                Text="Ir a Registrarse"
+                Clicked="Registrarse_Clicked"
+            />
+
+            <Button 
+                x:Name="Tabbed"
+                Text="Ir a pagina tabbed"
+                Clicked="Tabbed_Clicked"
             />
         </VerticalStackLayout>
     </ScrollView>

@@ -32,6 +32,26 @@ namespace PiggyBank_MAUI
         {
             Navigation.PushAsync(new test());
         }
+
+        private void Registrarse_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PaginaRegistrarse());
+        }
+
+        private void BotonBienvenida_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PaginaBienvenida());
+        }
+
+        private void BotonApp_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AppShell());
+        }
+
+        private void Tabbed_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PaginaTap());
+        }
     }
 
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.PaginaBienvenida"
+             Title="PaginaBienvenida">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout 
+        VerticalOptions="Center"
+        Padding="55,0"
+        Spacing="5"
+        >
+
+        <Image 
+            Source="piggybank_logo_bienvenida.png"
+            WidthRequest="130"
+        />
+
+        <Label 
+            Text="PiggyBank"   
+            HorizontalOptions="Center"
+            FontSize="40"
+            FontFamily="Poppins-Regular"
+            FontAttributes="Bold"
+            TextColor="{StaticResource Verde-background}"
+        />
+
+        <Label 
+            Text="Tu aplicación para gestionar tus finanzas personales"    
+            HorizontalOptions="Center"
+            FontSize="Medium"
+            HorizontalTextAlignment="Center"
+            FontFamily="Poppins-Regular"
+        />
+
+        <VerticalStackLayout
+            Margin="0,15,0,0"
+            Spacing="20"
+            >
+
+            <Button 
+                x:Name="BotonIniciarSesion"
+                Text="Iniciar sesión"  
+                FontFamily="PoppinsRegular"
+                BackgroundColor="{StaticResource Verde-background}"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                CornerRadius="40"
+                Clicked="BotonIniciarSesion_Clicked"
+            />
+
+            <Button 
+                x:Name="BotonRegistrarse"
+                Text="Registrarse"  
+                FontFamily="PoppinsRegular"
+                BackgroundColor="{StaticResource Verde-muy-claro}"
+                FontSize="Medium"
+                FontAttributes="Bold"
+                CornerRadius="40"
+                TextColor="Black"
+                Clicked="BotonRegistrarse_Clicked"
+            />
+
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

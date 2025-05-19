@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.PaginaHome"
+             Title="PaginaHome">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+    </ContentPage.Resources>
+
+    <ScrollView>
+
+        <Grid BackgroundColor="{StaticResource Verde-background}">
+
+            <VerticalStackLayout
+                Padding="30,0"
+                Spacing="20"
+                >
+
+                <Label 
+                    Text="Bienvenido"
+                    TextColor="White"
+                    FontSize="Large"
+                    HorizontalOptions="Start"
+                    FontAttributes="Bold"
+                    Margin="0,8,0,0"
+                    FontFamily="PoppinsRegular"
+                />
+
+                <VerticalStackLayout>
+                    <Label 
+                        Text="Total de ingresos" 
+                        TextColor="White"
+                        FontSize="17"
+                        HorizontalOptions="Center"
+                        FontFamily="Poppins-Regular"
+                    />
+
+                    <Label 
+                        Text="₡1,350,000.00"  
+                        FontSize="25"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontFamily="Poppins-Regular"
+                        HorizontalOptions="Center"
+                    />
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+            <Border
+                BackgroundColor="White"
+                StrokeThickness="0"
+                VerticalOptions="End"
+                HeightRequest="530"
+                Padding="30,50"
+                StrokeShape="RoundRectangle 40,40,0,0">
+
+            </Border>
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>

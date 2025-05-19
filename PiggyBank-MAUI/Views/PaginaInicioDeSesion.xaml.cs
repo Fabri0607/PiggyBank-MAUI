@@ -12,4 +12,9 @@ public partial class PaginaInicioDeSesion : ContentPage
     {
         DisplayAlert("Redirección", "Redirección a cambiar contraseña", "OK");
     }
+
+    private void BotonRegistrarse_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new PaginaRegistrarse());
+    }
 }

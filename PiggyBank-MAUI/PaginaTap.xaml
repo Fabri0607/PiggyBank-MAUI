@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PiggyBank_MAUI.Views"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             x:Class="PiggyBank_MAUI.PaginaTap"
+             Title="PaginaTap"
+             BarBackgroundColor="#DFF7E2"
+             SelectedTabColor="#00D09E" 
+             UnselectedTabColor="Black"
+            >
+
+    <TabbedPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+    </TabbedPage.Resources>
+
+    <views:PaginaHome Title="Inicio" IconImageSource="home.png"/>
+
+    <views:PáginaEstadisticas Title="Estadísticas" IconImageSource="estadisticas.png"/>
+
+    <views:PaginaTransacciones Title="Transacciones" IconImageSource="transacciones.png"/>
+
+    <views:PaginaAsistenteIA Title="Asistente" IconImageSource="piggybank_ai.png"/>
+
+</TabbedPage>
