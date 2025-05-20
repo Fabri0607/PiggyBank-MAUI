@@ -52,6 +52,11 @@ namespace PiggyBank_MAUI
         {
             Navigation.PushAsync(new PaginaTap());
         }
+
+        private void ejm_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ejm());
+        }
     }
 
 }

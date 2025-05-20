@@ -11,13 +11,6 @@
              UnselectedTabColor="Black"
             >
 
-    <TabbedPage.Resources>
-        <Color x:Key="Verde-background">#00986C</Color>
-        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
-        <Color x:Key="Verde-Principal">#008259</Color>
-        <Color x:Key="Azul-Botones">#0068FF</Color>
-    </TabbedPage.Resources>
-
     <views:PaginaHome Title="Inicio" IconImageSource="home.png"/>
 
     <views:PáginaEstadisticas Title="Estadísticas" IconImageSource="estadisticas.png"/>

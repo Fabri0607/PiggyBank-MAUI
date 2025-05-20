@@ -44,27 +44,21 @@
             />
 
             <Button 
-                x:Name="LoginPage"
-                Text="Ir a Login Page"
-                Clicked="LoginPage_Clicked"
-            />
-
-            <Button 
                 x:Name="test"
                 Text="Ir a test"
                 Clicked="test_Clicked"
             />
 
             <Button 
-                x:Name="Registrarse"
-                Text="Ir a Registrarse"
-                Clicked="Registrarse_Clicked"
-            />
-
-            <Button 
                 x:Name="Tabbed"
                 Text="Ir a pagina tabbed"
                 Clicked="Tabbed_Clicked"
+            />
+
+            <Button 
+                x:Name="ejm"
+                Text="Ir a ejm"
+                Clicked="ejm_Clicked"
             />
         </VerticalStackLayout>
     </ScrollView>
