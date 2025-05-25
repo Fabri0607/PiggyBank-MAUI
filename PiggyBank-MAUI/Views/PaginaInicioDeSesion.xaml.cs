@@ -17,4 +17,9 @@ public partial class PaginaInicioDeSesion : ContentPage
     {
         Navigation.PushAsync(new PaginaRegistrarse());
     }
+
+    private void Boton_IniciarSesion_Clicked(object sender, EventArgs e)
+    {
+        Application.Current.MainPage = new AppShell();
+    }
 }

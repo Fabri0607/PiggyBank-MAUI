@@ -7,4 +7,9 @@ public partial class PaginaHome : ContentPage
 		InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);
     }
+
+    private void boton_nueva_transaccion_Tapped(object sender, TappedEventArgs e)
+    {
+        Navigation.PushAsync(new NuevaTransaccion());
+    }
 }

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PiggyBank_MAUI.Views.PaginaTransacciones"
-             Title="PaginaTransacciones">
+             x:Class="PiggyBank_MAUI.Views.NuevaTransaccion"
+             Title="NuevaTransaccion">
     <VerticalStackLayout>
         <Label 
-            Text="TRANSACCIONES"
+            Text="Nueva Transaccion"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            FontFamily="Poppins-Regular"/>
+            HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

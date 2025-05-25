@@ -9,6 +9,13 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="NavigationPage">
+                <Setter Property="TitleView">
+                    <Setter.Value>
+                        <Label FontFamily="PoppinsRegular" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>

@@ -72,6 +72,9 @@
 	  <MauiXaml Update="Views\ejm.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\NuevaTransaccion.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PaginaAsistenteIA.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
