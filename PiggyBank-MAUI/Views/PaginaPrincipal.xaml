@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.PaginaPrincipal">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Gris-Claro">#F5F5F5</Color>
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Header con información de saldo -->
+        <Grid RowDefinitions="220, *">
+            <!-- Header verde con saludo y saldo -->
+            <Grid Grid.Row="0" BackgroundColor="{StaticResource Verde-background}" Padding="20,40,20,20">
+                <VerticalStackLayout>
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label 
+                            Grid.Column="0"
+                            Text="Hola, Bienvenido" 
+                            TextColor="White" 
+                            FontSize="24" 
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular" 
+                            VerticalOptions="Center"/>
+                        
+                        <ImageButton 
+                            Grid.Column="1"
+                            Source="notification_icon.png" 
+                            HeightRequest="24" 
+                            WidthRequest="24" 
+                            BackgroundColor="Transparent"/>
+                    </Grid>
+                    
+                    <Label 
+                        Text="Total de ingresos" 
+                        TextColor="White" 
+                        FontSize="16" 
+                        Margin="0,15,0,0"
+                        FontFamily="PoppinsRegular"/>
+                    
+                    <Label 
+                        Text="₡1,350,000.00" 
+                        TextColor="White" 
+                        FontSize="32" 
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Contenido principal con tarjetas -->
+            <Grid Grid.Row="1" BackgroundColor="{StaticResource Gris-Claro}" Padding="0">
+                <Border
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    VerticalOptions="Fill"
+                    StrokeShape="RoundRectangle 30,30,0,0">
+
+                    <ScrollView>
+                        <VerticalStackLayout Spacing="20" Padding="20">
+                            <!-- Sección de Transacciones -->
+                            <Label 
+                                Text="Transacciones" 
+                                FontAttributes="Bold" 
+                                FontSize="20"
+                                FontFamily="PoppinsRegular" 
+                                Margin="0,10,0,0"/>
+
+                            <Border
+                                BackgroundColor="{StaticResource Verde-muy-claro}"
+                                StrokeThickness="0"
+                                Padding="15"
+                                StrokeShape="RoundRectangle 20">
+
+                                <Grid RowDefinitions="Auto, *">
+                                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                                        <Label 
+                                            Grid.Column="0"
+                                            Text="Último Mes" 
+                                            FontAttributes="Bold" 
+                                            FontSize="16"
+                                            TextColor="Black"
+                                            FontFamily="PoppinsRegular"/>
+                                        
+                                        <Button 
+                                            Grid.Column="1"
+                                            Text="Ver todas" 
+                                            BackgroundColor="#00C897" 
+                                            TextColor="White"
+                                            FontSize="12"
+                                            CornerRadius="20"
+                                            HeightRequest="30"
+                                            FontFamily="PoppinsRegular"/>
+                                    </Grid>
+
+                                    <!-- Gráfico simplificado (aquí podrías usar un control real de gráficos) -->
+                                    <Grid Grid.Row="1" HeightRequest="150" Margin="0,10,0,0">
+                                        <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
+                                            <!-- Etiquetas del eje Y -->
+                                            <StackLayout Grid.Row="1" Grid.Column="0" Spacing="10" Margin="0,0,10,0">
+                                                <Label Text="15k" TextColor="#89CFF0" FontSize="12" VerticalOptions="Start"/>
+                                                <Label Text="10k" TextColor="#89CFF0" FontSize="12" VerticalOptions="Start"/>
+                                                <Label Text="5k" TextColor="#89CFF0" FontSize="12" VerticalOptions="Start"/>
+                                                <Label Text="1k" TextColor="#89CFF0" FontSize="12" VerticalOptions="Start"/>
+                                            </StackLayout>
+                                            
+                                            <!-- Barras del gráfico (simuladas con BoxView) -->
+                                            <Grid Grid.Row="1" Grid.Column="1" ColumnDefinitions="*, *, *, *" RowDefinitions="*, Auto">
+                                                <!-- Semana 1 -->
+                                                <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Spacing="3" HorizontalOptions="Center" VerticalOptions="End">
+                                                    <BoxView Color="#00986C" WidthRequest="15" HeightRequest="20" VerticalOptions="End"/>
+                                                    <BoxView Color="#0068FF" WidthRequest="15" HeightRequest="30" VerticalOptions="End"/>
+                                                </StackLayout>
+                                                <Label Grid.Column="0" Grid.Row="1" Text="Semana 1" FontSize="10" HorizontalOptions="Center"/>
+                                                
+                                                <!-- Semana 2 -->
+                                                <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Spacing="3" HorizontalOptions="Center" VerticalOptions="End">
+                                                    <BoxView Color="#00986C" WidthRequest="15" HeightRequest="20" VerticalOptions="End"/>
+                                                    <BoxView Color="#0068FF" WidthRequest="15" HeightRequest="50" VerticalOptions="End"/>
+                                                </StackLayout>
+                                                <Label Grid.Column="1" Grid.Row="1" Text="Semana 2" FontSize="10" HorizontalOptions="Center"/>
+                                                
+                                                <!-- Semana 3 -->
+                                                <StackLayout Grid.Column="2" Grid.Row="0" Orientation="Horizontal" Spacing="3" HorizontalOptions="Center" VerticalOptions="End">
+                                                    <BoxView Color="#00986C" WidthRequest="15" HeightRequest="40" VerticalOptions="End"/>
+                                                    <BoxView Color="#0068FF" WidthRequest="15" HeightRequest="80" VerticalOptions="End"/>
+                                                </StackLayout>
+                                                <Label Grid.Column="2" Grid.Row="1" Text="Semana 3" FontSize="10" HorizontalOptions="Center"/>
+                                                
+                                                <!-- Semana 4 -->
+                                                <StackLayout Grid.Column="3" Grid.Row="0" Orientation="Horizontal" Spacing="3" HorizontalOptions="Center" VerticalOptions="End">
+                                                    <BoxView Color="#00986C" WidthRequest="15" HeightRequest="60" VerticalOptions="End"/>
+                                                    <BoxView Color="#0068FF" WidthRequest="15" HeightRequest="40" VerticalOptions="End"/>
+                                                </StackLayout>
+                                                <Label Grid.Column="3" Grid.Row="1" Text="Semana 4" FontSize="10" HorizontalOptions="Center"/>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <!-- Sección de Acciones -->
+                            <Label 
+                                Text="Acciones" 
+                                FontAttributes="Bold" 
+                                FontSize="20"
+                                FontFamily="PoppinsRegular" 
+                                Margin="0,10,0,0"/>
+
+                            <!-- Primera fila de botones de acciones -->
+                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                                <!-- Botón Transacción -->
+                                <Border Grid.Column="0"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        Padding="10"
+                                        StrokeShape="RoundRectangle 20">
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                                        <Image Source="add_transaction.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
+                                        <Label Text="Transacción" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- Botón Pagos -->
+                                <Border Grid.Column="1"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        Padding="10"
+                                        StrokeShape="RoundRectangle 20">
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                                        <Image Source="payments.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
+                                        <Label Text="Pagos" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- Botón Categorías -->
+                                <Border Grid.Column="2"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        Padding="10"
+                                        StrokeShape="RoundRectangle 20">
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                                        <Image Source="categories.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
+                                        <Label Text="Categorías" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </Grid>
+
+                            <!-- Segunda fila de botones de acciones -->
+                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10">
+                                <!-- Botón Presupuesto -->
+                                <Border Grid.Column="0"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        Padding="10"
+                                        StrokeShape="RoundRectangle 20">
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                                        <Image Source="budget.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
+                                        <Label Text="Presupuesto" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- Botón Metas -->
+                                <Border Grid.Column="1"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        Padding="10"
+                                        StrokeShape="RoundRectangle 20">
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                                        <Image Source="goals.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
+                                        <Label Text="Metas" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <!-- Botón Familia -->
+                                <Border Grid.Column="2"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        Padding="10"
+                                        StrokeShape="RoundRectangle 20">
+                                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                                        <Image Source="family.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
+                                        <Label Text="Familia" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </Grid>
+
+                            <!-- Sección de Próximos pagos -->
+                            <Label 
+                                Text="Próximos pagos" 
+                                FontAttributes="Bold" 
+                                FontSize="20"
+                                FontFamily="PoppinsRegular" 
+                                Margin="0,10,0,0"/>
+                                
+                            <!-- Lista de próximos pagos iría aquí -->
+                            <Border
+                                BackgroundColor="{StaticResource Verde-muy-claro}"
+                                StrokeThickness="0"
+                                Padding="15"
+                                StrokeShape="RoundRectangle 20"
+                                HeightRequest="100">
+                                
+                                <!-- Aquí podrías agregar elementos ListView o CollectionView para mostrar pagos -->
+                                <Label Text="No hay pagos programados" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Gray"/>
+                                
+                            </Border>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Border>
+            </Grid>
+        </Grid>
+        
+        <!-- Barra de navegación inferior -->
+        <Grid VerticalOptions="End" BackgroundColor="{StaticResource Verde-muy-claro}" HeightRequest="60">
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="40">
+                <!-- Inicio -->
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Image Source="home.png" HeightRequest="24" WidthRequest="24" HorizontalOptions="Center"/>
+                    <BoxView Color="{StaticResource Verde-background}" HeightRequest="3" WidthRequest="30"/>
+                </VerticalStackLayout>
+                
+                <!-- Estadísticas -->
+                <Image Source="statistics.png" HeightRequest="24" WidthRequest="24"/>
+                
+                <!-- Transferencias -->
+                <Image Source="transfers.png" HeightRequest="24" WidthRequest="24"/>
+                
+                <!-- Ahorros -->
+                <Image Source="savings.png" HeightRequest="24" WidthRequest="24"/>
+                
+                <!-- Perfil -->
+                <Image Source="profile.png" HeightRequest="24" WidthRequest="24"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

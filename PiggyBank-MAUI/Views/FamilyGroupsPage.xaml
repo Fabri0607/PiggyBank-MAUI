@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.FamilyGroupsPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid BackgroundColor="{StaticResource Verde-background}">
+        <!-- Header -->
+        <Label 
+            Text="Grupos Familiares"
+            TextColor="White"
+            FontSize="30"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            Margin="0,8,0,0"
+            FontFamily="PoppinsRegular"
+            VerticalOptions="Start" />
+
+        <!-- Main Content -->
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            HeightRequest="655"
+            Padding="30,50"
+            StrokeShape="RoundRectangle 40,40,0,0">
+
+            <VerticalStackLayout Spacing="20">
+                <!-- Create Group Section -->
+                <VerticalStackLayout Spacing="10">
+                    <Label 
+                        Text="Crear Nuevo Grupo"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular" />
+                    <Border
+                        Stroke="{StaticResource Verde-muy-claro}"
+                        StrokeThickness="0"
+                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                        StrokeShape="RoundRectangle 20">
+                        <Entry
+                            x:Name="GroupNameEntry"
+                            Placeholder="Nombre del grupo"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="10,0"
+                            PlaceholderColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                    </Border>
+                    <Button 
+                        x:Name="CreateGroupButton"
+                        Text="Crear Grupo"
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Verde-background}"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="40"
+                        TextColor="White" />
+                </VerticalStackLayout>
+
+                <!-- Groups List -->
+                <Label 
+                    Text="Tus Grupos"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    FontFamily="PoppinsRegular"
+                    Margin="0,20,0,0" />
+
+                <CollectionView x:Name="GroupsCollectionView"
+                               ItemsSource="{Binding Groups}"
+                               SelectionMode="Single"
+                               HeightRequest="400">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Stroke="{StaticResource Verde-muy-claro}"
+                                StrokeThickness="0"
+                                BackgroundColor="{StaticResource Verde-muy-claro}"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="15"
+                                Margin="0,5">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                        <Label 
+                                            Text="{Binding Nombre}"
+                                            FontSize="Medium"
+                                            FontAttributes="Bold"
+                                            FontFamily="PoppinsRegular" />
+                                        <Label 
+                                            Text="{Binding Descripcion}"
+                                            FontSize="Small"
+                                            TextColor="Gray"
+                                            FontFamily="PoppinsRegular" />
+                                    </VerticalStackLayout>
+                                    <Button 
+                                        Grid.Column="1"
+                                        Text="Ver Detalles"
+                                        FontFamily="PoppinsRegular"
+                                        BackgroundColor="{StaticResource Azul-Botones}"
+                                        TextColor="White"
+                                        FontSize="Small"
+                                        CornerRadius="20"
+                                        Padding="10,5"
+                                        Command="{Binding ViewDetailsCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+    </ScrollView>
+</ContentPage>

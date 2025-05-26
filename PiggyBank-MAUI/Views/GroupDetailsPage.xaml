@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.GroupDetailsPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="{StaticResource Verde-background}">
+        <!-- Header -->
+        <Label 
+            Text="{Binding GroupName, StringFormat='Grupo: {0}'}"
+            TextColor="White"
+            FontSize="30"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            Margin="0,8,0,0"
+            FontFamily="PoppinsRegular"
+            VerticalOptions="Start" />
+
+        <!-- Main Content -->
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            HeightRequest="655"
+            Padding="30,50"
+            StrokeShape="RoundRectangle 40,40,0,0">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="20">
+                    <!-- Group Info Section -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label 
+                            Text="Detalles del Grupo"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding GroupDescription}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Button 
+                            x:Name="UpdateGroupButton"
+                            Text="Editar Detalles"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40" />
+                    </VerticalStackLayout>
+
+                    <!-- Members Section -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label 
+                            Text="Miembros"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular"
+                            Margin="0,20,0,0" />
+                        <Border
+                            Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+                            <Entry
+                                x:Name="InviteMemberEntry"
+                                Placeholder="Correo del nuevo miembro"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                Margin="10,0"
+                                PlaceholderColor="Gray"
+                                FontFamily="PoppinsRegular" />
+                        </Border>
+                        <Button 
+                            x:Name="InviteMemberButton"
+                            Text="Invitar Miembro"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40" />
+                        <CollectionView x:Name="MembersCollectionView"
+                                       ItemsSource="{Binding Members}"
+                                       HeightRequest="150">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Stroke="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeShape="RoundRectangle 20"
+                                        Padding="10"
+                                        Margin="0,5">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label 
+                                                Grid.Column="0"
+                                                Text="{Binding Nombre}"
+                                                FontSize="Medium"
+                                                FontFamily="PoppinsRegular"
+                                                VerticalOptions="Center" />
+                                            <Button 
+                                                Grid.Column="1"
+                                                Text="Eliminar"
+                                                FontFamily="PoppinsRegular"
+                                                BackgroundColor="{StaticResource Verde-background}"
+                                                TextColor="White"
+                                                FontSize="Small"
+                                                CornerRadius="20"
+                                                Padding="10,5"
+                                                Command="{Binding RemoveMemberCommand}"
+                                                CommandParameter="{Binding .}"
+                                                IsVisible="{Binding IsAdmin}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Expenses Section -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label 
+                            Text="Gastos Compartidos"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular"
+                            Margin="0,20,0,0" />
+                        <Border
+                            Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+                            <Entry
+                                x:Name="ExpenseDescriptionEntry"
+                                Placeholder="Descripción del gasto"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                Margin="10,0"
+                                PlaceholderColor="Gray"
+                                FontFamily="PoppinsRegular" />
+                        </Border>
+                        <Border
+                            Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+                            <Entry
+                                x:Name="ExpenseAmountEntry"
+                                Placeholder="Monto"
+                                Keyboard="Numeric"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                Margin="10,0"
+                                PlaceholderColor="Gray"
+                                FontFamily="PoppinsRegular" />
+                        </Border>
+                        <Button 
+                            x:Name="RegisterExpenseButton"
+                            Text="Registrar Gasto"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40" />
+                        <CollectionView x:Name="ExpensesCollectionView"
+                                       ItemsSource="{Binding Expenses}"
+                                       HeightRequest="150">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Stroke="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeShape="RoundRectangle 20"
+                                        Padding="10"
+                                        Margin="0,5">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                                <Label 
+                                                    Text="{Binding Descripcion}"
+                                                    FontSize="Medium"
+                                                    FontFamily="PoppinsRegular" />
+                                                <Label 
+                                                    Text="{Binding Monto, StringFormat='{0:C}'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />
+                                            </VerticalStackLayout>
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding Fecha, StringFormat='{0:d}'}"
+                                                FontSize="Small"
+                                                TextColor="Gray"
+                                                FontFamily="PoppinsRegular"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Balances Section -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label 
+                            Text="Balances"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular"
+                            Margin="0,20,0,0" />
+                        <Button 
+                            x:Name="ViewBalancesButton"
+                            Text="Ver Balances"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40" />
+                        <CollectionView x:Name="BalancesCollectionView"
+                                       ItemsSource="{Binding Balances}"
+                                       HeightRequest="150">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Stroke="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeShape="RoundRectangle 20"
+                                        Padding="10"
+                                        Margin="0,5">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <Label 
+                                                Grid.Column="0"
+                                                Text="{Binding NombreUsuario}"
+                                                FontSize="Medium"
+                                                FontFamily="PoppinsRegular"
+                                                VerticalOptions="Center" />
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding Balance, StringFormat='{0:C}'}"
+                                                FontSize="Medium"
+                                                TextColor="{Binding Balance, Converter={StaticResource BalanceColorConverter}}"
+                                                FontFamily="PoppinsRegular"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Group Actions -->
+                    <VerticalStackLayout Spacing="10">
+                        <Button 
+                            x:Name="LeaveGroupButton"
+                            Text="Salir del Grupo"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40" />
+                        <Button 
+                            x:Name="DeleteGroupButton"
+                            Text="Eliminar Grupo"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40"
+                            IsVisible="{Binding IsAdmin}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>
