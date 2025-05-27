@@ -11,7 +11,7 @@ namespace PiggyBank_MAUI.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://592e-152-231-161-126.ngrok-free.app/api/"; // Reemplaza con la URL de tu backend
+        private const string BaseUrl = "https://592e-152-231-161-126.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
 
         public ApiService()
         {
