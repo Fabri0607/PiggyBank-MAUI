@@ -1,25 +1,53 @@
-namespace PiggyBank_MAUI.Views;
+using PiggyBank_MAUI.Models;
+using PiggyBank_MAUI.Services;
+using System;
+using System.Threading.Tasks;
 
-public partial class PaginaInicioDeSesion : ContentPage
+namespace PiggyBank_MAUI.Views
 {
-	public PaginaInicioDeSesion()
-	{
-		InitializeComponent();
-		NavigationPage.SetHasNavigationBar(this, false);
-    }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    public partial class PaginaInicioDeSesion : ContentPage
     {
-        DisplayAlert("Redirección", "Redirección a cambiar contraseña", "OK");
-    }
+        private readonly ApiService _apiService;
 
-    private void BotonRegistrarse_Clicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new PaginaRegistrarse());
-    }
+        public PaginaInicioDeSesion()
+        {
+            InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+            _apiService = new ApiService();
+        }
 
-    private void Boton_IniciarSesion_Clicked(object sender, EventArgs e)
-    {
-        Application.Current.MainPage = new AppShell();
+        private async void Boton_IniciarSesion_Clicked(object sender, EventArgs e)
+        {
+            var req = new ReqIniciarSesion
+            {
+                Email = EmailEntry.Text,
+                Password = PasswordEntry.Text
+            };
+
+            var response = await _apiService.IniciarSesion(req);
+
+            if (response.resultado)
+            {
+                // Guardar el token y usuario en Preferences o SecureStorage si es necesario
+                await SecureStorage.SetAsync("Token", response.Token);
+                await SecureStorage.SetAsync("UsuarioID", response.Usuario.UsuarioID.ToString());
+                Application.Current.MainPage = new AppShell();
+            }
+            else
+            {
+                await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al iniciar sesión", "OK");
+            }
+        }
+
+
+        private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        {
+            await Navigation.PushAsync(new PaginaCambiarPassword());
+        }
+
+        private async void BotonRegistrarse_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PaginaRegistrarse());
+        }
     }
 }

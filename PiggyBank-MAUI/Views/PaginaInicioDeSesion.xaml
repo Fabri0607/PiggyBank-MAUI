@@ -46,6 +46,7 @@
                         StrokeShape="RoundRectangle 20">
 
                         <Entry
+                            x:Name="EmailEntry"
                             Placeholder="ejemplo@gmail.com"
                             BackgroundColor="Transparent"
                             TextColor="Black"
@@ -70,6 +71,7 @@
                         StrokeShape="RoundRectangle 20">
 
                         <Entry
+                            x:Name="PasswordEntry"
                             IsPassword="True"
                             Placeholder="Contraseña"
                             BackgroundColor="Transparent"
