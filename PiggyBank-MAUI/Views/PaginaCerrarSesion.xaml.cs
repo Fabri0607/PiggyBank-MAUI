@@ -21,7 +21,6 @@ namespace PiggyBank_MAUI.Views
         {
             var req = new ReqCerrarSesion
             {
-                SesionID = 0, // Asume que el backend maneja el SesionID basado en el token
                 MotivoRevocacion = "Cierre de sesión por usuario",
                 token = await SecureStorage.GetAsync("Token")
             };

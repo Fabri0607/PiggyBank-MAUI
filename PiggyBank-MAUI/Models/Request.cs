@@ -27,7 +27,6 @@ namespace PiggyBank_MAUI.Models
 
     public class ReqCerrarSesion : ReqBase
     {
-        public int SesionID { get; set; }
         public string MotivoRevocacion { get; set; }
     }
 

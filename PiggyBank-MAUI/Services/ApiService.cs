@@ -12,7 +12,6 @@ namespace PiggyBank_MAUI.Services
     {
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "https://592e-152-231-161-126.ngrok-free.app/api/"; // Reemplaza con la URL de tu backend
-        private string _token;
 
         public ApiService()
         {
@@ -20,17 +19,37 @@ namespace PiggyBank_MAUI.Services
             {
                 BaseAddress = new Uri(BaseUrl)
             };
+
+            // Configurar el token existente si hay uno guardado
+            var existingToken = Preferences.Get("AuthToken", string.Empty);
+            if (!string.IsNullOrEmpty(existingToken))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", existingToken);
+            }
+        }
+
+        private void UpdateAuthenticationHeader()
+        {
+            var token = Preferences.Get("AuthToken", string.Empty);
+            if (!string.IsNullOrEmpty(token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+            else
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = null;
+            }
         }
 
         public void SetToken(string token)
         {
-            _token = token;
+            Preferences.Set("AuthToken", token);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
         public void ClearToken()
         {
-            _token = null;
+            Preferences.Remove("AuthToken");
             _httpClient.DefaultRequestHeaders.Authorization = null;
         }
 
@@ -75,10 +94,12 @@ namespace PiggyBank_MAUI.Services
                 var response = await _httpClient.PostAsync("usuarios/iniciar-sesion", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonSerializer.Deserialize<ResIniciarSesion>(responseContent);
+
                 if (result.resultado && !string.IsNullOrEmpty(result.Token))
                 {
                     SetToken(result.Token);
                 }
+
                 return result;
             }
             catch (Exception ex)
@@ -91,15 +112,20 @@ namespace PiggyBank_MAUI.Services
         {
             try
             {
+                // Asegurar que el token esté configurado antes de hacer la petición
+                UpdateAuthenticationHeader();
+
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("usuarios/cerrar-sesion", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonSerializer.Deserialize<ResCerrarSesion>(responseContent);
+
                 if (result.resultado)
                 {
                     ClearToken();
                 }
+
                 return result;
             }
             catch (Exception ex)
@@ -112,6 +138,9 @@ namespace PiggyBank_MAUI.Services
         {
             try
             {
+                // Asegurar que el token esté configurado
+                UpdateAuthenticationHeader();
+
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("usuarios/actualizar-perfil", content);
@@ -128,6 +157,9 @@ namespace PiggyBank_MAUI.Services
         {
             try
             {
+                // Asegurar que el token esté configurado
+                UpdateAuthenticationHeader();
+
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("usuarios/cambiar-password", content);
@@ -160,6 +192,9 @@ namespace PiggyBank_MAUI.Services
         {
             try
             {
+                // Asegurar que el token esté configurado
+                UpdateAuthenticationHeader();
+
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("usuarios/obtener", content);
