@@ -52,7 +52,7 @@ namespace PiggyBank_MAUI
 
         private void BotonApp_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AppShell());
+            Application.Current.MainPage = new AppShell();
         }
 
         private void Tabbed_Clicked(object sender, EventArgs e)

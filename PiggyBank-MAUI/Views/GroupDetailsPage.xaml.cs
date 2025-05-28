@@ -2,6 +2,7 @@ using PiggyBank_MAUI.Models;
 using PiggyBank_MAUI.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -99,6 +100,7 @@ namespace PiggyBank_MAUI.Views
                 foreach (var miembro in response.Miembros)
                 {
                     Members.Add(miembro);
+                    Debug.WriteLine($"Miembro: ID={miembro.UsuarioID}, NombreUsuario={miembro.NombreUsuario}, Rol={miembro.Rol}");
                     if (miembro.UsuarioID == usuarioId && miembro.Rol == "Administrador")
                     {
                         IsAdmin = true;
@@ -128,6 +130,7 @@ namespace PiggyBank_MAUI.Views
                 foreach (var gasto in response.Gastos)
                 {
                     Expenses.Add(gasto);
+                    Debug.WriteLine($"Gasto: ID={gasto.GastoID}, Descripcion={gasto.Descripcion}, Monto={gasto.Monto}, Fecha={gasto.Fecha}");
                 }
             }
             else
@@ -152,6 +155,7 @@ namespace PiggyBank_MAUI.Views
                 foreach (var balance in response.Balances)
                 {
                     Balances.Add(balance);
+                    Debug.WriteLine($"Balance: Usuario={balance.NombreUsuario}, Saldo={balance.Saldo}");
                 }
             }
             else
@@ -172,7 +176,7 @@ namespace PiggyBank_MAUI.Views
             {
                 GrupoID = _grupo.GrupoID,
                 correoUsuario = InviteMemberEntry.Text,
-                Rol = "Miembro", // Puedes agregar una selección de roles si lo deseas
+                Rol = "Miembro",
                 token = Preferences.Get("AuthToken", string.Empty)
             };
 
@@ -249,7 +253,7 @@ namespace PiggyBank_MAUI.Views
             var req = new ReqActualizarGrupo
             {
                 GrupoID = _grupo.GrupoID,
-                Nombre = _grupo.Nombre, // Puedes agregar un modal para actualizar estos campos
+                Nombre = _grupo.Nombre,
                 Descripcion = _grupo.Descripcion,
                 AdminUsuarioID = usuarioId,
                 token = Preferences.Get("AuthToken", string.Empty)

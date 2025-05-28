@@ -103,12 +103,12 @@
                                         Grid.Column="1"
                                         Text="Ver Detalles"
                                         FontFamily="PoppinsRegular"
-                                        BackgroundColor="{StaticResource Azul-Botones}"
+                                        BackgroundColor="{StaticResource Verde-background}"
                                         TextColor="White"
                                         FontSize="Small"
                                         CornerRadius="20"
                                         Padding="10,5"
-                                        Command="{Binding ViewDetailsCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ViewDetailsCommand}"
                                         CommandParameter="{Binding .}" />
                                 </Grid>
                             </Border>
