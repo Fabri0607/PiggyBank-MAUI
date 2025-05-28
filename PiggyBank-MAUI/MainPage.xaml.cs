@@ -33,10 +33,7 @@ namespace PiggyBank_MAUI
             Navigation.PushAsync(new FamilyGroupsPage());
         }
 
-        private void GroupDetailsPage_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new GroupDetailsPage());
-        }
+        
 
         private void test_Clicked(object sender, EventArgs e)
         {

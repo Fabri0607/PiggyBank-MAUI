@@ -12,11 +12,9 @@
     Shell.TabBarForegroundColor="#00D09E"
     Shell.TabBarTitleColor="#00D09E"
     Shell.TabBarUnselectedColor="Black"
-    
     Shell.BackgroundColor="#00986C"
     Shell.ForegroundColor="White"
-    Shell.TitleColor="White"
-    >
+    Shell.TitleColor="White">
 
     <!-- FlyoutItem principal que contiene las pestañas -->
     <FlyoutItem Title="Inicio" Icon="home.png">
@@ -28,6 +26,9 @@
         </Tab>
         <Tab Title="Transacciones" Icon="transacciones.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaTransacciones}" />
+        </Tab>
+        <Tab Title="Grupos Familiares" Icon="groups.png">
+            <ShellContent ContentTemplate="{DataTemplate views:FamilyGroupsPage}" />
         </Tab>
         <Tab Title="Asistente" Icon="piggybank_ai.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaAsistenteIA}" />
@@ -46,12 +47,4 @@
             <ShellContent ContentTemplate="{DataTemplate views:PaginaCerrarSesion}" />
         </Tab>
     </FlyoutItem>
-
-    <!-- Puedes agregar más FlyoutItems si necesitas -->
-    <!-- 
-    <FlyoutItem Title="Perfil" Icon="profile.png">
-        <ShellContent ContentTemplate="{DataTemplate views:PaginaPerfil}" />
-    </FlyoutItem>
-    -->
-
 </Shell>

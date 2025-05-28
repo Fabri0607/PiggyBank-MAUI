@@ -42,4 +42,80 @@ namespace PiggyBank_MAUI.Models
     {
         public UsuarioDTO Usuario { get; set; }
     }
+
+    public class ResCrearGrupoFamiliar : ResBase
+    {
+        public int GrupoID { get; set; }
+    }
+
+    public class ResInvitarMiembroGrupo : ResBase
+    {
+    }
+
+
+    public class ResRegistrarGastoCompartido : ResBase
+    {
+        public int GastoID { get; set; }
+        public int TransaccionID { get; set; }
+    }
+
+    public class ResObtenerBalanceGrupal : ResBase
+    {
+        public List<BalanceMiembro> Balances { get; set; }
+    }
+
+
+    public class ResSalirGrupo : ResBase
+    {
+    }
+
+
+    public class ResListarGrupos : ResBase
+    {
+        public List<GrupoDTO> Grupos { get; set; }
+    }
+
+
+    public class ResObtenerDetallesGrupo : ResBase
+    {
+        public GrupoDTO Grupo { get; set; }
+        public List<MiembroDTO> Miembros { get; set; }
+    }
+
+
+    public class ResEliminarMiembro : ResBase
+    {
+    }
+
+
+    public class ResActualizarGrupo : ResBase
+    {
+    }
+
+
+    public class ResListarGastos : ResBase
+    {
+        public List<GastoCompartidoDTO> Gastos { get; set; }
+    }
+
+
+    public class ResEliminarGrupo : ResBase
+    {
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

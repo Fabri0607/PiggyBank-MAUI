@@ -53,4 +53,96 @@ namespace PiggyBank_MAUI.Models
     {
         public int UsuarioID { get; set; }
     }
+
+    public class ReqCrearGrupoFamiliar : ReqBase
+    {
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+    public class ReqInvitarMiembroGrupo : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public string correoUsuario { get; set; }
+        public string Rol { get; set; }
+    }
+
+    public class ReqRegistrarGastoCompartido : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public int UsuarioID { get; set; }
+        public decimal Monto { get; set; }
+        public string Estado { get; set; }
+        public int CategoriaID { get; set; }
+        public string Descripcion { get; set; }
+    }
+
+
+    public class ReqObtenerBalanceGrupal : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public DateTime? FechaInicio { get; set; }
+        public DateTime? FechaFin { get; set; }
+    }
+
+
+    public class ReqSalirGrupo : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+
+    public class ReqListarGrupos : ReqBase
+    {
+        public int UsuarioID { get; set; }
+    }
+
+
+    public class ReqObtenerDetallesGrupo : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+
+    public class ReqEliminarMiembro : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public int UsuarioID { get; set; }
+        public int AdminUsuarioID { get; set; }
+    }
+
+
+    public class ReqActualizarGrupo : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public int AdminUsuarioID { get; set; }
+    }
+
+
+    public class ReqListarGastos : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public int UsuarioID { get; set; }
+        public DateTime? FechaInicio { get; set; }
+        public DateTime? FechaFin { get; set; }
+    }
+
+
+    public class ReqEliminarGrupo : ReqBase
+    {
+        public int GrupoID { get; set; }
+        public int AdminUsuarioID { get; set; }
+    }
 }
+
+
+
+
+
+
+

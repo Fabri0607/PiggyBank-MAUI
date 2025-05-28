@@ -11,199 +11,385 @@ namespace PiggyBank_MAUI.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://592e-152-231-161-126.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
+private const string BaseUrl = "https://7d3c-186-64-223-230.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
 
-        public ApiService()
+public ApiService()
+{
+    _httpClient = new HttpClient
+    {
+        BaseAddress = new Uri(BaseUrl)
+    };
+
+    // Configurar el token existente si hay uno guardado
+    var existingToken = Preferences.Get("AuthToken", string.Empty);
+    if (!string.IsNullOrEmpty(existingToken))
+    {
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", existingToken);
+    }
+}
+
+private void UpdateAuthenticationHeader()
+{
+    var token = Preferences.Get("AuthToken", string.Empty);
+    if (!string.IsNullOrEmpty(token))
+    {
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+    }
+    else
+    {
+        _httpClient.DefaultRequestHeaders.Authorization = null;
+    }
+}
+
+public void SetToken(string token)
+{
+    Preferences.Set("AuthToken", token);
+    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+}
+
+public void ClearToken()
+{
+    Preferences.Remove("AuthToken");
+    _httpClient.DefaultRequestHeaders.Authorization = null;
+}
+
+public async Task<ResRegistrarUsuario> RegistrarUsuario(ReqRegistrarUsuario req)
+{
+    try
+    {
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/registrar", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ResRegistrarUsuario>(responseContent);
+    }
+    catch (Exception ex)
+    {
+        return new ResRegistrarUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+public async Task<ResVerificarUsuario> VerificarUsuario(ReqVerificarUsuario req)
+{
+    try
+    {
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/verificar", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ResVerificarUsuario>(responseContent);
+    }
+    catch (Exception ex)
+    {
+        return new ResVerificarUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+public async Task<ResIniciarSesion> IniciarSesion(ReqIniciarSesion req)
+{
+    try
+    {
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/iniciar-sesion", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<ResIniciarSesion>(responseContent);
+
+        if (result.resultado && !string.IsNullOrEmpty(result.Token))
         {
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(BaseUrl)
-            };
-
-            // Configurar el token existente si hay uno guardado
-            var existingToken = Preferences.Get("AuthToken", string.Empty);
-            if (!string.IsNullOrEmpty(existingToken))
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", existingToken);
-            }
+            SetToken(result.Token);
         }
 
-        private void UpdateAuthenticationHeader()
+        return result;
+    }
+    catch (Exception ex)
+    {
+        return new ResIniciarSesion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+public async Task<ResCerrarSesion> CerrarSesion(ReqCerrarSesion req)
+{
+    try
+    {
+        // Asegurar que el token esté configurado antes de hacer la petición
+        UpdateAuthenticationHeader();
+
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/cerrar-sesion", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<ResCerrarSesion>(responseContent);
+
+        if (result.resultado)
         {
-            var token = Preferences.Get("AuthToken", string.Empty);
-            if (!string.IsNullOrEmpty(token))
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            else
-            {
-                _httpClient.DefaultRequestHeaders.Authorization = null;
-            }
+            ClearToken();
         }
 
-        public void SetToken(string token)
-        {
-            Preferences.Set("AuthToken", token);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        }
+        return result;
+    }
+    catch (Exception ex)
+    {
+        return new ResCerrarSesion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
 
-        public void ClearToken()
-        {
-            Preferences.Remove("AuthToken");
-            _httpClient.DefaultRequestHeaders.Authorization = null;
-        }
+public async Task<ResActualizarPerfil> ActualizarPerfil(ReqActualizarPerfil req)
+{
+    try
+    {
+        // Asegurar que el token esté configurado
+        UpdateAuthenticationHeader();
 
-        public async Task<ResRegistrarUsuario> RegistrarUsuario(ReqRegistrarUsuario req)
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/actualizar-perfil", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ResActualizarPerfil>(responseContent);
+    }
+    catch (Exception ex)
+    {
+        return new ResActualizarPerfil { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+public async Task<ResCambiarPassword> CambiarPassword(ReqCambiarPassword req)
+{
+    try
+    {
+        // Asegurar que el token esté configurado
+        UpdateAuthenticationHeader();
+
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/cambiar-password", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ResCambiarPassword>(responseContent);
+    }
+    catch (Exception ex)
+    {
+        return new ResCambiarPassword { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+public async Task<ResReenviarCodigoVerificacion> ReenviarCodigoVerificacion(ReqReenviarCodigoVerificacion req)
+{
+    try
+    {
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/reenviar-codigo", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ResReenviarCodigoVerificacion>(responseContent);
+    }
+    catch (Exception ex)
+    {
+        return new ResReenviarCodigoVerificacion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
+{
+    try
+    {
+        // Asegurar que el token esté configurado
+        UpdateAuthenticationHeader();
+
+        var json = JsonSerializer.Serialize(req);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("usuarios/obtener", content);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<ResObtenerUsuario>(responseContent);
+    }
+    catch (Exception ex)
+    {
+        return new ResObtenerUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+    }
+}
+
+        // Nuevos métodos para el módulo de grupos familiares
+        public async Task<ResCrearGrupoFamiliar> CrearGrupoFamiliar(ReqCrearGrupoFamiliar req)
         {
             try
             {
+                UpdateAuthenticationHeader();
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/registrar", content);
+                var response = await _httpClient.PostAsync("grupos", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ResRegistrarUsuario>(responseContent);
+                return JsonSerializer.Deserialize<ResCrearGrupoFamiliar>(responseContent);
             }
             catch (Exception ex)
             {
-                return new ResRegistrarUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+                return new ResCrearGrupoFamiliar { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
 
-        public async Task<ResVerificarUsuario> VerificarUsuario(ReqVerificarUsuario req)
+        public async Task<ResInvitarMiembroGrupo> InvitarMiembroGrupo(ReqInvitarMiembroGrupo req)
         {
             try
             {
+                UpdateAuthenticationHeader();
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/verificar", content);
+                var response = await _httpClient.PostAsync($"grupos/{req.GrupoID}/miembros", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ResVerificarUsuario>(responseContent);
+                return JsonSerializer.Deserialize<ResInvitarMiembroGrupo>(responseContent);
             }
             catch (Exception ex)
             {
-                return new ResVerificarUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+                return new ResInvitarMiembroGrupo { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
 
-        public async Task<ResIniciarSesion> IniciarSesion(ReqIniciarSesion req)
+        public async Task<ResRegistrarGastoCompartido> RegistrarGastoCompartido(ReqRegistrarGastoCompartido req)
         {
             try
             {
+                UpdateAuthenticationHeader();
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/iniciar-sesion", content);
+                var response = await _httpClient.PostAsync($"grupos/{req.GrupoID}/gastos", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonSerializer.Deserialize<ResIniciarSesion>(responseContent);
+                return JsonSerializer.Deserialize<ResRegistrarGastoCompartido>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResRegistrarGastoCompartido { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
 
-                if (result.resultado && !string.IsNullOrEmpty(result.Token))
+        public async Task<ResObtenerBalanceGrupal> ObtenerBalanceGrupal(ReqObtenerBalanceGrupal req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var query = $"grupos/{req.GrupoID}/balances";
+                if (req.FechaInicio.HasValue && req.FechaFin.HasValue)
                 {
-                    SetToken(result.Token);
+                    query += $"?fechaInicio={req.FechaInicio.Value:yyyy-MM-dd}&fechaFin={req.FechaFin.Value:yyyy-MM-dd}";
                 }
-
-                return result;
+                var response = await _httpClient.GetAsync(query);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResObtenerBalanceGrupal>(responseContent);
             }
             catch (Exception ex)
             {
-                return new ResIniciarSesion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+                return new ResObtenerBalanceGrupal { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
 
-        public async Task<ResCerrarSesion> CerrarSesion(ReqCerrarSesion req)
+        public async Task<ResSalirGrupo> SalirGrupo(ReqSalirGrupo req)
         {
             try
             {
-                // Asegurar que el token esté configurado antes de hacer la petición
                 UpdateAuthenticationHeader();
-
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/cerrar-sesion", content);
+                var response = await _httpClient.PostAsync($"grupos/{req.GrupoID}/salir", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var result = JsonSerializer.Deserialize<ResCerrarSesion>(responseContent);
+                return JsonSerializer.Deserialize<ResSalirGrupo>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResSalirGrupo { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
 
-                if (result.resultado)
+        public async Task<ResListarGrupos> ListarGrupos(ReqListarGrupos req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var response = await _httpClient.GetAsync($"grupos?usuarioId={req.UsuarioID}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResListarGrupos>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResListarGrupos { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResObtenerDetallesGrupo> ObtenerDetallesGrupo(ReqObtenerDetallesGrupo req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var response = await _httpClient.GetAsync($"grupos/{req.GrupoID}?usuarioId={req.UsuarioID}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResObtenerDetallesGrupo>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResObtenerDetallesGrupo { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResEliminarMiembro> EliminarMiembro(ReqEliminarMiembro req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var response = await _httpClient.DeleteAsync($"grupos/{req.GrupoID}/miembros/{req.UsuarioID}?adminUsuarioId={req.AdminUsuarioID}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResEliminarMiembro>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResEliminarMiembro { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResActualizarGrupo> ActualizarGrupo(ReqActualizarGrupo req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"grupos/{req.GrupoID}", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResActualizarGrupo>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResActualizarGrupo { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResListarGastos> ListarGastos(ReqListarGastos req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var query = $"grupos/{req.GrupoID}/gastos?usuarioId={req.UsuarioID}";
+                if (req.FechaInicio.HasValue && req.FechaFin.HasValue)
                 {
-                    ClearToken();
+                    query += $"&fechaInicio={req.FechaInicio.Value:yyyy-MM-dd}&fechaFin={req.FechaFin.Value:yyyy-MM-dd}";
                 }
-
-                return result;
+                var response = await _httpClient.GetAsync(query);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResListarGastos>(responseContent);
             }
             catch (Exception ex)
             {
-                return new ResCerrarSesion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+                return new ResListarGastos { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
 
-        public async Task<ResActualizarPerfil> ActualizarPerfil(ReqActualizarPerfil req)
+        public async Task<ResEliminarGrupo> EliminarGrupo(ReqEliminarGrupo req)
         {
             try
             {
-                // Asegurar que el token esté configurado
                 UpdateAuthenticationHeader();
-
-                var json = JsonSerializer.Serialize(req);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/actualizar-perfil", content);
+                var response = await _httpClient.DeleteAsync($"grupos/{req.GrupoID}?adminUsuarioId={req.AdminUsuarioID}");
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ResActualizarPerfil>(responseContent);
+                return JsonSerializer.Deserialize<ResEliminarGrupo>(responseContent);
             }
             catch (Exception ex)
             {
-                return new ResActualizarPerfil { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
-            }
-        }
-
-        public async Task<ResCambiarPassword> CambiarPassword(ReqCambiarPassword req)
-        {
-            try
-            {
-                // Asegurar que el token esté configurado
-                UpdateAuthenticationHeader();
-
-                var json = JsonSerializer.Serialize(req);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/cambiar-password", content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ResCambiarPassword>(responseContent);
-            }
-            catch (Exception ex)
-            {
-                return new ResCambiarPassword { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
-            }
-        }
-
-        public async Task<ResReenviarCodigoVerificacion> ReenviarCodigoVerificacion(ReqReenviarCodigoVerificacion req)
-        {
-            try
-            {
-                var json = JsonSerializer.Serialize(req);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/reenviar-codigo", content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ResReenviarCodigoVerificacion>(responseContent);
-            }
-            catch (Exception ex)
-            {
-                return new ResReenviarCodigoVerificacion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
-            }
-        }
-
-        public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
-        {
-            try
-            {
-                // Asegurar que el token esté configurado
-                UpdateAuthenticationHeader();
-
-                var json = JsonSerializer.Serialize(req);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("usuarios/obtener", content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<ResObtenerUsuario>(responseContent);
-            }
-            catch (Exception ex)
-            {
-                return new ResObtenerUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+                return new ResEliminarGrupo { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
     }
