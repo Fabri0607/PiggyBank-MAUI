@@ -9,6 +9,7 @@
         <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
         <Color x:Key="Verde-Principal">#008259</Color>
         <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
     </ContentPage.Resources>
 
     <Grid Padding="20">
@@ -107,7 +108,7 @@
                         Grid.Column="0"
                         Text="Cancelar"
                         FontFamily="PoppinsRegular"
-                        BackgroundColor="{StaticResource Azul-Botones}"
+                        BackgroundColor="{StaticResource Rojo-Cancelar}"
                         TextColor="White"
                         FontSize="Medium"
                         FontAttributes="Bold"
