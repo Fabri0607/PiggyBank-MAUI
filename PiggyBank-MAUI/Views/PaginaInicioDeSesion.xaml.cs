@@ -18,24 +18,39 @@ namespace PiggyBank_MAUI.Views
 
         private async void Boton_IniciarSesion_Clicked(object sender, EventArgs e)
         {
-            var req = new ReqIniciarSesion
+            try
             {
-                Email = EmailEntry.Text,
-                Password = PasswordEntry.Text
-            };
+                var req = new ReqIniciarSesion
+                {
+                    Email = EmailEntry.Text,
+                    Password = PasswordEntry.Text
+                };
 
-            var response = await _apiService.IniciarSesion(req);
+                var response = await _apiService.IniciarSesion(req);
 
-            if (response.resultado)
-            {
-                // Guardar el token y usuario en Preferences o SecureStorage si es necesario
-                await SecureStorage.SetAsync("Token", response.Token);
-                await SecureStorage.SetAsync("UsuarioID", response.Usuario.UsuarioID.ToString());
-                Application.Current.MainPage = new AppShell();
+                if (response.resultado)
+                {
+                    await SecureStorage.SetAsync("Token", response.Token);
+                    await SecureStorage.SetAsync("UsuarioID", response.Usuario.UsuarioID.ToString());
+
+                    // Opción 1: Cambiar MainPage en hilo principal
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        Application.Current.MainPage = new AppShell();
+                    });
+
+                    // Opción 2: O usar Shell navigation si ya estás en un Shell context
+                    // await Shell.Current.GoToAsync("//PaginaHome");
+                }
+                else
+                {
+                    await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al iniciar sesión", "OK");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al iniciar sesión", "OK");
+                System.Diagnostics.Debug.WriteLine($"Error en login: {ex.Message}");
+                await DisplayAlert("Error", "Error inesperado al iniciar sesión", "OK");
             }
         }
 
