@@ -73,7 +73,6 @@ namespace PiggyBank_MAUI.Views
 
             InviteMemberButton.Clicked += InviteMemberButton_Clicked;
             RegisterExpenseButton.Clicked += RegisterExpenseButton_Clicked;
-            ViewBalancesButton.Clicked += ViewBalancesButton_Clicked;
             LeaveGroupButton.Clicked += LeaveGroupButton_Clicked;
             DeleteGroupButton.Clicked += DeleteGroupButton_Clicked;
             UpdateGroupButton.Clicked += UpdateGroupButton_Clicked;
@@ -293,6 +292,109 @@ namespace PiggyBank_MAUI.Views
                 await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al eliminar el miembro", "OK");
             }
         }
+
+        private async void AcceptButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sender is Button button && button.CommandParameter is GastoCompartidoDTO gasto)
+                {
+                    Debug.WriteLine($"Botón Aceptar clicado: ID={gasto.GastoID}, Descripcion={gasto.Descripcion}, Estado={gasto.Estado}, IsPendiente={gasto.IsPendiente}");
+
+                    var usuarioIdString = await SecureStorage.GetAsync("UsuarioID");
+                    if (!int.TryParse(usuarioIdString, out int usuarioId))
+                    {
+                        Debug.WriteLine("Error: UsuarioID no válido");
+                        await DisplayAlert("Error", "Usuario no autenticado", "OK");
+                        return;
+                    }
+
+                    var req = new ReqActualizarEstadoGasto
+                    {
+                        GastoID = gasto.GastoID,
+                        UsuarioID = usuarioId,
+                        NuevoEstado = "Pagado",
+                        token = Preferences.Get("AuthToken", string.Empty)
+                    };
+
+                    var response = await _apiService.ActualizarEstadoGasto(req);
+                    if (response.resultado)
+                    {
+                        Debug.WriteLine("Gasto aceptado exitosamente");
+                        await DisplayAlert("Éxito", "Gasto marcado como Pagado", "OK");
+                        LoadExpenses();
+                        LoadBalances();
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Error al aceptar gasto: {response.error?.FirstOrDefault()?.Message}");
+                        await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al aceptar el gasto", "OK");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("Error: CommandParameter no es GastoCompartidoDTO o botón inválido");
+                    await DisplayAlert("Error", "Gasto no válido", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en AcceptButton_Clicked: {ex.Message}");
+                await DisplayAlert("Error", "Error inesperado al aceptar el gasto", "OK");
+            }
+        }
+
+        private async void RejectButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sender is Button button && button.CommandParameter is GastoCompartidoDTO gasto)
+                {
+                    Debug.WriteLine($"Botón Rechazar clicado: ID={gasto.GastoID}, Descripcion={gasto.Descripcion}, Estado={gasto.Estado}, IsPendiente={gasto.IsPendiente}");
+
+                    var usuarioIdString = await SecureStorage.GetAsync("UsuarioID");
+                    if (!int.TryParse(usuarioIdString, out int usuarioId))
+                    {
+                        Debug.WriteLine("Error: UsuarioID no válido");
+                        await DisplayAlert("Error", "Usuario no autenticado", "OK");
+                        return;
+                    }
+
+                    var req = new ReqActualizarEstadoGasto
+                    {
+                        GastoID = gasto.GastoID,
+                        UsuarioID = usuarioId,
+                        NuevoEstado = "Rechazado",
+                        token = Preferences.Get("AuthToken", string.Empty)
+                    };
+
+                    var response = await _apiService.ActualizarEstadoGasto(req);
+                    if (response.resultado)
+                    {
+                        Debug.WriteLine("Gasto rechazado exitosamente");
+                        await DisplayAlert("Éxito", "Gasto marcado como Rechazado", "OK");
+                        LoadExpenses();
+                        LoadBalances();
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Error al rechazar gasto: {response.error?.FirstOrDefault()?.Message}");
+                        await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al rechazar el gasto", "OK");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("Error: CommandParameter no es GastoCompartidoDTO o botón inválido");
+                    await DisplayAlert("Error", "Gasto no válido", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en RejectButton_Clicked: {ex.Message}");
+                await DisplayAlert("Error", "Error inesperado al rechazar el gasto", "OK");
+            }
+        }
+
 
         protected override void OnAppearing()
         {

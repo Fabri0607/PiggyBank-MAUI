@@ -102,6 +102,12 @@ namespace PiggyBank_MAUI.Models
     public class ResEliminarGrupo : ResBase
     {
     }
+
+    public class ResActualizarEstadoGasto : ResBase
+    {
+        public GastoCompartidoDTO Gasto { get; set; }
+    }
+
 }
 
 

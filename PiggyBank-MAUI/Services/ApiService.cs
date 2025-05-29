@@ -11,7 +11,7 @@ namespace PiggyBank_MAUI.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-private const string BaseUrl = "https://7d3c-186-64-223-230.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
+private const string BaseUrl = "https://1166-186-64-220-0.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
 
 public ApiService()
 {
@@ -390,6 +390,23 @@ public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
             catch (Exception ex)
             {
                 return new ResEliminarGrupo { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResActualizarEstadoGasto> ActualizarEstadoGasto(ReqActualizarEstadoGasto req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"gastos/{req.GastoID}/estado", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResActualizarEstadoGasto>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResActualizarEstadoGasto { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
     }

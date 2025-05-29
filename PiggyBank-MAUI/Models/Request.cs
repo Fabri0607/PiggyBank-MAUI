@@ -138,6 +138,14 @@ namespace PiggyBank_MAUI.Models
         public int GrupoID { get; set; }
         public int AdminUsuarioID { get; set; }
     }
+
+    public class ReqActualizarEstadoGasto : ReqBase
+    {
+        public int GastoID { get; set; }
+        public int UsuarioID { get; set; }
+        public string NuevoEstado { get; set; }
+    }
+
 }
 
 

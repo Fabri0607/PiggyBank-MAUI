@@ -157,7 +157,7 @@
                                         StrokeShape="RoundRectangle 20"
                                         Padding="10"
                                         Margin="0,5">
-                                        <Grid ColumnDefinitions="*,Auto">
+                                        <Grid ColumnDefinitions="*,Auto,Auto,Auto">
                                             <VerticalStackLayout Grid.Column="0" Spacing="5">
                                                 <Label 
                                                     Text="{Binding Descripcion, FallbackValue='Sin descripción'}"
@@ -169,6 +169,11 @@
                                                     FontSize="Small"
                                                     TextColor="Gray"
                                                     FontFamily="PoppinsRegular" />
+                                                <Label 
+                                                    Text="{Binding Estado, StringFormat='Estado: {0}'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />
                                             </VerticalStackLayout>
                                             <Label 
                                                 Grid.Column="1"
@@ -177,6 +182,19 @@
                                                 TextColor="Gray"
                                                 FontFamily="PoppinsRegular"
                                                 VerticalOptions="Center" />
+                                            <Button 
+                                                Grid.Column="2"
+                                                Text="Aceptar"
+                                                FontFamily="PoppinsRegular"
+                                                BackgroundColor="{StaticResource Verde-background}"
+                                                TextColor="White"
+                                                FontSize="Small"
+                                                CornerRadius="20"
+                                                Padding="10,5"
+                                                Margin="5,0"
+                                                Clicked="AcceptButton_Clicked"
+                                                CommandParameter="{Binding .}"
+                                                IsVisible="{Binding IsPendiente}" />        
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -192,15 +210,6 @@
                             FontAttributes="Bold"
                             FontFamily="PoppinsRegular"
                             Margin="0,20,0,0" />
-                        <Button 
-                            x:Name="ViewBalancesButton"
-                            Text="Ver Balances"
-                            FontFamily="PoppinsRegular"
-                            BackgroundColor="{StaticResource Verde-background}"
-                            TextColor="White"
-                            FontSize="Medium"
-                            FontAttributes="Bold"
-                            CornerRadius="40" />
                         <CollectionView x:Name="BalancesCollectionView"
                                        ItemsSource="{Binding Balances}"
                                        HeightRequest="150">

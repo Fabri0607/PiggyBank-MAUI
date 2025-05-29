@@ -139,6 +139,8 @@ namespace PiggyBank_MAUI.Models
         public string Estado { get; set; }
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
+
+        public bool IsPendiente => Estado?.Equals("Pendiente", StringComparison.OrdinalIgnoreCase) ?? false;
     }
 }
 
