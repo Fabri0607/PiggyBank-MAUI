@@ -20,6 +20,8 @@ namespace PiggyBank_MAUI
             Routing.RegisterRoute(nameof(GroupDetailsPage), typeof(GroupDetailsPage));
             Routing.RegisterRoute(nameof(RegisterExpenseModalPage), typeof(RegisterExpenseModalPage));
             Routing.RegisterRoute(nameof(UpdateGroupModalPage), typeof(UpdateGroupModalPage));
+            Routing.RegisterRoute(nameof(FinancialGoalsPage), typeof(FinancialGoalsPage));
+            Routing.RegisterRoute(nameof(FinancialGoalDetailsPage), typeof(FinancialGoalDetailsPage));
         }
     }
 }

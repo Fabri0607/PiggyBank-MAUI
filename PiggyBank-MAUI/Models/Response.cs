@@ -108,6 +108,38 @@ namespace PiggyBank_MAUI.Models
         public GastoCompartidoDTO Gasto { get; set; }
     }
 
+    public class ResCrearMeta : ResBase
+    {
+        public int MetaID { get; set; }
+    }
+
+    public class ResActualizarProgresoMeta : ResBase
+    {
+    }
+
+    public class ResListarMetas : ResBase
+    {
+        public List<MetaDTO> Metas { get; set; }
+    }
+
+    public class ResObtenerDetallesMeta : ResBase
+    {
+        public MetaDTO Meta { get; set; }
+        public List<MetaTransaccionDTO> Transacciones { get; set; }
+    }
+
+    public class ResActualizarMeta : ResBase
+    {
+    }
+
+    public class ResEliminarMeta : ResBase
+    {
+    }
+
+    public class ResAsignarTransaccion : ResBase
+    {
+    }
+
 }
 
 

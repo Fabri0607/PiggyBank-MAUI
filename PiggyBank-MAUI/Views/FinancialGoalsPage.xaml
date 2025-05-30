@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.FinancialGoalsPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="{StaticResource Verde-background}">
+        <!-- Header -->
+        <Label 
+            Text="Metas Financieras"
+            TextColor="White"
+            FontSize="30"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            Margin="0,8,0,0"
+            FontFamily="PoppinsRegular"
+            VerticalOptions="Start" />
+
+        <!-- Main Content -->
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            HeightRequest="655"
+            Padding="30,50"
+            StrokeShape="RoundRectangle 40,40,0,0">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="20">
+                    <!-- Create Goal Button -->
+                    <Button 
+                        x:Name="CreateGoalButton"
+                        Text="Crear Nueva Meta"
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Verde-background}"
+                        TextColor="White"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="40"
+                        Clicked="CreateGoalButton_Clicked" />
+
+                    <!-- Goals List -->
+                    <CollectionView x:Name="GoalsCollectionView"
+                                   ItemsSource="{Binding Goals}"
+                                   HeightRequest="500">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Stroke="{StaticResource Verde-muy-claro}"
+                                    StrokeThickness="0"
+                                    BackgroundColor="{StaticResource Verde-muy-claro}"
+                                    StrokeShape="RoundRectangle 20"
+                                    Padding="10"
+                                    Margin="0,5">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                            <Label 
+                                                Text="{Binding Nombre, FallbackValue='Sin nombre'}"
+                                                FontSize="Medium"
+                                                FontFamily="PoppinsRegular"
+                                                TextColor="Black"/>
+                                            <Label 
+                                                Text="{Binding MontoObjetivo, StringFormat='Objetivo: {0:C}'}"
+                                                FontSize="Small"
+                                                TextColor="Gray"
+                                                FontFamily="PoppinsRegular" />
+                                            <Label 
+                                                Text="{Binding MontoActual, StringFormat='Actual: {0:C}'}"
+                                                FontSize="Small"
+                                                TextColor="Gray"
+                                                FontFamily="PoppinsRegular" />
+                                            <Label 
+                                                Text="{Binding Progreso, StringFormat='Progreso: {0:F2}%'}"
+                                                FontSize="Small"
+                                                TextColor="Gray"
+                                                FontFamily="PoppinsRegular" />
+                                        </VerticalStackLayout>
+                                        <Button 
+                                            Grid.Column="1"
+                                            Text="Ver Detalles"
+                                            FontFamily="PoppinsRegular"
+                                            BackgroundColor="{StaticResource Verde-background}"
+                                            TextColor="White"
+                                            FontSize="Small"
+                                            CornerRadius="20"
+                                            Padding="10,5"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ViewDetailsCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>

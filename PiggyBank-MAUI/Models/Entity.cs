@@ -142,6 +142,29 @@ namespace PiggyBank_MAUI.Models
 
         public bool IsPendiente => Estado?.Equals("Pendiente", StringComparison.OrdinalIgnoreCase) ?? false;
     }
+    public class MetaDTO
+    {
+        public int MetaID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Nombre { get; set; }
+        public decimal MontoObjetivo { get; set; }
+        public decimal MontoActual { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime? FechaObjetivo { get; set; }
+        public bool Completada { get; set; }
+        public decimal Progreso { get; set; } // Percentage
+        public decimal AhorroMensualSugerido { get; set; } // Suggested monthly savings
+    }
+
+    public class MetaTransaccionDTO
+    {
+        public int TransaccionID { get; set; }
+        public decimal MontoAsignado { get; set; }
+        public DateTime FechaAsignacion { get; set; }
+        public string Descripcion { get; set; }
+        public decimal MontoTransaccion { get; set; }
+    }
+
 }
 
     

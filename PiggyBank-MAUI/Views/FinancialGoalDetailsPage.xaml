@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PiggyBank_MAUI.Converters"
+             x:Class="PiggyBank_MAUI.Views.FinancialGoalDetailsPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
+        <local:BooleanToStatusConverter x:Key="BooleanToStatusConverter" />
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="{StaticResource Verde-background}">
+        <!-- Header -->
+        <Label 
+            Text="{Binding GoalName, StringFormat='Meta: {0}'}"
+            TextColor="White"
+            FontSize="30"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            Margin="0,8,0,0"
+            FontFamily="PoppinsRegular"
+            VerticalOptions="Start" />
+
+        <!-- Main Content -->
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            HeightRequest="655"
+            Padding="30,50"
+            StrokeShape="RoundRectangle 40,40,0,0">
+
+            <ScrollView>
+                <VerticalStackLayout Spacing="20">
+                    <!-- Goal Info Section -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label 
+                            Text="Detalles de la Meta"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.MontoObjetivo, StringFormat='Objetivo: {0:C}'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.MontoActual, StringFormat='Actual: {0:C}'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.Progreso, StringFormat='Progreso: {0:F2}%'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.AhorroMensualSugerido, StringFormat='Ahorro Mensual Sugerido: {0:C}'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.FechaInicio, StringFormat='Inicio: {0:d}'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.FechaObjetivo, StringFormat='Objetivo: {0:d}', FallbackValue='Sin fecha objetivo'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Label 
+                            Text="{Binding Goal.Completada, Converter={StaticResource BooleanToStatusConverter}, StringFormat='Estado: {0}'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                        <Button 
+                            x:Name="EditGoalButton"
+                            Text="Editar Meta"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40"
+                            Clicked="EditGoalButton_Clicked" />
+                    </VerticalStackLayout>
+
+                    <!-- Transactions Section -->
+                    <VerticalStackLayout Spacing="10">
+                        <Label 
+                            Text="Transacciones Asociadas"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            FontFamily="PoppinsRegular"
+                            Margin="0,20,0,0" />
+                        <Button 
+                            x:Name="LinkTransactionButton"
+                            Text="Asignar Transacción"
+                            FontFamily="PoppinsRegular"
+                            BackgroundColor="{StaticResource Verde-background}"
+                            TextColor="White"
+                            FontSize="Medium"
+                            FontAttributes="Bold"
+                            CornerRadius="40"
+                            Clicked="LinkTransactionButton_Clicked" />
+                        <CollectionView x:Name="TransactionsCollectionView"
+                                       ItemsSource="{Binding Transactions}"
+                                       HeightRequest="150">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Stroke="{StaticResource Verde-muy-claro}"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                                        StrokeShape="RoundRectangle 20"
+                                        Padding="10"
+                                        Margin="0,5">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                                <Label 
+                                                    Text="{Binding Descripcion, FallbackValue='Sin descripción'}"
+                                                    FontSize="Medium"
+                                                    FontFamily="PoppinsRegular"
+                                                    TextColor="Black"/>
+                                                <Label 
+                                                    Text="{Binding MontoAsignado, StringFormat='Asignado: {0:C}'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />
+                                                <Label 
+                                                    Text="{Binding MontoTransaccion, StringFormat='Transacción: {0:C}'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />
+                                                <Label 
+                                                    Text="{Binding FechaAsignacion, StringFormat='Fecha: {0:d}'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Delete Goal -->
+                    <Button 
+                        x:Name="DeleteGoalButton"
+                        Text="Eliminar Meta"
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Rojo-Cancelar}"
+                        TextColor="White"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="40"
+                        Clicked="DeleteGoalButton_Clicked" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>

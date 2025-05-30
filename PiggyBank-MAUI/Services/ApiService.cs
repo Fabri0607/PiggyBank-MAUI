@@ -1,5 +1,6 @@
 ﻿using PiggyBank_MAUI.Models;
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -407,6 +408,140 @@ public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
             catch (Exception ex)
             {
                 return new ResActualizarEstadoGasto { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResCrearMeta> CrearMeta(ReqCrearMeta req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a metas con Nombre={req.Nombre}, MontoObjetivo={req.MontoObjetivo}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("metas", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResCrearMeta>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en CrearMeta: {ex.Message}");
+                return new ResCrearMeta { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResActualizarProgresoMeta> ActualizarProgresoMeta(ReqActualizarProgresoMeta req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a metas/{req.MetaID}/progreso con MontoActual={req.MontoActual}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"metas/{req.MetaID}/progreso", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResActualizarProgresoMeta>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ActualizarProgresoMeta: {ex.Message}");
+                return new ResActualizarProgresoMeta { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResListarMetas> ListarMetas(ReqListarMetas req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando GET a metas?usuarioId={req.UsuarioID}");
+                var response = await _httpClient.GetAsync($"metas?usuarioId={req.UsuarioID}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResListarMetas>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ListarMetas: {ex.Message}");
+                return new ResListarMetas { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResObtenerDetallesMeta> ObtenerDetallesMeta(ReqObtenerDetallesMeta req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando GET a metas/{req.MetaID}?usuarioId={req.UsuarioID}");
+                var response = await _httpClient.GetAsync($"metas/{req.MetaID}?usuarioId={req.UsuarioID}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResObtenerDetallesMeta>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ObtenerDetallesMeta: {ex.Message}");
+                return new ResObtenerDetallesMeta { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResActualizarMeta> ActualizarMeta(ReqActualizarMeta req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando PUT a metas/{req.MetaID} con Nombre={req.Nombre}, MontoObjetivo={req.MontoObjetivo}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync($"metas/{req.MetaID}", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResActualizarMeta>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ActualizarMeta: {ex.Message}");
+                return new ResActualizarMeta { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResEliminarMeta> EliminarMeta(ReqEliminarMeta req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando DELETE a metas/{req.MetaID}?usuarioId={req.UsuarioID}");
+                var response = await _httpClient.DeleteAsync($"metas/{req.MetaID}?usuarioId={req.UsuarioID}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResEliminarMeta>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en EliminarMeta: {ex.Message}");
+                return new ResEliminarMeta { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResAsignarTransaccion> AsignarTransaccion(ReqAsignarTransaccion req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a metas/{req.MetaID}/transacciones con TransaccionID={req.TransaccionID}, MontoAsignado={req.MontoAsignado}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"metas/{req.MetaID}/transacciones", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResAsignarTransaccion>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en AsignarTransaccion: {ex.Message}");
+                return new ResAsignarTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
     }

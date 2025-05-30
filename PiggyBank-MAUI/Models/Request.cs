@@ -146,6 +146,56 @@ namespace PiggyBank_MAUI.Models
         public string NuevoEstado { get; set; }
     }
 
+    public class ReqCrearMeta : ReqBase
+    {
+        public int UsuarioID { get; set; }
+        public string Nombre { get; set; }
+        public decimal MontoObjetivo { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime? FechaObjetivo { get; set; }
+    }
+
+    public class ReqActualizarProgresoMeta : ReqBase
+    {
+        public int MetaID { get; set; }
+        public int UsuarioID { get; set; }
+        public decimal MontoActual { get; set; }
+    }
+
+    public class ReqListarMetas : ReqBase
+    {
+        public int UsuarioID { get; set; }
+    }
+
+    public class ReqObtenerDetallesMeta : ReqBase
+    {
+        public int MetaID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+    public class ReqActualizarMeta : ReqBase
+    {
+        public int MetaID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Nombre { get; set; }
+        public decimal MontoObjetivo { get; set; }
+        public DateTime? FechaObjetivo { get; set; }
+    }
+
+    public class ReqEliminarMeta : ReqBase
+    {
+        public int MetaID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+    public class ReqAsignarTransaccion : ReqBase
+    {
+        public int MetaID { get; set; }
+        public int UsuarioID { get; set; }
+        public int TransaccionID { get; set; }
+        public decimal MontoAsignado { get; set; }
+    }
+
 }
 
 
