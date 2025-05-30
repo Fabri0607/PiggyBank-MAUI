@@ -27,7 +27,7 @@
         <Tab Title="Transacciones" Icon="transacciones.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaTransacciones}" />
         </Tab>
-        <Tab Title="Grupos Familiares" Icon="groups.png">
+        <Tab Title="Grupos Familiares" Icon="grupos.png">
             <ShellContent ContentTemplate="{DataTemplate views:FamilyGroupsPage}" />
         </Tab>
         <Tab Title="Asistente" Icon="piggybank_ai.png">

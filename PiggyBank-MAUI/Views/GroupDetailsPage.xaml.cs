@@ -248,25 +248,19 @@ namespace PiggyBank_MAUI.Views
 
         private async void UpdateGroupButton_Clicked(object sender, EventArgs e)
         {
-            var usuarioId = int.Parse(await SecureStorage.GetAsync("UsuarioID") ?? "0");
-            var req = new ReqActualizarGrupo
+            try
             {
-                GrupoID = _grupo.GrupoID,
-                Nombre = _grupo.Nombre,
-                Descripcion = _grupo.Descripcion,
-                AdminUsuarioID = usuarioId,
-                token = Preferences.Get("AuthToken", string.Empty)
-            };
-
-            var response = await _apiService.ActualizarGrupo(req);
-            if (response.resultado)
-            {
-                await DisplayAlert("Éxito", "Grupo actualizado correctamente", "OK");
-                LoadGroupDetails();
+                Debug.WriteLine($"Abriendo modal para grupo: Nombre={_grupo.Nombre}, Descripcion={_grupo.Descripcion}");
+                await Navigation.PushModalAsync(new UpdateGroupModalPage(_grupo));
+                // After modal closes, después de que se cierra el modal, notify UI of cambios potenciales
+                Debug.WriteLine($"Modal cerrado, actualizando UI: Nombre={_grupo.Nombre}, Descripción={_grupo.Descripcion}");
+                OnPropertyChanged(nameof(GroupName));
+                OnPropertyChanged(nameof(GroupDescription));
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al actualizar el grupo", "OK");
+                Debug.WriteLine($"Excepción en UpdateGroupButton_Clicked: {ex.Message}");
+                await DisplayAlert("Error", "Error al abrir la página de edición del grupo", "OK");
             }
         }
 
