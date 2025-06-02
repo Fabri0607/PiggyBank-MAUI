@@ -33,10 +33,7 @@ namespace PiggyBank_MAUI
             Navigation.PushAsync(new FamilyGroupsPage());
         }
 
-        private void GroupDetailsPage_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new GroupDetailsPage());
-        }
+        
 
         private void test_Clicked(object sender, EventArgs e)
         {
@@ -55,7 +52,7 @@ namespace PiggyBank_MAUI
 
         private void BotonApp_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AppShell());
+            Application.Current.MainPage = new AppShell();
         }
 
         private void Tabbed_Clicked(object sender, EventArgs e)

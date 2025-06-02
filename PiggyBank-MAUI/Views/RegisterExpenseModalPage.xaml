@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.RegisterExpenseModalPage"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
+    </ContentPage.Resources>
+
+    <Grid Padding="20">
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            Padding="20">
+            <VerticalStackLayout Spacing="15">
+                <Label 
+                    Text="Registrar Gasto Compartido"
+                    FontSize="Large"
+                    FontAttributes="Bold"
+                    FontFamily="PoppinsRegular"
+                    HorizontalOptions="Center" />
+
+                <VerticalStackLayout Spacing="10">
+                    <Label 
+                        Text="Descripción"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular" />
+                    <Border
+                        Stroke="{StaticResource Verde-muy-claro}"
+                        StrokeThickness="0"
+                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                        StrokeShape="RoundRectangle 20">
+                        <Entry
+                            x:Name="DescriptionEntry"
+                            Placeholder="Descripción del gasto"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="10,0"
+                            PlaceholderColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label 
+                        Text="Monto"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular" />
+                    <Border
+                        Stroke="{StaticResource Verde-muy-claro}"
+                        StrokeThickness="0"
+                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                        StrokeShape="RoundRectangle 20">
+                        <Entry
+                            x:Name="AmountEntry"
+                            Placeholder="Monto"
+                            Keyboard="Numeric"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="10,0"
+                            PlaceholderColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label 
+                        Text="Categoría"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular" />
+                    <Picker
+                        x:Name="CategoryPicker"
+                        Title="Seleccionar categoría"
+                        FontFamily="PoppinsRegular" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label 
+                        Text="Estado"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular" />
+                    <Picker
+                        x:Name="StatusPicker"
+                        Title="Seleccionar estado"
+                        FontFamily="PoppinsRegular">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Pendiente</x:String>
+                                <x:String>Pagado</x:String>
+                                <x:String>Rechazado</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </VerticalStackLayout>
+
+                <Grid ColumnDefinitions="*,*">
+                    <Button 
+                        Grid.Column="0"
+                        Text="Cancelar"
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Rojo-Cancelar}"
+                        TextColor="White"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="20"
+                        Margin="0,0,5,0"
+                        Clicked="CancelButton_Clicked" />
+                    <Button 
+                        Grid.Column="1"
+                        Text="Registrar"
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Verde-background}"
+                        TextColor="White"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="20"
+                        Margin="5,0,0,0"
+                        Clicked="RegisterButton_Clicked" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

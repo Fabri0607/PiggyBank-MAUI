@@ -12,36 +12,42 @@
     Shell.TabBarForegroundColor="#00D09E"
     Shell.TabBarTitleColor="#00D09E"
     Shell.TabBarUnselectedColor="Black"
-    
     Shell.BackgroundColor="#00986C"
     Shell.ForegroundColor="White"
-    Shell.TitleColor="White"
-    >
+    Shell.TitleColor="White">
 
-    <!-- Flyout Menu Items -->
+    <!-- FlyoutItem principal que contiene las pestañas -->
     <FlyoutItem Title="Inicio" Icon="home.png">
-        
-    </FlyoutItem>
-    <FlyoutItem Title="Configuración">
-        
-    </FlyoutItem>
-
-    <TabBar>
         <Tab Title="Inicio" Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaHome}" />
         </Tab>
-
         <Tab Title="Estadísticas" Icon="estadisticas.png">
             <ShellContent ContentTemplate="{DataTemplate views:PáginaEstadisticas}" />
         </Tab>
-
         <Tab Title="Transacciones" Icon="transacciones.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaTransacciones}" />
         </Tab>
-
+        <Tab Title="Grupos Familiares" Icon="grupos.png">
+            <ShellContent ContentTemplate="{DataTemplate views:FamilyGroupsPage}" />
+        </Tab>
+        <Tab Title="Metas Financieras" Icon="goal.png">
+            <ShellContent ContentTemplate="{DataTemplate views:FinancialGoalsPage}" />
+        </Tab>
         <Tab Title="Asistente" Icon="piggybank_ai.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaAsistenteIA}" />
         </Tab>
-    </TabBar>
+    </FlyoutItem>
 
+    <!-- Otros elementos del Flyout Menu -->
+    <FlyoutItem Title="Configuración" Icon="settings.png">
+        <Tab Title="Actualizar Perfil" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PaginaActualizarPerfil}" />
+        </Tab>
+        <Tab Title="Cambiar Password" Icon="estadisticas.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PaginaCambiarPassword}" />
+        </Tab>
+        <Tab Title="Cerrar Sesion" Icon="transacciones.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PaginaCerrarSesion}" />
+        </Tab>
+    </FlyoutItem>
 </Shell>

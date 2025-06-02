@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.PaginaReenviarCodigoVerificacion"
+             Title="Reenviar Código">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="{StaticResource Verde-background}">
+        <Label 
+            Text="Reenviar Código de Verificación"
+            TextColor="White"
+            FontSize="30"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            Margin="0,8,0,0"
+            FontFamily="PoppinsRegular" />
+
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            HeightRequest="655"
+            Padding="30,50"
+            StrokeShape="RoundRectangle 40,40,0,0">
+
+            <VerticalStackLayout Spacing="30">
+                <VerticalStackLayout Spacing="10">
+                    <Label 
+                        Text="Correo Electrónico"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        FontFamily="PoppinsRegular" />
+                    <Border
+                        Stroke="{StaticResource Verde-muy-claro}"
+                        StrokeThickness="0"
+                        BackgroundColor="{StaticResource Verde-muy-claro}"
+                        StrokeShape="RoundRectangle 20">
+                        <Entry
+                            x:Name="EmailEntry"
+                            Placeholder="ejemplo@gmail.com"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Margin="10,0"
+                            PlaceholderColor="Gray"
+                            FontFamily="PoppinsRegular" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout x:Name="ContenedorBotones" Spacing="10" Margin="0,20,0,0">
+                    <Button 
+                        x:Name="BotonReenviar"
+                        Text="Reenviar Código"  
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Verde-background}"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="40"
+                        Clicked="BotonReenviar_Clicked" />
+
+                    <Label 
+                        Text="Volver a Verificar"
+                        HorizontalOptions="Center"
+                        TextColor="{StaticResource Azul-Botones}"
+                        TextDecorations="Underline">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapVolverVerificar_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

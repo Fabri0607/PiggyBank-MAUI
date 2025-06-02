@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PiggyBank_MAUI.Converters"
              x:Class="PiggyBank_MAUI.Views.GroupDetailsPage"
              NavigationPage.HasNavigationBar="False">
 
@@ -9,6 +10,7 @@
         <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
         <Color x:Key="Verde-Principal">#008259</Color>
         <Color x:Key="Azul-Botones">#0068FF</Color>
+        <local:BalanceColorConverter x:Key="BalanceColorConverter" />
     </ContentPage.Resources>
 
     <Grid BackgroundColor="{StaticResource Verde-background}">
@@ -42,7 +44,7 @@
                             FontAttributes="Bold"
                             FontFamily="PoppinsRegular" />
                         <Label 
-                            Text="{Binding GroupDescription}"
+                            Text="{Binding GroupDescription, FallbackValue='Sin descripción'}"
                             FontSize="Small"
                             TextColor="Gray"
                             FontFamily="PoppinsRegular" />
@@ -103,7 +105,7 @@
                                         <Grid ColumnDefinitions="*,Auto">
                                             <Label 
                                                 Grid.Column="0"
-                                                Text="{Binding Nombre}"
+                                                Text="{Binding NombreUsuario, FallbackValue='Nombre no disponible'}"
                                                 FontSize="Medium"
                                                 FontFamily="PoppinsRegular"
                                                 VerticalOptions="Center" />
@@ -116,9 +118,9 @@
                                                 FontSize="Small"
                                                 CornerRadius="20"
                                                 Padding="10,5"
-                                                Command="{Binding RemoveMemberCommand}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveMemberCommand}"
                                                 CommandParameter="{Binding .}"
-                                                IsVisible="{Binding IsAdmin}" />
+                                                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsAdmin}" />
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -134,35 +136,6 @@
                             FontAttributes="Bold"
                             FontFamily="PoppinsRegular"
                             Margin="0,20,0,0" />
-                        <Border
-                            Stroke="{StaticResource Verde-muy-claro}"
-                            StrokeThickness="0"
-                            BackgroundColor="{StaticResource Verde-muy-claro}"
-                            StrokeShape="RoundRectangle 20">
-                            <Entry
-                                x:Name="ExpenseDescriptionEntry"
-                                Placeholder="Descripción del gasto"
-                                BackgroundColor="Transparent"
-                                TextColor="Black"
-                                Margin="10,0"
-                                PlaceholderColor="Gray"
-                                FontFamily="PoppinsRegular" />
-                        </Border>
-                        <Border
-                            Stroke="{StaticResource Verde-muy-claro}"
-                            StrokeThickness="0"
-                            BackgroundColor="{StaticResource Verde-muy-claro}"
-                            StrokeShape="RoundRectangle 20">
-                            <Entry
-                                x:Name="ExpenseAmountEntry"
-                                Placeholder="Monto"
-                                Keyboard="Numeric"
-                                BackgroundColor="Transparent"
-                                TextColor="Black"
-                                Margin="10,0"
-                                PlaceholderColor="Gray"
-                                FontFamily="PoppinsRegular" />
-                        </Border>
                         <Button 
                             x:Name="RegisterExpenseButton"
                             Text="Registrar Gasto"
@@ -184,14 +157,25 @@
                                         StrokeShape="RoundRectangle 20"
                                         Padding="10"
                                         Margin="0,5">
-                                        <Grid ColumnDefinitions="*,Auto">
+                                        <Grid ColumnDefinitions="*,Auto,Auto,Auto">
                                             <VerticalStackLayout Grid.Column="0" Spacing="5">
                                                 <Label 
-                                                    Text="{Binding Descripcion}"
+                                                    Text="{Binding Descripcion, FallbackValue='Sin descripción'}"
                                                     FontSize="Medium"
-                                                    FontFamily="PoppinsRegular" />
+                                                    FontFamily="PoppinsRegular"
+                                                    TextColor="Black"/>
+                                                <Label 
+                                                    Text="{Binding NombreUsuario, FallbackValue='Registrado por: Desconocido'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />  
                                                 <Label 
                                                     Text="{Binding Monto, StringFormat='{0:C}'}"
+                                                    FontSize="Small"
+                                                    TextColor="Gray"
+                                                    FontFamily="PoppinsRegular" />
+                                                <Label 
+                                                    Text="{Binding Estado, StringFormat='Estado: {0}'}"
                                                     FontSize="Small"
                                                     TextColor="Gray"
                                                     FontFamily="PoppinsRegular" />
@@ -203,6 +187,19 @@
                                                 TextColor="Gray"
                                                 FontFamily="PoppinsRegular"
                                                 VerticalOptions="Center" />
+                                            <Button 
+                                                Grid.Column="2"
+                                                Text="Aceptar"
+                                                FontFamily="PoppinsRegular"
+                                                BackgroundColor="{StaticResource Verde-background}"
+                                                TextColor="White"
+                                                FontSize="Small"
+                                                CornerRadius="20"
+                                                Padding="10,5"
+                                                Margin="5,0"
+                                                Clicked="AcceptButton_Clicked"
+                                                CommandParameter="{Binding .}"
+                                                IsVisible="{Binding IsPendiente}" />        
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -218,15 +215,6 @@
                             FontAttributes="Bold"
                             FontFamily="PoppinsRegular"
                             Margin="0,20,0,0" />
-                        <Button 
-                            x:Name="ViewBalancesButton"
-                            Text="Ver Balances"
-                            FontFamily="PoppinsRegular"
-                            BackgroundColor="{StaticResource Verde-background}"
-                            TextColor="White"
-                            FontSize="Medium"
-                            FontAttributes="Bold"
-                            CornerRadius="40" />
                         <CollectionView x:Name="BalancesCollectionView"
                                        ItemsSource="{Binding Balances}"
                                        HeightRequest="150">
@@ -242,15 +230,15 @@
                                         <Grid ColumnDefinitions="*,Auto">
                                             <Label 
                                                 Grid.Column="0"
-                                                Text="{Binding NombreUsuario}"
+                                                Text="{Binding NombreUsuario, FallbackValue='Usuario desconocido'}"
                                                 FontSize="Medium"
                                                 FontFamily="PoppinsRegular"
                                                 VerticalOptions="Center" />
                                             <Label 
                                                 Grid.Column="1"
-                                                Text="{Binding Balance, StringFormat='{0:C}'}"
+                                                Text="{Binding Saldo, StringFormat='{0:C}', FallbackValue='0.00'}"
                                                 FontSize="Medium"
-                                                TextColor="{Binding Balance, Converter={StaticResource BalanceColorConverter}}"
+                                                TextColor="{Binding Saldo, Converter={StaticResource BalanceColorConverter}}"
                                                 FontFamily="PoppinsRegular"
                                                 VerticalOptions="Center" />
                                         </Grid>
