@@ -12,7 +12,7 @@ namespace PiggyBank_MAUI.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-private const string BaseUrl = "https://1166-186-64-220-0.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
+        private const string BaseUrl = "http://34.68.201.182:44315/api/"; // Reemplazarla cada vez que se inicie el servidor
 
 public ApiService()
 {
@@ -546,3 +546,4 @@ public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
         }
     }
 }
+

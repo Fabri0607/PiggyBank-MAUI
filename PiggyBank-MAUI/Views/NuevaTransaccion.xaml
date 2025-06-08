@@ -154,7 +154,7 @@
                 </VerticalStackLayout>
 
                 <Button x:Name="Boton_GuardarPago"
-                            Text="Guardar Pago"
+                            Text="Guardar"
                             FontFamily="PoppinsRegular"
                             BackgroundColor="{StaticResource Verde-background}"
                             FontSize="Medium"

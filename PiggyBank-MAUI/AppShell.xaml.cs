@@ -1,9 +1,12 @@
 ﻿using PiggyBank_MAUI.Views;
+using System.Windows.Input;
 
 namespace PiggyBank_MAUI
 {
     public partial class AppShell : Shell
     {
+        public ICommand NavigateToSettingsCommand { get; }
+
         public AppShell()
         {
             InitializeComponent();
@@ -22,6 +25,19 @@ namespace PiggyBank_MAUI
             Routing.RegisterRoute(nameof(UpdateGroupModalPage), typeof(UpdateGroupModalPage));
             Routing.RegisterRoute(nameof(FinancialGoalsPage), typeof(FinancialGoalsPage));
             Routing.RegisterRoute(nameof(FinancialGoalDetailsPage), typeof(FinancialGoalDetailsPage));
+
+            NavigateToSettingsCommand = new Command(async () => await NavigateToSettings());
+            BindingContext = this;
+        }
+
+        private async Task NavigateToSettings()
+        {
+            Shell.Current.FlyoutIsPresented = false;
+
+            // Crear una instancia de la página Configuraciones
+            var settingsPage = new Views.Configuraciones();
+            // Empujar la página a la pila de navegación
+            await Shell.Current.Navigation.PushAsync(settingsPage);
         }
     }
 }

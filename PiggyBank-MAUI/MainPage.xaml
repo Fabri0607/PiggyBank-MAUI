@@ -55,11 +55,6 @@
                 Clicked="Tabbed_Clicked"
             />
 
-            <Button 
-                x:Name="ejm"
-                Text="Ir a ejm"
-                Clicked="ejm_Clicked"
-            />
         </VerticalStackLayout>
     </ScrollView>
 

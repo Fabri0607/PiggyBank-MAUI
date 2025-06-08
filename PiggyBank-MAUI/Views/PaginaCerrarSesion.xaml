@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PiggyBank_MAUI.Views.PaginaCerrarSesion"
-             Title="Cerrar Sesión">
+             x:Class="PiggyBank_MAUI.Views.PaginaCerrarSesion">
 
     <ContentPage.Resources>
         <Color x:Key="Verde-background">#00986C</Color>
@@ -18,15 +17,15 @@
             FontSize="30"
             HorizontalOptions="Center"
             FontAttributes="Bold"
-            Margin="0,8,0,0"
+            Margin="0,0,0,0"
             FontFamily="PoppinsRegular" />
 
         <Border
             BackgroundColor="White"
             StrokeThickness="0"
             VerticalOptions="End"
-            HeightRequest="655"
-            Padding="30,50"
+            HeightRequest="580"
+            Padding="30,30"
             StrokeShape="RoundRectangle 40,40,0,0">
 
             <VerticalStackLayout Spacing="30">

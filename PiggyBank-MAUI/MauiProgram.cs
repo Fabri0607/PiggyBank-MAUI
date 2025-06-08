@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using The49.Maui.BottomSheet;
 
 namespace PiggyBank_MAUI
 {
@@ -9,6 +10,7 @@ namespace PiggyBank_MAUI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseBottomSheet()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,8 +20,9 @@ namespace PiggyBank_MAUI
                     fonts.AddFont("Poppins-Bold.ttf", "PoppinsBold");
                 });
 
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

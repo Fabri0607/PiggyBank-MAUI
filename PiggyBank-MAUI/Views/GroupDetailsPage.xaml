@@ -18,10 +18,10 @@
         <Label 
             Text="{Binding GroupName, StringFormat='Grupo: {0}'}"
             TextColor="White"
-            FontSize="30"
+            FontSize="25"
             HorizontalOptions="Center"
             FontAttributes="Bold"
-            Margin="0,8,0,0"
+            Margin="0,0,0,0"
             FontFamily="PoppinsRegular"
             VerticalOptions="Start" />
 
@@ -30,8 +30,8 @@
             BackgroundColor="White"
             StrokeThickness="0"
             VerticalOptions="End"
-            HeightRequest="655"
-            Padding="30,50"
+            HeightRequest="580"
+            Padding="30,30"
             StrokeShape="RoundRectangle 40,40,0,0">
 
             <ScrollView>

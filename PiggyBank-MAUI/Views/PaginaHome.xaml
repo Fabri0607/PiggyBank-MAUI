@@ -13,6 +13,7 @@
         <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
     </ContentPage.Resources>
 
+ 
     <ScrollView>
         <VerticalStackLayout
             Spacing="15"
@@ -94,7 +95,7 @@
                                             <BoxView Color="#00986C" WidthRequest="15" HeightRequest="60" VerticalOptions="End"/>
                                             <BoxView Color="#0068FF" WidthRequest="15" HeightRequest="40" VerticalOptions="End"/>
                                         </StackLayout>
-                                        <Label Grid.Column="3" Grid.Row="1" Text="Semana 4" FontSize="10" HorizontalOptions="Center"/>
+                                        <Label Grid.Column="3" Grid.Row="1" Text="Semana 4" FontSize="10" HorizontalOptions="Center"/> 
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -135,10 +136,16 @@
                                     StrokeThickness="0"
                                     Padding="10"
                                     StrokeShape="RoundRectangle 20"
-                                    HeightRequest="72">
+                                    HeightRequest="72"
+                                    x:Name="btn_metas">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="btn_metas_Tapped"/>
+                                </Border.GestureRecognizers>
+                                
                                 <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="2">
-                                    <Image Source="pagos.png" HeightRequest="28" WidthRequest="28" HorizontalOptions="Center"/>
-                                    <Label Text="Pagos" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
+                                    <Image Source="metas.png" HeightRequest="28" WidthRequest="28" HorizontalOptions="Center"/>
+                                    <Label Text="Metas" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
                                 </VerticalStackLayout>
                             </Border>
                         </Grid>
@@ -150,7 +157,13 @@
                                     StrokeThickness="0"
                                     Padding="10"
                                     StrokeShape="RoundRectangle 20"
-                                    HeightRequest="72">
+                                    HeightRequest="72"
+                                    x:Name="btn_Grupos">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="btn_Grupos_Tapped"/>
+                                </Border.GestureRecognizers>
+                                
                                 <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
                                     <Image Source="grupos.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
                                     <Label Text="Grupos" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
@@ -162,7 +175,13 @@
                                     StrokeThickness="0"
                                     Padding="10"
                                     StrokeShape="RoundRectangle 20"
-                                    HeightRequest="72">
+                                    HeightRequest="72"
+                                    x:Name="btn_mas_opciones">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="btn_mas_opciones_Tapped"/>
+                                </Border.GestureRecognizers>
+                                
                                 <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
                                     <Image Source="mas_opciones.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center"/>
                                     <Label Text="Más opciones" FontSize="14" HorizontalOptions="Center" FontFamily="PoppinsRegular"/>
@@ -337,4 +356,11 @@
             </Border>
         </VerticalStackLayout>
     </ScrollView>
+
+        <!--/ BottomSheet -->
+
+       
+
+        <!--/ -->
+
 </ContentPage>
