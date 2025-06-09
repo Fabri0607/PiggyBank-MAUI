@@ -21,7 +21,7 @@
             Margin="0,0,0,10"    
         />
 
-        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_actualizar_perfil">
+        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_pagos_perfil">
 
             <Border.GestureRecognizers>
                 <TapGestureRecognizer />
@@ -49,10 +49,10 @@
 
         </Border>
 
-        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_cambiar_password">
+        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_categorias">
 
             <Border.GestureRecognizers>
-                <TapGestureRecognizer />
+                <TapGestureRecognizer Tapped="btn_categorias_Tapped"/>
             </Border.GestureRecognizers>
 
             <HorizontalStackLayout Spacing="10">

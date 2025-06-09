@@ -7,4 +7,9 @@ public partial class PaginaTransacciones : ContentPage
 		InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ActualizarTransaccion());
+    }
 }

@@ -167,7 +167,7 @@ namespace PiggyBank_MAUI.Models
 
     public class Transaccion
     {
-        public int TransaccionID { get; set; }
+        public int? TransaccionID { get; set; }
         public int UsuarioID { get; set; }
         public string Tipo { get; set; } // 'Ingreso' o 'Gasto'
         public decimal Monto { get; set; }

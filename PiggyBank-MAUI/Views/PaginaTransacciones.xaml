@@ -49,7 +49,8 @@
 
                             <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
 
-                                <Label Text="Salario" 
+                                <Label x:Name="lbl_titulo"
+                                    Text="Salario" 
                                        FontSize="16" 
                                        FontAttributes="Bold" />
 
@@ -179,6 +180,11 @@
                         </Grid>
                     </Border>
                     <!-- -->
+
+                    <Button 
+                        Text="prueba"
+                        Clicked="Button_Clicked"
+                    />
 
                 </VerticalStackLayout>
             </ScrollView>

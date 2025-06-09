@@ -31,7 +31,7 @@
                                 BackgroundColor="{StaticResource Verde-muy-claro}"
                                 StrokeShape="RoundRectangle 20">
                         
-                        <DatePicker 
+                        <DatePicker x:Name="picker_fecha"
                                    BackgroundColor="Transparent"
                                    TextColor="Black"
                                    Margin="10,0"  
@@ -105,7 +105,8 @@
                                    Margin="10,0"
                                    PlaceholderColor="Gray"
                                    FontFamily="PoppinsRegular"
-                                   Keyboard="Numeric" />
+                                   Keyboard="Numeric" 
+                               x:Name="monto_entry"/>
                         
                     </Border>
                 </VerticalStackLayout>
@@ -127,7 +128,8 @@
                                    TextColor="Black"
                                    Margin="10,0"
                                    PlaceholderColor="Gray"
-                                   FontFamily="PoppinsRegular" />
+                                   FontFamily="PoppinsRegular" 
+                               x:Name="titulo_entry"/>
                         
                     </Border>
                 </VerticalStackLayout>
@@ -148,12 +150,13 @@
                                    TextColor="Black"
                                    Margin="10,0"
                                    PlaceholderColor="Gray"
-                                   FontFamily="PoppinsRegular" />
+                                   FontFamily="PoppinsRegular" 
+                               x:Name="descripcion_entry"/>
                         
                     </Border>
                 </VerticalStackLayout>
 
-                <Button x:Name="Boton_GuardarPago"
+                <Button x:Name="Boton_GuardarTransaccion"
                             Text="Guardar"
                             FontFamily="PoppinsRegular"
                             BackgroundColor="{StaticResource Verde-background}"
@@ -161,6 +164,7 @@
                             FontAttributes="Bold"
                             CornerRadius="40" 
                             Margin="0,15,0,0"
+                        Clicked="Boton_GuardarTransaccion_Clicked"
                 />
                 
             </VerticalStackLayout>

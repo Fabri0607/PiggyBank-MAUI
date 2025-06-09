@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.Categorias"
+             Title="Categorias">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
+    </ContentPage.Resources>
+
+
+    <VerticalStackLayout Spacing="15" BackgroundColor="{StaticResource Verde-background}" Padding="0,0,0,0">
+        <Border BackgroundColor="White"
+            StrokeThickness="0"
+            Padding="30,30"
+            StrokeShape="RoundRectangle 40,40,0,0"
+            HeightRequest="700"
+            VerticalOptions="End">
+
+            <VerticalStackLayout Spacing="5">
+
+                <Border Padding="0,2" StrokeThickness="0" x:Name="btn_actualizar_perfil">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Border.GestureRecognizers>
+
+                    <HorizontalStackLayout Spacing="10">
+
+                        <Label 
+                             Text="Actualizar Perfil"    
+                             FontFamily="PoppinsRegular"
+                             FontSize="Medium"
+                             VerticalOptions="Center"
+                            VerticalTextAlignment="Center"
+                            Margin="0,5,0,0"
+                        />
+
+                    </HorizontalStackLayout>
+
+                </Border>
+
+                <Border Padding="0,2" StrokeThickness="0" x:Name="btn_cambiar_password">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Border.GestureRecognizers>
+
+                    <HorizontalStackLayout Spacing="10">
+
+                        <Label 
+                             Text="Cambiar Contraseña"    
+                             FontFamily="PoppinsRegular"
+                             FontSize="Medium"
+                             VerticalOptions="Center"
+                            VerticalTextAlignment="Center"
+                            Margin="0,5,0,0"
+                         />
+
+                    </HorizontalStackLayout>
+
+                </Border>
+
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+
+</ContentPage>

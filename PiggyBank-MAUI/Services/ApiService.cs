@@ -13,7 +13,7 @@ namespace PiggyBank_MAUI.Services
     {
         private readonly HttpClient _httpClient;
         private const string BaseUrl = "http://34.68.201.182:44315/api/"; // Reemplazarla cada vez que se inicie el servidor
-
+    
 public ApiService()
 {
     _httpClient = new HttpClient
@@ -580,6 +580,65 @@ public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
             {
                 Debug.WriteLine($"Excepción en ConfirmarCambioPassword: {ex.Message}");
                 return new ResConfirmarCambioPassword { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResIngresarTransaccion> IngresarTransaccion(ReqIngresarTransaccion req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a transacciones con titulo={req.Transaccion.Titulo}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("transaccion/ingresar", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResIngresarTransaccion>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en CrearMeta: {ex.Message}");
+                return new ResIngresarTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        //public async Task<ResTransaccionesPorUsuario> ListarTransaccionesPorUsuario(ReqTransaccionesPorUsuario req)
+        //{
+        //    try
+        //    {
+        //        UpdateAuthenticationHeader();
+        //        var json = JsonSerializer.Serialize(req);
+        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //        var response = await _httpClient.GetAsync("transaccion/transaccionesPorUsuario", content);
+        //        var responseContent = await response.Content.ReadAsStringAsync();
+        //        Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+        //        return JsonSerializer.Deserialize<ResTransaccionesPorUsuario>(responseContent);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"Excepción en Listar Transacciones: {ex.Message}");
+        //        return new ResTransaccionesPorUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+        //    }
+        //}
+
+        public async Task<ResActualizarTransaccion> ActualizarTransaccion(ReqActualizarTransaccion req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando PUT a transacciones con titulo={req.Titulo}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("transaccion/actualizar", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResActualizarTransaccion>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en CrearMeta: {ex.Message}");
+                return new ResActualizarTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
     }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.ActualizarTransaccion"
+             Title="Actualizar Transaccion">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
+    </ContentPage.Resources>
+
+
+    <VerticalStackLayout Spacing="15" BackgroundColor="{StaticResource Verde-background}" Padding="0,0,0,60">
+        <Border BackgroundColor="White"
+                StrokeThickness="0"
+                Padding="30,20"
+                StrokeShape="RoundRectangle 40,40,0,0">
+            <VerticalStackLayout Spacing="15">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="Fecha"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           FontFamily="PoppinsRegular" />
+
+                    <Border Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <DatePicker x:Name="picker_fecha"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"
+                               Margin="10,0"  
+                               FontFamily="PoppinsRegular" />
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="Tipo de transacción"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           FontFamily="PoppinsRegular" />
+
+                    <Border Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Picker x:Name="TipoTransaccionPickerActualizar"
+                                Title="Selecciona una tipo de transacción"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                Margin="10,0"
+                                TitleColor="Gray"
+                                FontFamily="PoppinsRegular" />
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="Categoría"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           FontFamily="PoppinsRegular" />
+
+                    <Border Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Picker x:Name="CategoriaPicker"
+                                Title="Selecciona una categoría"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                Margin="10,0"
+                                TitleColor="Gray"
+                                FontFamily="PoppinsRegular" />
+
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="Monto"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           FontFamily="PoppinsRegular" />
+
+                    <Border Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Entry Placeholder="5000"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"
+                               Margin="10,0"
+                               PlaceholderColor="Gray"
+                               FontFamily="PoppinsRegular"
+                               Keyboard="Numeric" 
+                           x:Name="monto_entry"/>
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="Título"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           FontFamily="PoppinsRegular" />
+
+                    <Border Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Entry Placeholder="ejemplo: Compra semanal"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"
+                               Margin="10,0"
+                               PlaceholderColor="Gray"
+                               FontFamily="PoppinsRegular" 
+                           x:Name="titulo_entry"/>
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Descripción (Opcional)"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           FontFamily="PoppinsRegular" />
+
+                    <Border Stroke="{StaticResource Verde-muy-claro}"
+                            StrokeThickness="0"
+                            BackgroundColor="{StaticResource Verde-muy-claro}"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Entry Placeholder="ejemplo: Pago de servicios de streaming"
+                               BackgroundColor="Transparent"
+                               TextColor="Black"
+                               Margin="10,0"
+                               PlaceholderColor="Gray"
+                               FontFamily="PoppinsRegular" 
+                           x:Name="descripcion_entry"/>
+
+                    </Border>
+                </VerticalStackLayout>
+
+                <Button x:Name="Boton_ActualizarTransaccion"
+                        Text="Guardar"
+                        FontFamily="PoppinsRegular"
+                        BackgroundColor="{StaticResource Verde-background}"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="40" 
+                        Margin="0,15,0,0"
+                    Clicked="Boton_ActualizarTransaccion_Clicked"
+                />
+
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+
+</ContentPage>
