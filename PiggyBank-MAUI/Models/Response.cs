@@ -140,6 +140,40 @@ namespace PiggyBank_MAUI.Models
     {
     }
 
+    public class ResIngresarTransaccion : ResBase
+    {
+
+    }
+
+    public class ResTransaccionesPorUsuario : ResBase
+    {
+        public List<TransaccionDTO> transacciones { get; set; }
+    }
+
+    public class ResObtenerDetalleTransaccion : ResBase
+    {
+        public int TransaccionID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Tipo { get; set; } // 'Ingreso' o 'Gasto'
+        public decimal Monto { get; set; }
+        public string Categoria { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Titulo { get; set; }
+        public string Descripcion { get; set; }
+        public bool EsCompartido { get; set; }
+        public int? GrupoID { get; set; }
+    }
+
+    public class ResActualizarTransaccion : ResBase
+    {
+
+    }
+
+    public class ResEliminarTransaccion : ResBase
+    {
+
+    }
+
 }
 
 

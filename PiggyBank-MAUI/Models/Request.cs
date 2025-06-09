@@ -196,6 +196,45 @@ namespace PiggyBank_MAUI.Models
         public decimal MontoAsignado { get; set; }
     }
 
+    public class ReqIngresarTransaccion : ReqBase
+    {
+        public Transaccion Transaccion { get; set; }
+    }
+
+    public class ReqTransaccionesPorUsuario : ReqBase
+    {
+        public int UsuarioID { get; set; }
+        public DateTime? FechaInicio { get; set; }
+        public DateTime? FechaFin { get; set; }
+        public string TipoTransaccion { get; set; } = null;
+    }
+
+    public class ReqObtenerDetalleTransaccion : ReqBase
+    {
+        public int TransaccionID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+    public class ReqActualizarTransaccion : ReqBase
+    {
+        public int TransaccionID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Tipo { get; set; } // 'Ingreso' o 'Gasto'
+        public decimal Monto { get; set; }
+        public int CategoriaID { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Titulo { get; set; }
+        public string Descripcion { get; set; }
+        public bool EsCompartido { get; set; }
+        public int? GrupoID { get; set; }
+    }
+
+    public class ReqEliminarTransaccion : ReqBase
+    {
+        public int TransaccionID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
 }
 
 
