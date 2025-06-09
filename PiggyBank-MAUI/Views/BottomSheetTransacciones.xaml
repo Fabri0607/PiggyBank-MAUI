@@ -111,8 +111,11 @@
                 Grid.Column="0"    
                 Text="Editar"
                 FontFamily="PoppinsRegular"
-                BackgroundColor="{StaticResource Verde-background}"
+                BackgroundColor="White"
                 CornerRadius="40"
+                BorderColor="{StaticResource Verde-background}"
+                TextColor="{StaticResource Verde-background}"
+                BorderWidth="1"
             />
 
             <Button 
