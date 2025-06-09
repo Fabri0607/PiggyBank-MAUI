@@ -165,6 +165,36 @@ namespace PiggyBank_MAUI.Models
         public decimal MontoTransaccion { get; set; }
     }
 
+    public class AnalisisDTO
+    {
+        public int AnalisisId { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public string Resumen { get; set; }
+        public DateTime FechaGeneracion { get; set; }
+        public int Contexto { get; set; }
+
+    }
+
+    public class MensajeDTO
+    {
+        public int MensajeID { get; set; }
+        public int AnalisisId { get; set; }
+        public string Role { get; set; } // 'user', 'assistant'
+        public string Content { get; set; }
+        public int Orden { get; set; } // Order of the message in the conversation
+        public DateTime FechaEnvio { get; set; }
+    }
+
+    public class ContextoDTO
+    {
+        public int ContextoID { get; set; }
+        public string Nombre { get; set; }
+        public DateTime FechaCreacion { get; set; }
+    }
+
+
+
     public class Transaccion
     {
         public int? TransaccionID { get; set; }

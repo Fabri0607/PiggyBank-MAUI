@@ -247,7 +247,40 @@ namespace PiggyBank_MAUI.Models
         public int UsuarioID { get; set; }
     }
 
+    public class ReqObtenerTodosContexto : ReqBase
+    {
+
+    }
+
+    public class ReqObtenerAnalisisUsuario : ReqBase
+    {
+
+    }
+    public class ReqObtenerMensajes : ReqBase
+    {
+        public int AnalisisID { get; set; } // ID del análisis al que pertenecen los mensajes
+    }
+    public class ReqCrearAnalisis : ReqBase
+    {
+        public DateTime? FechaInicio { get; set; } // Fecha de inicio del análisis
+        public DateTime? FechaFin { get; set; } // Fecha de fin del análisis
+        public int ContextoID { get; set; } // ID del contexto del análisis
+        public string Consulta { get; set; } // Mensaje del análisis
+
+
+    }
+
+    public class ReqInsertarMensajeChat : ReqBase
+    {
+        public int AnalisisID { get; set; } // ID del análisis al que pertenece el mensaje
+        public string Role { get; set; } // Rol del remitente (user o assistant)
+        public string Content { get; set; } // Contenido del mensaje
+    }
+
+
 }
+
+
 
 
 
