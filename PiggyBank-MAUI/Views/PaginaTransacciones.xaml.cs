@@ -88,6 +88,19 @@ public partial class PaginaTransacciones : ContentPage
         CargarTransacciones(); // Recargar transacciones al aparecer la página
     }
 
+    private void Button_Clicked_1(object sender, EventArgs e)
+    {
+        var page = new BottomSheetTransacciones();
+
+        page.HasHandle = true;
+        page.HasBackdrop = true;
+        page.IsCancelable = true;
+        page.HandleColor = Colors.Gray;
+
+
+        page.ShowAsync(Window);
+    }
+
     //public async Task ActualizarTransacciones()
     //{
     //    await CargarTransacciones();

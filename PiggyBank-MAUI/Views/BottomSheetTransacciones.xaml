@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+                 x:Class="PiggyBank_MAUI.Views.BottomSheetTransacciones"
+                   Padding="16,32">
+
+    <the49:BottomSheet.Detents>
+        <the49:HeightDetent Height="450"/>
+    </the49:BottomSheet.Detents>
+
+    <the49:BottomSheet.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
+    </the49:BottomSheet.Resources>
+
+    <VerticalStackLayout Spacing="15">
+        <Label 
+            Text="Detalles de la transacción"
+            FontFamily="PoppinsMedium"
+            FontSize="20"
+            HorizontalOptions="Center" />
+
+        <Grid ColumnDefinitions="*,*"
+              ColumnSpacing="20"
+              HorizontalOptions="FillAndExpand">
+            
+            <VerticalStackLayout Grid.Column="0"
+                         HorizontalOptions="Start">
+                
+                <Label Text="Compra semanal"
+                       FontFamily="PoppinsMedium"
+                       FontSize="Medium" />
+                
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1"
+                         HorizontalOptions="End">
+                
+                <Label Text="₡25,000"
+                       FontFamily="PoppinsRegular"
+                       FontSize="Medium"
+                       HorizontalTextAlignment="End" 
+                       TextColor="{StaticResource Rojo-Cancelar}"/>
+                
+            </VerticalStackLayout>
+        </Grid>
+
+        <Border StrokeThickness="0.3"/>
+
+        <VerticalStackLayout>
+
+            <Label 
+                Text="Fecha"    
+                FontFamily="PoppinsRegular"
+                FontSize="Small"
+            />
+
+            <Label 
+                Text="09/06/2025"   
+                FontFamily="PoppinsRegular"
+                FontSize="18"
+                TextColor="Black"
+            />
+
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+
+            <Label 
+                Text="Descripción"    
+                FontFamily="PoppinsRegular"
+                FontSize="Small"
+            />
+
+            <Label 
+                Text="Compra en el MaxiPalí"   
+                FontFamily="PoppinsRegular"
+                FontSize="18"
+                TextColor="Black"
+            />
+
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+
+            <Label 
+                Text="Categoria"    
+                FontFamily="PoppinsRegular"
+                FontSize="Small"
+            />
+
+            <Label 
+                Text="Comida"   
+                FontFamily="PoppinsRegular"
+                FontSize="18"
+                TextColor="Black"
+            />
+
+        </VerticalStackLayout>
+
+        <Grid ColumnDefinitions="*,*"
+              ColumnSpacing="20"
+              HorizontalOptions="FillAndExpand">
+
+            <Button 
+                Grid.Column="0"    
+                Text="Editar"
+                FontFamily="PoppinsRegular"
+                BackgroundColor="{StaticResource Verde-background}"
+                CornerRadius="40"
+            />
+
+            <Button 
+                Grid.Column="1"    
+                Text="Eliminar"
+                FontFamily="PoppinsRegular"
+                BackgroundColor="{StaticResource Rojo-Cancelar}"
+                CornerRadius="40"
+                FontSize="15"
+            />
+        </Grid>
+
+    </VerticalStackLayout>
+</the49:BottomSheet>

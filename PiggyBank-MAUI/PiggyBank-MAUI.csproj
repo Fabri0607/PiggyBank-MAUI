@@ -86,6 +86,9 @@
 	  <MauiXaml Update="Views\AsistantHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\BottomSheetTransacciones.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Categorias.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

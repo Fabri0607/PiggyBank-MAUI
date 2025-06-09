@@ -77,6 +77,11 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
+                    <Button 
+                        Text="abrir bottom sheet"
+                        Clicked="Button_Clicked_1"
+                    />
+
                 </VerticalStackLayout>
             </ScrollView>
         </Border>
