@@ -52,7 +52,7 @@
 
                                             <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
                                                    FontSize="Small" 
-                                                   HorizontalTextAlignment="End" />
+                                                   HorizontalTextAlignment="Start" />
 
                                         </VerticalStackLayout>
 
@@ -80,6 +80,7 @@
                     <Button 
                         Text="abrir bottom sheet"
                         Clicked="Button_Clicked_1"
+                        Margin="0,20,0,0"
                     />
 
                 </VerticalStackLayout>

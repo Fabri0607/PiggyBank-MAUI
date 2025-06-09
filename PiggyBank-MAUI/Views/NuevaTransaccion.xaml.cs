@@ -23,9 +23,16 @@ public partial class NuevaTransaccion : ContentPage
 
         CategoriaPicker.ItemsSource = new List<string>
         {
-            "Categoria 1",
-            "Categoria 2",
-            "Categoria 3"
+            "Servicios de Streaming",
+            "Comida",
+            "Transporte",
+            "Salud",
+            "Vivienda",
+            "Entretenimiento",
+            "Educación",
+            "Deudas",
+            "Salario",
+            "Otros Ingresos"
         };
     }
 
@@ -90,7 +97,7 @@ public partial class NuevaTransaccion : ContentPage
             }
 
             // Mapear categoría a CategoriaID (esto es un ejemplo, ajustar según tu lógica)
-            int categoriaId = 7; // Aquí deberías obtener el ID real de la categoría seleccionada
+            int categoriaId = 2; // Aquí deberías obtener el ID real de la categoría seleccionada
 
             // Crear el objeto de solicitud
             var req = new ReqIngresarTransaccion

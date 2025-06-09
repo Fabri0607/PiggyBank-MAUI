@@ -6,7 +6,7 @@
                    Padding="16,32">
 
     <the49:BottomSheet.Detents>
-        <the49:HeightDetent Height="450"/>
+        <the49:HeightDetent Height="400"/>
     </the49:BottomSheet.Detents>
 
     <the49:BottomSheet.Resources>
