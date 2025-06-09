@@ -2,12 +2,186 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PiggyBank_MAUI.Views.PaginaTransacciones"
-             Title="PaginaTransacciones">
-    <VerticalStackLayout>
-        <Label 
-            Text="TRANSACCIONES"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            FontFamily="Poppins-Regular"/>
-    </VerticalStackLayout>
+             Title="Transacciones">
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
+        <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="{StaticResource Verde-background}">
+        
+        <!-- Contenido -->
+        <Border
+            BackgroundColor="White"
+            StrokeThickness="0"
+            VerticalOptions="End"
+            HeightRequest="630"
+            Padding="30,30"
+            StrokeShape="RoundRectangle 40,40,0,0">
+
+            <ScrollView>
+                <VerticalStackLayout>
+
+                    <!-- Ejemplo de card -->
+                    <Border BackgroundColor="White"
+                            Stroke="Gray"
+                            StrokeThickness="0.3"
+                            Padding="20,10"
+                            Margin="5"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Border.Shadow>
+                            <Shadow Brush="#40000000"
+                                 Offset="-1,2"
+                                 Radius="5"
+                                 Opacity="1" 
+                             />
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="*,*" 
+                              ColumnSpacing="20" 
+                              HorizontalOptions="FillAndExpand">
+
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
+
+                                <Label Text="Salario" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" />
+
+                                <Label Text="05/04/2025" 
+                                       FontSize="Small" 
+                                       HorizontalTextAlignment="End"       
+                                />
+
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+
+                                <Label Text="₡800,000" 
+                                       FontSize="Small" 
+                                       TextColor="{StaticResource Verde-Ingresos}" 
+                                       FontAttributes="Bold"
+                                />
+
+                                <Label Text="Ingreso" 
+                                   FontSize="14" 
+                                   HorizontalTextAlignment="End"       
+                                />
+
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    <!-- -->
+
+                    <!-- Ejemplo de card (Borrar despues) -->
+                    <Border BackgroundColor="White"
+                            Stroke="Gray"
+                            StrokeThickness="0.3"
+                            Padding="20,10"
+                            Margin="5"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Border.Shadow>
+                            <Shadow Brush="#40000000"
+                                 Offset="-1,2"
+                                 Radius="5"
+                                 Opacity="1" 
+                            />
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="*,*" 
+                              ColumnSpacing="20" 
+                              HorizontalOptions="FillAndExpand">
+
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
+
+                                <Label Text="KFC" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" />
+
+                                <Label Text="05/04/2025" 
+                                       FontSize="Small" 
+                                       HorizontalTextAlignment="End"       
+                                />
+
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+
+                                <Label Text="₡6,500" 
+                                       FontSize="Small" 
+                                       TextColor="Red" 
+                                       FontAttributes="Bold"
+                                />
+
+                                <Label Text="Comida" 
+                                   FontSize="14" 
+                                   HorizontalTextAlignment="End"       
+                                />
+
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    <!-- -->
+
+                    <!-- Ejemplo de card (Borrar despues) -->
+                    <Border BackgroundColor="White"
+                            Stroke="Gray"
+                            StrokeThickness="0.3"
+                            Padding="20,10"
+                            Margin="5"
+                            StrokeShape="RoundRectangle 20">
+
+                        <Border.Shadow>
+                            <Shadow Brush="#40000000"
+                                 Offset="-1,2"
+                                 Radius="5"
+                                 Opacity="1" 
+                            />
+                        </Border.Shadow>
+
+                        <Grid ColumnDefinitions="*,*" 
+                              ColumnSpacing="20" 
+                              HorizontalOptions="FillAndExpand">
+
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
+
+                                <Label Text="Alquiler" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" />
+
+                                <Label Text="05/04/2025" 
+                                       FontSize="Small" 
+                                       HorizontalTextAlignment="End"       
+                                />
+
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+
+                                <Label Text="₡180,000" 
+                                       FontSize="Small" 
+                                       TextColor="Red" 
+                                       FontAttributes="Bold"
+                                />
+
+                                <Label Text="Casa" 
+                                   FontSize="14" 
+                                   HorizontalTextAlignment="End"       
+                                />
+
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    <!-- -->
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
 </ContentPage>

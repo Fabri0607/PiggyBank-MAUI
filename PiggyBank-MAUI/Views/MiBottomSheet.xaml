@@ -6,12 +6,77 @@
                    Padding="16,32">
 
     <the49:BottomSheet.Detents>
-
         <the49:HeightDetent Height="350"/>
     </the49:BottomSheet.Detents>
     
     <VerticalStackLayout>
-        <Label Text="Hola"/>
+
+        <Label 
+            Text="Más opciones"
+            FontFamily="PoppinsRegular"
+            FontSize="20"
+        />
+
+        <Border 
+            Margin="0,0,0,10"    
+        />
+
+        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_actualizar_perfil">
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer />
+            </Border.GestureRecognizers>
+
+            <HorizontalStackLayout Spacing="10">
+
+                <Image Source="pagos.png"
+                       HeightRequest="26"
+                       WidthRequest="26"
+                       VerticalOptions="Center"
+               
+                />
+
+                <Label 
+                     Text="Pagos programados"    
+                     FontFamily="PoppinsRegular"
+                     FontSize="Medium"
+                     VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    Margin="0,2,0,0"
+                />
+
+            </HorizontalStackLayout>
+
+        </Border>
+
+        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_cambiar_password">
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer />
+            </Border.GestureRecognizers>
+
+            <HorizontalStackLayout Spacing="10">
+
+                <Image Source="categorias.png"
+                       HeightRequest="26"
+                       WidthRequest="26"
+                       VerticalOptions="Center"
+               
+                />
+
+                <Label 
+                     Text="Categorias"    
+                     FontFamily="PoppinsRegular"
+                     FontSize="Medium"
+                     VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    Margin="0,1.5,0,0"
+                />
+
+            </HorizontalStackLayout>
+
+        </Border>
+
     </VerticalStackLayout>
 
 </the49:BottomSheet>

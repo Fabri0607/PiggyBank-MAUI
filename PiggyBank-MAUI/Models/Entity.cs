@@ -165,6 +165,8 @@ namespace PiggyBank_MAUI.Models
         public decimal MontoTransaccion { get; set; }
     }
 
+    
+
 }
 
     

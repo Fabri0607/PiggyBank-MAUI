@@ -17,8 +17,24 @@
     Shell.TitleColor="White">
 
 
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout BackgroundColor="#00986C" Padding="20">
+            <Label Text="PiggyBank" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   TextColor="White" 
+                   FontFamily="PoppinsRegular"
+                   HorizontalOptions="Center" />
+            <Label Text="Tu app de finanzas" 
+                   FontSize="16" 
+                   TextColor="White" 
+                   FontFamily="PoppinsRegular"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+    
     <!-- FlyoutItem principal que contiene las pestañas -->
-    <FlyoutItem Title="Inicio" Icon="home.png">
+    <!--<FlyoutItem Title="Inicio" Icon="home.png">
         <Tab Title="Inicio" Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaHome}" />
         </Tab>
@@ -31,7 +47,25 @@
         <Tab Title="Asistente" Icon="piggybank_ai.png">
             <ShellContent ContentTemplate="{DataTemplate views:PaginaAsistenteIA}" />
         </Tab>
-    </FlyoutItem>
+    </FlyoutItem>-->
+
+    <TabBar>
+        <Tab Title="Inicio" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PaginaHome}" />
+        </Tab>
+
+        <Tab Title="Transacciones" Icon="transacciones.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PaginaTransacciones}" />
+        </Tab>
+
+        <Tab Title="Estadísticas" Icon="estadisticas.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PáginaEstadisticas}" />
+        </Tab>
+
+        <Tab Title="Asistente" Icon="piggybank_ai.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PaginaAsistenteIA}" />
+        </Tab>
+    </TabBar>
 
     <MenuItem Text="Configuraciones" IconImageSource="settings.png" Command="{Binding NavigateToSettingsCommand}" />
 
