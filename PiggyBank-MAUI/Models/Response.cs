@@ -182,6 +182,29 @@ namespace PiggyBank_MAUI.Models
 
     }
 
+    public class ResObtenerTodosContexto : ResBase
+    {
+        public List<ContextoDTO> Contextos { get; set; }
+    }
+    public class ResObtenerAnalisisUsuario : ResBase
+    {
+        public List<AnalisisDTO> AnalisisIA { get; set; }
+    }
+    public class ResObtenerMensajes : ResBase
+    {
+        public List<MensajeDTO> MensajesChat { get; set; }
+    }
+    public class ResCrearAnalisis : ResBase
+    {
+        public int AnalisisID { get; set; }
+    }
+    public class ResInsertarMensaje : ResBase
+    {
+        public int MensajeConsultaID { get; set; }
+        public int MensajeRespuestaID { get; set; }
+    }
+
+
 }
 
 

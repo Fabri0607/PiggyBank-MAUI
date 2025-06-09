@@ -2,79 +2,198 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PiggyBank_MAUI.Views.PaginaAsistenteIA"
-             Title="PaginaAsistenteIA">
+             Title="Asistente"
+             BackgroundColor="#00986C">
 
     <Grid>
-        <!-- Main Content Area -->
-        <Border
-            BackgroundColor="White"
-            StrokeThickness="0"
-            VerticalOptions="FillAndExpand"
-            Padding="0"
-            StrokeShape="RoundRectangle 35,35,0,0">
-
-            <Grid RowDefinitions="*,Auto">
-                <!-- Chat Content Area -->
-                <ScrollView Grid.Row="0" Padding="30,60,30,30">
-                    <VerticalStackLayout 
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        Spacing="20">
-
-                        <!-- Piggy Bank Icon -->
-                        <Image Source="piggybank_logo_new.png" />
-
-                        <!-- Main Text -->
-                        <Label 
-                            Text="Realiza consultas sobre tus finanzas personales"
-                            FontSize="18"
-                            TextColor="Black"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            FontFamily="PoppinsRegular"
-                            LineHeight="1.2" />
-
-                    </VerticalStackLayout>
-                </ScrollView>
-
-                <!-- Input Area -->
-                <Border
-                    Grid.Row="1"
-                    BackgroundColor="#00C896"
-                    StrokeThickness="0"
-                    Margin="20,0,20,20"
-                    Padding="20,15"
-                    StrokeShape="RoundRectangle 25">
-
-                    <Grid ColumnDefinitions="*,Auto">
-                        <Entry 
-                            x:Name="MessageEntry"
-                            Placeholder="Escribe aquí..."
-                            PlaceholderColor="White"
-                            TextColor="White"
-                            FontSize="16"
-                            FontFamily="PoppinsRegular"
-                            BackgroundColor="Transparent"
-                            Grid.Column="0" />
-
-                        <Button 
-                            x:Name="SendButton"
-                            Text="→"
-                            BackgroundColor="White"
-                            TextColor="#00C896"
-                            FontSize="20"
-                            FontAttributes="Bold"
-                            CornerRadius="25"
-                            WidthRequest="50"
-                            HeightRequest="50"
-                            Grid.Column="1" />
-                    </Grid>
-
-                </Border>
+        <Grid BackgroundColor="#00986C"
+              HeightRequest="40"
+              VerticalOptions="Start">
             </Grid>
 
-        </Border>
+        <Grid Margin="0,40,0,0" VerticalOptions="FillAndExpand">
 
+            <Border BackgroundColor="White"
+                    VerticalOptions="FillAndExpand">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="40,40,0,0" />
+                </Border.StrokeShape>
+
+                <ScrollView Padding="0,20,0,100">
+                    <Grid>
+                        <StackLayout x:Name="EmptyStateLayout"
+                                     IsVisible="{Binding IsEmptyState}"
+                                     VerticalOptions="CenterAndExpand"
+                                     HorizontalOptions="Center"
+                                     Spacing="20">
+
+                            <Image Source="piggybank_logo_new_white.png"
+                                   WidthRequest="300"
+                                   HeightRequest="300"
+                                   HorizontalOptions="Center"/>
+
+                                <Label Text="No se han encontrado análisis, para empezar realiza una consulta"
+                                   FontSize="14"
+                                   Margin="5"
+                                   TextColor="#665"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   Padding="0,0">
+                            </Label>
+                        </StackLayout>                        <StackLayout x:Name="AnalisisLayout"
+                                     IsVisible="{Binding HasAnalisis}"
+                                     Padding="20,0,20,0">                            <Label 
+                                Text="Chats:"
+                                FontSize="18"
+                                FontAttributes="Bold" 
+                                Margin="0,0,0,5"
+                                HorizontalOptions="Start">
+                            </Label>
+                            <CollectionView ItemsSource="{Binding AnalisisList}">
+                                
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Padding="0,0,0,10">
+                                             <Frame BackgroundColor="#F0FFF4"
+                                                   CornerRadius="15"
+                                                   Padding="15"
+                                                   HasShadow="False"
+                                                   BorderColor="Transparent">
+                                                     <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="40"/>
+                                                    </Grid.ColumnDefinitions><StackLayout Grid.Column="0">
+                                                        <Label Text="{Binding Resumen}"
+                                                               FontSize="16"
+                                                               FontAttributes="Bold"
+                                                               TextColor="#333"/>
+                                                        <Label Text="{Binding FechaGeneracion, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                                               FontSize="12"
+                                                               TextColor="#666"/>
+                                                    </StackLayout>
+
+                                                    <Button Grid.Column="1"
+                                                            Text="⋮"
+                                                            BackgroundColor="Transparent"
+                                                            TextColor="#666"
+                                                            FontSize="25"
+                                                            FontAttributes="Bold"
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=ViewDetailsCommand}"
+                                                            CommandParameter="{Binding}"/>
+                                                </Grid>
+
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=ViewDetailsCommand}"
+                                                                         CommandParameter="{Binding}"/>
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </Grid>
+                </ScrollView>
+            </Border>
+        </Grid>
+
+        <Grid BackgroundColor="Transparent"
+              HeightRequest="70"  VerticalOptions="End"
+              Margin="0,0,0,10" 
+              Padding="30, 0"> <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Column="0"
+                   BackgroundColor="#00986C"  CornerRadius="10"  Margin=" 5" Padding="5"  HasShadow="False"
+                   BorderColor="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Frame BackgroundColor="White"
+                           CornerRadius="25"  Padding="0"  HasShadow="False"
+                           BorderColor="Transparent"
+                           Margin="5,5,5,5">
+                        
+                            
+                        
+                        <Entry x:Name="MessageEntry"
+                               Placeholder="Escribe tu consulta..."
+                               PlaceholderColor="#999"
+                               BackgroundColor="Transparent"
+                               VerticalOptions="Center"
+                               Margin="10,0"
+                               /> </Frame>
+                    <Button Grid.Column="1"
+                        Text="➤"  BackgroundColor="white"  TextColor="#00986C"
+                        CornerRadius="25"  WidthRequest="36"  HeightRequest="36" FontSize="11"  HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        
+                        Clicked="OnSendClicked"/>
+                </Grid>
+            </Frame>
+
+            
+        </Grid>
+
+        <Grid x:Name="ModalOverlay"
+              BackgroundColor="#80000000"
+              IsVisible="False">
+
+            <Frame BackgroundColor="White"
+                   CornerRadius="15"
+                   Padding="20"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="300">
+
+                <StackLayout Spacing="20">
+                    <Label Text="Configurar Consulta"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+
+                    <StackLayout>
+                        <Label Text="Fecha de Inicio:" FontSize="14" TextColor="#666"/>
+                        <DatePicker x:Name="FechaInicioPicker"
+                                    BackgroundColor="#F5F5F5"
+                                    Format="dd/MM/yyyy"/>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Fecha de Fin:" FontSize="14" TextColor="#666"/>
+                        <DatePicker x:Name="FechaFinPicker"
+                                    BackgroundColor="#F5F5F5"
+                                    Format="dd/MM/yyyy"/>
+                    </StackLayout>
+
+                    <!--<StackLayout>
+                        <Label Text="Contexto:" FontSize="14" TextColor="#666"/>
+                        <Picker x:Name="ContextoPicker"
+                                BackgroundColor="#F5F5F5"
+                                Title="Seleccionar contexto"
+                                ItemDisplayBinding="{Binding Nombre}"/>
+                    </StackLayout>-->
+
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Button Grid.Column="0"
+                                Text="Cancelar"
+                                BackgroundColor="#E0E0E0"
+                                TextColor="#666"
+                                Clicked="OnCancelModalClicked"/>
+                        <Button Grid.Column="1"
+                                Text="Enviar"
+                                BackgroundColor="#00986C"
+                                TextColor="White"
+                                Clicked="OnConfirmModalClicked"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </Grid>
     </Grid>
-
 </ContentPage>
