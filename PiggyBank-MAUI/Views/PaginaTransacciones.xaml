@@ -14,8 +14,6 @@
     </ContentPage.Resources>
 
     <Grid BackgroundColor="{StaticResource Verde-background}">
-        
-        <!-- Contenido -->
         <Border
             BackgroundColor="White"
             StrokeThickness="0"
@@ -26,165 +24,58 @@
 
             <ScrollView>
                 <VerticalStackLayout>
+                    <CollectionView x:Name="TransaccionesCollectionView"
+                                   ItemsSource="{Binding Transacciones}"
+                                   SelectionMode="None">
+                        <CollectionView.ItemTemplate>
 
-                    <!-- Ejemplo de card -->
-                    <Border BackgroundColor="White"
-                            Stroke="Gray"
-                            StrokeThickness="0.3"
-                            Padding="20,10"
-                            Margin="5"
-                            StrokeShape="RoundRectangle 20">
+                            <DataTemplate>
 
-                        <Border.Shadow>
-                            <Shadow Brush="#40000000"
-                                 Offset="-1,2"
-                                 Radius="5"
-                                 Opacity="1" 
-                             />
-                        </Border.Shadow>
+                                <Border BackgroundColor="White"
+                                        Stroke="Gray"
+                                        StrokeThickness="0.4"
+                                        Padding="20,10"
+                                        Margin="5,5,6,5"
+                                        StrokeShape="RoundRectangle 20">
 
-                        <Grid ColumnDefinitions="*,*" 
-                              ColumnSpacing="20" 
-                              HorizontalOptions="FillAndExpand">
 
-                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
 
-                                <Label x:Name="lbl_titulo"
-                                    Text="Salario" 
-                                       FontSize="16" 
-                                       FontAttributes="Bold" />
+                                    <Grid ColumnDefinitions="*,*" 
+                                          ColumnSpacing="20" 
+                                          HorizontalOptions="FillAndExpand">
 
-                                <Label Text="05/04/2025" 
-                                       FontSize="Small" 
-                                       HorizontalTextAlignment="End"       
-                                />
+                                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
 
-                            </VerticalStackLayout>
+                                            <Label Text="{Binding Titulo, FallbackValue='Sin titulo'}" 
+                                                   FontSize="16" 
+                                                   FontAttributes="Bold" />
 
-                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                            <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
+                                                   FontSize="Small" 
+                                                   HorizontalTextAlignment="End" />
 
-                                <Label Text="₡800,000" 
-                                       FontSize="Small" 
-                                       TextColor="{StaticResource Verde-Ingresos}" 
-                                       FontAttributes="Bold"
-                                />
+                                        </VerticalStackLayout>
 
-                                <Label Text="Ingreso" 
-                                   FontSize="14" 
-                                   HorizontalTextAlignment="End"       
-                                />
+                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                            <Label Text="{Binding Monto, StringFormat='₡{0:N0}'}" 
+                                                   FontSize="Small" 
+                                                   TextColor="{Binding ColorHex}" 
+                                                   FontAttributes="Bold" 
+                                                   HorizontalTextAlignment="End"/>
 
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Border>
-                    <!-- -->
+                                            <Label Text="{Binding Categoria}" 
+                                                   FontSize="14" 
+                                                   HorizontalTextAlignment="End" />
 
-                    <!-- Ejemplo de card (Borrar despues) -->
-                    <Border BackgroundColor="White"
-                            Stroke="Gray"
-                            StrokeThickness="0.3"
-                            Padding="20,10"
-                            Margin="5"
-                            StrokeShape="RoundRectangle 20">
+                                        </VerticalStackLayout>
+                                    </Grid>
 
-                        <Border.Shadow>
-                            <Shadow Brush="#40000000"
-                                 Offset="-1,2"
-                                 Radius="5"
-                                 Opacity="1" 
-                            />
-                        </Border.Shadow>
+                                </Border>
 
-                        <Grid ColumnDefinitions="*,*" 
-                              ColumnSpacing="20" 
-                              HorizontalOptions="FillAndExpand">
+                            </DataTemplate>
 
-                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
-
-                                <Label Text="KFC" 
-                                       FontSize="16" 
-                                       FontAttributes="Bold" />
-
-                                <Label Text="05/04/2025" 
-                                       FontSize="Small" 
-                                       HorizontalTextAlignment="End"       
-                                />
-
-                            </VerticalStackLayout>
-
-                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
-
-                                <Label Text="₡6,500" 
-                                       FontSize="Small" 
-                                       TextColor="Red" 
-                                       FontAttributes="Bold"
-                                />
-
-                                <Label Text="Comida" 
-                                   FontSize="14" 
-                                   HorizontalTextAlignment="End"       
-                                />
-
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Border>
-                    <!-- -->
-
-                    <!-- Ejemplo de card (Borrar despues) -->
-                    <Border BackgroundColor="White"
-                            Stroke="Gray"
-                            StrokeThickness="0.3"
-                            Padding="20,10"
-                            Margin="5"
-                            StrokeShape="RoundRectangle 20">
-
-                        <Border.Shadow>
-                            <Shadow Brush="#40000000"
-                                 Offset="-1,2"
-                                 Radius="5"
-                                 Opacity="1" 
-                            />
-                        </Border.Shadow>
-
-                        <Grid ColumnDefinitions="*,*" 
-                              ColumnSpacing="20" 
-                              HorizontalOptions="FillAndExpand">
-
-                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
-
-                                <Label Text="Alquiler" 
-                                       FontSize="16" 
-                                       FontAttributes="Bold" />
-
-                                <Label Text="05/04/2025" 
-                                       FontSize="Small" 
-                                       HorizontalTextAlignment="End"       
-                                />
-
-                            </VerticalStackLayout>
-
-                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
-
-                                <Label Text="₡180,000" 
-                                       FontSize="Small" 
-                                       TextColor="Red" 
-                                       FontAttributes="Bold"
-                                />
-
-                                <Label Text="Casa" 
-                                   FontSize="14" 
-                                   HorizontalTextAlignment="End"       
-                                />
-
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Border>
-                    <!-- -->
-
-                    <Button 
-                        Text="prueba"
-                        Clicked="Button_Clicked"
-                    />
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
                 </VerticalStackLayout>
             </ScrollView>

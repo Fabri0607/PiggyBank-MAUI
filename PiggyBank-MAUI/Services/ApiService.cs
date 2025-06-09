@@ -603,24 +603,24 @@ public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
             }
         }
 
-        //public async Task<ResTransaccionesPorUsuario> ListarTransaccionesPorUsuario(ReqTransaccionesPorUsuario req)
-        //{
-        //    try
-        //    {
-        //        UpdateAuthenticationHeader();
-        //        var json = JsonSerializer.Serialize(req);
-        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
-        //        var response = await _httpClient.GetAsync("transaccion/transaccionesPorUsuario", content);
-        //        var responseContent = await response.Content.ReadAsStringAsync();
-        //        Debug.WriteLine($"Respuesta del servidor: {responseContent}");
-        //        return JsonSerializer.Deserialize<ResTransaccionesPorUsuario>(responseContent);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Excepción en Listar Transacciones: {ex.Message}");
-        //        return new ResTransaccionesPorUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
-        //    }
-        //}
+        public async Task<ResTransaccionesPorUsuario> ListarTransaccionesPorUsuario(ReqTransaccionesPorUsuario req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("transaccion/transaccionesPorUsuario", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResTransaccionesPorUsuario>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en Listar Transacciones: {ex.Message}");
+                return new ResTransaccionesPorUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
 
         public async Task<ResActualizarTransaccion> ActualizarTransaccion(ReqActualizarTransaccion req)
         {

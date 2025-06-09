@@ -120,6 +120,8 @@ public partial class NuevaTransaccion : ContentPage
                 Debug.WriteLine("Transacción creada correctamente");
                 await DisplayAlert("Éxito", "Transacción creada correctamente", "OK");
                 LimpiarCampos();
+
+                
             }
             else
             {

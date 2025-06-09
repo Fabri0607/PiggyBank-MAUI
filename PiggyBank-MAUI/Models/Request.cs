@@ -218,7 +218,7 @@ namespace PiggyBank_MAUI.Models
         public int UsuarioID { get; set; }
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
-        public string TipoTransaccion { get; set; } = null;
+        public string? TipoTransaccion { get; set; }
     }
 
     public class ReqObtenerDetalleTransaccion : ReqBase
