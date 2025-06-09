@@ -30,6 +30,14 @@ namespace PiggyBank_MAUI.Models
     {
     }
 
+    public class ResSolicitarCambioPassword : ResBase
+    {
+    }
+
+    public class ResConfirmarCambioPassword : ResBase
+    {
+    }
+
     public class ResCambiarPassword : ResBase
     {
     }

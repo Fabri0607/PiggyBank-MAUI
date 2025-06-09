@@ -12,7 +12,7 @@ namespace PiggyBank_MAUI.Services
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-private const string BaseUrl = "https://1166-186-64-220-0.ngrok-free.app/api/"; // Reemplazarla cada vez que se inicie el servidor
+private const string BaseUrl = "http://34.68.201.182:44315/api/"; // Reemplazarla cada vez que se inicie el servidor
 
 public ApiService()
 {
@@ -542,6 +542,44 @@ public async Task<ResObtenerUsuario> ObtenerUsuario(ReqObtenerUsuario req)
             {
                 Debug.WriteLine($"Excepción en AsignarTransaccion: {ex.Message}");
                 return new ResAsignarTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResSolicitarCambioPassword> SolicitarCambioPassword(ReqSolicitarCambioPassword req)
+        {
+            try
+            {
+                Debug.WriteLine($"Enviando POST a usuarios/solicitar-cambio-password con Email={req.Email}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("usuarios/solicitar-cambio-password", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResSolicitarCambioPassword>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en SolicitarCambioPassword: {ex.Message}");
+                return new ResSolicitarCambioPassword { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResConfirmarCambioPassword> ConfirmarCambioPassword(ReqConfirmarCambioPassword req)
+        {
+            try
+            {
+                Debug.WriteLine($"Enviando POST a usuarios/confirmar-cambio-password con Email={req.Email}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("usuarios/confirmar-cambio-password", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResConfirmarCambioPassword>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ConfirmarCambioPassword: {ex.Message}");
+                return new ResConfirmarCambioPassword { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
     }

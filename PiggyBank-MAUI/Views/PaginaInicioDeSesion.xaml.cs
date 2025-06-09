@@ -33,14 +33,10 @@ namespace PiggyBank_MAUI.Views
                     await SecureStorage.SetAsync("Token", response.Token);
                     await SecureStorage.SetAsync("UsuarioID", response.Usuario.UsuarioID.ToString());
 
-                    // Opción 1: Cambiar MainPage en hilo principal
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
                         Application.Current.MainPage = new AppShell();
                     });
-
-                    // Opción 2: O usar Shell navigation si ya estás en un Shell context
-                    // await Shell.Current.GoToAsync("//PaginaHome");
                 }
                 else
                 {
@@ -54,10 +50,9 @@ namespace PiggyBank_MAUI.Views
             }
         }
 
-
         private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
-            await Navigation.PushAsync(new PaginaCambiarPassword());
+            await Navigation.PushAsync(new PaginaSolicitarCambioPassword());
         }
 
         private async void BotonRegistrarse_Clicked(object sender, EventArgs e)

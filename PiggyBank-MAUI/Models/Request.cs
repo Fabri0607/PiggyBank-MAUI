@@ -44,6 +44,18 @@ namespace PiggyBank_MAUI.Models
         public string NuevoPassword { get; set; }
     }
 
+    public class ReqSolicitarCambioPassword
+    {
+        public string Email { get; set; }
+    }
+
+    public class ReqConfirmarCambioPassword
+    {
+        public string Email { get; set; }
+        public string CodigoVerificacion { get; set; }
+        public string NuevoPassword { get; set; }
+    }
+
     public class ReqReenviarCodigoVerificacion
     {
         public string Email { get; set; }
