@@ -231,6 +231,9 @@ namespace PiggyBank_MAUI.Models
 
         public bool EsCompartido { get; set; }
         public int? GrupoID { get; set; }
+
+        // Add the missing property to fix CS1061  
+        public string DisplayText { get; set; }
     }
 
 }
