@@ -19,17 +19,8 @@
         >
 
         <Image 
-            Source="piggybank_logo_bienvenida.png"
-            WidthRequest="130"
-        />
-
-        <Label 
-            Text="PiggyBank"   
-            HorizontalOptions="Center"
-            FontSize="40"
-            FontFamily="Poppins-Regular"
-            FontAttributes="Bold"
-            TextColor="{StaticResource Verde-background}"
+            Source="piggybank_bienvenida.png"
+            WidthRequest="260"
         />
 
         <Label 

@@ -16,54 +16,33 @@
     <VerticalStackLayout Spacing="15" BackgroundColor="{StaticResource Verde-background}" Padding="0,0,0,0">
         <Border BackgroundColor="White"
             StrokeThickness="0"
-            Padding="30,30"
+            Padding="30,20"
             StrokeShape="RoundRectangle 40,40,0,0"
             HeightRequest="700"
             VerticalOptions="End">
 
             <VerticalStackLayout Spacing="5">
 
-                <!--<Border Padding="0,2" StrokeThickness="0" x:Name="btn_actualizar_perfil">
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer />
-                    </Border.GestureRecognizers>
-
-                    <HorizontalStackLayout Spacing="10">
-
-                        <Label 
-                             Text="Actualizar Perfil"    
-                             FontFamily="PoppinsRegular"
-                             FontSize="Medium"
-                             VerticalOptions="Center"
-                            VerticalTextAlignment="Center"
-                            Margin="0,5,0,0"
-                        />
-
-                    </HorizontalStackLayout>
-
-                </Border>
-
-                <Border Padding="0,2" StrokeThickness="0" x:Name="btn_cambiar_password">
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer />
-                    </Border.GestureRecognizers>
-
-                    <HorizontalStackLayout Spacing="10">
-
-                        <Label 
-                             Text="Cambiar Contraseña"    
-                             FontFamily="PoppinsRegular"
-                             FontSize="Medium"
-                             VerticalOptions="Center"
-                            VerticalTextAlignment="Center"
-                            Margin="0,5,0,0"
-                         />
-
-                    </HorizontalStackLayout>
-
-                </Border>-->
+                <CollectionView ItemsSource="{Binding CategoriasList}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="0,2"
+                                StrokeThickness="0"
+                                Margin="0,5">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.OnCategoriaTapped, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                     CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding Nombre}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="Medium"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   Margin="0,5,0,0" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
             </VerticalStackLayout>
         </Border>

@@ -1,5 +1,6 @@
 using PiggyBank_MAUI.Models;
 using PiggyBank_MAUI.Services;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace PiggyBank_MAUI.Views;
@@ -7,11 +8,13 @@ namespace PiggyBank_MAUI.Views;
 public partial class NuevaTransaccion : ContentPage
 {
     private readonly ApiService _apiService;
+    private ObservableCollection<Categoria> _categorias;
     public NuevaTransaccion()
 	{
 		InitializeComponent();
 
         _apiService = new ApiService();
+        _categorias = new ObservableCollection<Categoria>();
 
         BindingContext = this;
 
@@ -21,19 +24,34 @@ public partial class NuevaTransaccion : ContentPage
             "Gasto"
         };
 
-        CategoriaPicker.ItemsSource = new List<string>
+        CargarCategorias();
+    }
+
+    private async void CargarCategorias()
+    {
+        try
         {
-            "Servicios de Streaming",
-            "Comida",
-            "Transporte",
-            "Salud",
-            "Vivienda",
-            "Entretenimiento",
-            "Educación",
-            "Deudas",
-            "Salario",
-            "Otros Ingresos"
-        };
+            var response = await _apiService.ListarCategorias();
+            if (response.resultado && response.categorias != null)
+            {
+                _categorias.Clear();
+                foreach (var categoria in response.categorias)
+                {
+                    _categorias.Add(categoria);
+                }
+                CategoriaPicker.ItemsSource = _categorias;
+                CategoriaPicker.ItemDisplayBinding = new Binding("Nombre");
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudieron cargar las categorías", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Excepción al cargar categorías: {ex.Message}");
+            await DisplayAlert("Error", "Error al cargar las categorías", "OK");
+        }
     }
 
     private void LimpiarCampos()
@@ -96,8 +114,9 @@ public partial class NuevaTransaccion : ContentPage
                 return;
             }
 
-            // Mapear categoría a CategoriaID (esto es un ejemplo, ajustar según tu lógica)
-            int categoriaId = 2; // Aquí deberías obtener el ID real de la categoría seleccionada
+            // Obtener el CategoriaID de la categoría seleccionada
+            var categoriaSeleccionada = (Categoria)CategoriaPicker.SelectedItem;
+            int categoriaId = categoriaSeleccionada.CategoriaID;
 
             // Crear el objeto de solicitud
             var req = new ReqIngresarTransaccion

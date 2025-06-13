@@ -277,6 +277,20 @@ namespace PiggyBank_MAUI.Models
         public string Content { get; set; } // Contenido del mensaje
     }
 
+    public class ReqCrearCategoria : ReqBase
+    {
+        public string Nombre { get; set; }
+        public string? Icono { get; set; }
+        public string? ColorHex { get; set; }
+    }
+
+    public class ReqActualizarCategoria : ReqBase
+    {
+        public string Nombre { get; set; }
+        public string? Icono { get; set; }
+        public string? ColorHex { get; set; }
+    }
+
 
 }
 

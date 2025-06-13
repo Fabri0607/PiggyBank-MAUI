@@ -644,7 +644,7 @@ namespace PiggyBank_MAUI.Services
                 return new ResActualizarTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
-        
+
         public async Task<ResObtenerAnalisisUsuario> ObtenerAnalisis(ReqObtenerAnalisisUsuario req)
         {
             try
@@ -696,6 +696,84 @@ namespace PiggyBank_MAUI.Services
             catch (Exception ex)
             {
                 return new ResCrearAnalisis { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResEliminarTransaccion> EliminarTransaccion(ReqEliminarTransaccion req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando DELETE a transacciones con id={req.TransaccionID}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("transaccion/eliminar", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResEliminarTransaccion>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en CrearMeta: {ex.Message}");
+                return new ResEliminarTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResObtenerDetalleTransaccion> ObtenerDetalleTransaccion(ReqObtenerDetalleTransaccion req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a transacciones con id={req.TransaccionID}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("transaccion/obtenerDetalle", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResObtenerDetalleTransaccion>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en CrearMeta: {ex.Message}");
+                return new ResObtenerDetalleTransaccion { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResCrearCategoria> CrearCategoria(ReqCrearCategoria req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a categorias con Nombre={req.Nombre}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("categoria/crear", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResCrearCategoria>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en CrearCategoria: {ex.Message}");
+                return new ResCrearCategoria { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResObtenerCategorias> ListarCategorias()
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine("Enviando GET a categorias");
+                var response = await _httpClient.GetAsync("categoria/listar");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResObtenerCategorias>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ListarCategorias: {ex.Message}");
+                return new ResObtenerCategorias { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
     }

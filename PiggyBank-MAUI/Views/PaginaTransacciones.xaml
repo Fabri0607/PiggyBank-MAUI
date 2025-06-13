@@ -52,7 +52,8 @@
 
                                             <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
                                                    FontSize="Small" 
-                                                   HorizontalTextAlignment="Start" />
+                                                   HorizontalTextAlignment="Start" 
+                                                   TextColor="#1F2937"/>
 
                                         </VerticalStackLayout>
 
@@ -65,7 +66,9 @@
 
                                             <Label Text="{Binding Categoria}" 
                                                    FontSize="14" 
-                                                   HorizontalTextAlignment="End" />
+                                                   HorizontalTextAlignment="End" 
+                                                   TextColor="#1F2937"
+                                                   />
 
                                         </VerticalStackLayout>
                                     </Grid>

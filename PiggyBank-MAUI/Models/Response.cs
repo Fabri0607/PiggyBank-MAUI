@@ -204,7 +204,25 @@ namespace PiggyBank_MAUI.Models
         public int MensajeRespuestaID { get; set; }
     }
 
+    public class ResCrearCategoria : ResBase
+    {
 
+    }
+
+    public class ResActualizarCategoria : ResBase
+    {
+
+    }
+
+    public class ResEliminarCategoria : ResBase
+    {
+
+    }
+
+    public class ResObtenerCategorias : ResBase
+    {
+        public List<Categoria> categorias { get; set; }
+    }
 }
 
 

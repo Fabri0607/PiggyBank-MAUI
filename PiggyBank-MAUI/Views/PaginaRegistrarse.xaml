@@ -27,7 +27,7 @@
             BackgroundColor="White"
             StrokeThickness="0"
             VerticalOptions="End"
-            HeightRequest="655"
+            HeightRequest="660"
             Padding="30,30"
             StrokeShape="RoundRectangle 40,40,0,0">
 
