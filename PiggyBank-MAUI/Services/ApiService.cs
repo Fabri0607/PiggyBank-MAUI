@@ -661,26 +661,22 @@ namespace PiggyBank_MAUI.Services
             }
         }
 
-        //public async Task<ResObtenerTodosContexto> ObtenerTodosContexto()
-        //{
-        //    Debug.WriteLine("Iniciando ObtenerTodosContexto en ApiService");
-        //    try
-        //    {
-        //        UpdateAuthenticationHeader();
-        //        var request = new HttpRequestMessage(HttpMethod.Get, "asistente/contextos");
-        //        request.Content = null;
-        //        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //        var response = await _httpClient.SendAsync(request);
-        //        var responseContent = await response.Content.ReadAsStringAsync();
-        //        Debug.WriteLine($"Raw response from asistente/contextos: {responseContent}");
-        //        return JsonSerializer.Deserialize<ResObtenerTodosContexto>(responseContent);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Excepción en ObtenerTodosContexto: {ex.Message}");
-        //        return new ResObtenerTodosContexto { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
-        //    }
-        //}
+        public async Task<ResObtenerTodosContexto> ObtenerTodosContexto()
+        {
+            Debug.WriteLine("Iniciando ObtenerTodosContexto en ApiService");
+            try
+            {
+                UpdateAuthenticationHeader();
+                var response = await _httpClient.GetAsync("asistente/contextos");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResObtenerTodosContexto>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ObtenerTodosContexto: {ex.Message}");
+                return new ResObtenerTodosContexto { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
 
         public async Task<ResCrearAnalisis> CrearAnalisis(ReqCrearAnalisis req)
         {
@@ -698,6 +694,20 @@ namespace PiggyBank_MAUI.Services
                 return new ResCrearAnalisis { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
+
+        public async Task<ResObtenerMensajes> ObtenerMensajes(int analisisId)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var response = await _httpClient.GetAsync($"asistente/Mensajes/{analisisId}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResObtenerMensajes>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResObtenerMensajes { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
     }
 }
-

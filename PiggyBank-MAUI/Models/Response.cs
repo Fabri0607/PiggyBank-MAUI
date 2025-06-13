@@ -204,21 +204,4 @@ namespace PiggyBank_MAUI.Models
         public int MensajeRespuestaID { get; set; }
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

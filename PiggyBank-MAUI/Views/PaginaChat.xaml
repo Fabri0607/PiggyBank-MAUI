@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PiggyBank_MAUI.Views.PaginaChat"
+             xmlns:converters="clr-namespace:PiggyBank_MAUI.Converters"
+             Title="Chat"
+             BackgroundColor="#00986C">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:RoleToColorConverter x:Key="RoleToColorConverter" />
+            <converters:MarkdownToHtmlConverter x:Key="MarkdownToHtmlConverter" />
+            <converters:RoleToTextConverter x:Key="RoleConverter" />
+            <converters:RoleToAlignmentConverter x:Key="RoleToAlignmentConverter" />
+            <converters:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter" />
+            <converters:RoleToInverseVisibilityConverter x:Key="RoleToInverseVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid BackgroundColor="#00986C"
+              HeightRequest="40"
+              VerticalOptions="Start">
+        </Grid>
+
+        <Grid Margin="0,40,0,0" VerticalOptions="FillAndExpand">
+            <Border BackgroundColor="White"
+                    VerticalOptions="FillAndExpand">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="40,40,0,0" />
+                </Border.StrokeShape>
+
+                <ScrollView Padding="0,20,0,100">
+                    <CollectionView ItemsSource="{Binding Messages}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10" HorizontalOptions="{Binding Role, Converter={StaticResource RoleToAlignmentConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Path Data="m 0 40 l 20 -20 l 0 -20 z" Fill="{Binding Role, Converter={StaticResource RoleToColorConverter}}" VerticalOptions="End" IsVisible="{Binding Role, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter='user'}" Grid.Column="0"/>
+
+                                    <Border Stroke="Transparent" StrokeThickness="0" Padding="10"  BackgroundColor="{Binding Role, Converter={StaticResource RoleToColorConverter}}" StrokeShape="RoundRectangle 10,10,10,10" Grid.Column="1">
+                                        <StackLayout>
+                                            <Label FontAttributes="Italic">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                        <Binding Path="Role" Converter="{StaticResource RoleConverter}" />
+                                                        <Binding Path="FechaEnvio" StringFormat="{}{0:dd/MM/yyyy HH:mm}" />
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                            <WebView BackgroundColor="Transparent">
+                                                <WebView.Source>
+                                                    <HtmlWebViewSource Html="{Binding Content, Converter={StaticResource MarkdownToHtmlConverter}}" />
+                                                </WebView.Source>
+                                            </WebView>
+                                        </StackLayout>
+                                    </Border>
+
+                                    <Path Data="m 20 40 l -20 -20 l 0 -20 z" Fill="{Binding Role, Converter={StaticResource RoleToColorConverter}}" VerticalOptions="End" IsVisible="{Binding Role, Converter={StaticResource RoleToInverseVisibilityConverter}, ConverterParameter='user'}" Grid.Column="2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Border>
+        </Grid>
+
+        <Grid BackgroundColor="Transparent"
+              HeightRequest="70"  VerticalOptions="End"
+              Margin="0,0,0,10" 
+              Padding="30, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Frame Grid.Column="0"
+                   BackgroundColor="#00986C"  CornerRadius="10"  Margin=" 5" Padding="5"  HasShadow="False"
+                   BorderColor="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Frame BackgroundColor="White"
+                           CornerRadius="25"  Padding="0"  HasShadow="False"
+                           BorderColor="Transparent"
+                           Margin="5,5,5,5">
+                        
+                        <Entry x:Name="MessageEntry"
+                               Placeholder="Escribe tu consulta..."
+                               PlaceholderColor="#999"
+                               BackgroundColor="Transparent"
+                               VerticalOptions="Center"
+                               Margin="10,0"
+                               />
+                    </Frame>
+                    <Button Grid.Column="1"
+                        Text="➤"  BackgroundColor="white"  TextColor="#00986C"
+                        CornerRadius="25"  WidthRequest="36"  HeightRequest="36" FontSize="11"  HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+        </Grid>
+    </Grid>
+    
+</ContentPage>
