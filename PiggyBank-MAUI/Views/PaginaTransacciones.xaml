@@ -14,80 +14,71 @@
     </ContentPage.Resources>
 
     <Grid BackgroundColor="{StaticResource Verde-background}">
-        <Border
-            BackgroundColor="White"
-            StrokeThickness="0"
-            VerticalOptions="End"
-            HeightRequest="630"
-            Padding="30,30"
-            StrokeShape="RoundRectangle 40,40,0,0">
-
-            <ScrollView>
-                <VerticalStackLayout>
-                    <CollectionView x:Name="TransaccionesCollectionView"
-                                   ItemsSource="{Binding Transacciones}"
-                                   SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-
-                            <DataTemplate>
-
-                                <Border BackgroundColor="White"
-                                        Stroke="Gray"
-                                        StrokeThickness="0.4"
-                                        Padding="20,10"
-                                        Margin="5,5,6,5"
-                                        StrokeShape="RoundRectangle 20">
-
-
-
-                                    <Grid ColumnDefinitions="*,*" 
-                                          ColumnSpacing="20" 
-                                          HorizontalOptions="FillAndExpand">
-
-                                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
-
-                                            <Label Text="{Binding Titulo, FallbackValue='Sin titulo'}" 
-                                                   FontSize="16" 
-                                                   FontAttributes="Bold" />
-
-                                            <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
-                                                   FontSize="Small" 
-                                                   HorizontalTextAlignment="Start" 
-                                                   TextColor="#1F2937"/>
-
-                                        </VerticalStackLayout>
-
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
-                                            <Label Text="{Binding Monto, StringFormat='₡{0:N0}'}" 
-                                                   FontSize="Small" 
-                                                   TextColor="{Binding ColorHex}" 
-                                                   FontAttributes="Bold" 
-                                                   HorizontalTextAlignment="End"/>
-
-                                            <Label Text="{Binding Categoria}" 
-                                                   FontSize="14" 
-                                                   HorizontalTextAlignment="End" 
-                                                   TextColor="#1F2937"
-                                                   />
-
-                                        </VerticalStackLayout>
-                                    </Grid>
-
-                                </Border>
-
-                            </DataTemplate>
-
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                    <Button 
-                        Text="abrir bottom sheet"
-                        Clicked="Button_Clicked_1"
-                        Margin="0,20,0,0"
-                    />
-
-                </VerticalStackLayout>
-            </ScrollView>
+        <Border BackgroundColor="White"
+                StrokeThickness="0"
+                VerticalOptions="End"
+                HeightRequest="630"
+                Padding="30,30"
+                StrokeShape="RoundRectangle 40,40,0,0">
+            <Grid>
+                <!-- Loader centrado dentro del Border -->
+                <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                  IsVisible="{Binding IsLoading}"
+                                  Color="{StaticResource Verde-Principal}"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"
+                                  HeightRequest="50"
+                                  WidthRequest="50"/>
+                <!-- Contenido de la lista -->
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <CollectionView x:Name="TransaccionesCollectionView"
+                                       ItemsSource="{Binding Transacciones}"
+                                       SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="White"
+                                            Stroke="Gray"
+                                            StrokeThickness="0.4"
+                                            Padding="20,10"
+                                            Margin="5,5,6,5"
+                                            StrokeShape="RoundRectangle 20">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.MostrarBottomSheetCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                                 CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="0.6*,0.4*" 
+                                              ColumnSpacing="20" 
+                                              HorizontalOptions="FillAndExpand">
+                                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
+                                                <Label Text="{Binding Titulo, FallbackValue='Sin titulo'}" 
+                                                       FontSize="16" 
+                                                       FontAttributes="Bold" />
+                                                <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
+                                                       FontSize="Small" 
+                                                       HorizontalTextAlignment="Start" 
+                                                       TextColor="#1F2937"/>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                                <Label Text="{Binding Monto, StringFormat='₡{0:N0}'}" 
+                                                       FontSize="Small" 
+                                                       TextColor="{Binding ColorHex}" 
+                                                       FontAttributes="Bold" 
+                                                       HorizontalTextAlignment="End"/>
+                                                <Label Text="{Binding Categoria}" 
+                                                       FontSize="14" 
+                                                       HorizontalTextAlignment="End" 
+                                                       TextColor="#1F2937"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Grid>
         </Border>
     </Grid>
 </ContentPage>

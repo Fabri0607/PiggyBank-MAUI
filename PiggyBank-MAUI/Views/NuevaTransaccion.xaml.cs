@@ -143,6 +143,7 @@ public partial class NuevaTransaccion : ContentPage
             var response = await _apiService.IngresarTransaccion(req);
             if (response.resultado)
             {
+                PaginaTransacciones.TransaccionAgregada = true; // Indicar que se agregó una nueva transacción
                 Debug.WriteLine("Transacción creada correctamente");
                 await DisplayAlert("Éxito", "Transacción creada correctamente", "OK");
                 LimpiarCampos();

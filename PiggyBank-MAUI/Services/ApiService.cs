@@ -633,7 +633,7 @@ namespace PiggyBank_MAUI.Services
                 Debug.WriteLine($"Enviando PUT a transacciones con titulo={req.Titulo}");
                 var json = JsonSerializer.Serialize(req);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("transaccion/actualizar", content);
+                var response = await _httpClient.PutAsync("transaccion/actualizar", content);
                 var responseContent = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"Respuesta del servidor: {responseContent}");
                 return JsonSerializer.Deserialize<ResActualizarTransaccion>(responseContent);

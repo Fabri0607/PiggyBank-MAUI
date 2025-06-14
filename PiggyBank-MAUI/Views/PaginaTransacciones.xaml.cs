@@ -1,14 +1,21 @@
 using PiggyBank_MAUI.Models;
 using PiggyBank_MAUI.Services;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace PiggyBank_MAUI.Views;
 
-public partial class PaginaTransacciones : ContentPage
+public partial class PaginaTransacciones : ContentPage, INotifyPropertyChanged
 {
     private readonly ApiService _apiService;
     private ObservableCollection<TransaccionDTO> _transacciones;
+    private bool _isLoading;
+    public ICommand MostrarBottomSheetCommand { get; }
+
+    // Bandera estática para indicar si se agregó una transacción
+    public static bool TransaccionAgregada { get; set; }
 
     public ObservableCollection<TransaccionDTO> Transacciones
     {
@@ -20,25 +27,43 @@ public partial class PaginaTransacciones : ContentPage
         }
     }
 
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
+        }
+    }
+
     public PaginaTransacciones()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         NavigationPage.SetHasNavigationBar(this, false);
         Transacciones = new ObservableCollection<TransaccionDTO>();
         _apiService = new ApiService();
+        MostrarBottomSheetCommand = new Command<TransaccionDTO>(async (transaccion) => await MostrarBottomSheet(transaccion));
         BindingContext = this;
-        CargarTransacciones();
-    }
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new ActualizarTransaccion());
+        // Suscribirse a los mensajes de BottomSheetTransacciones
+        MessagingCenter.Subscribe<BottomSheetTransacciones, TransaccionDTO>(this, "EditarTransaccion", async (sender, transaccion) =>
+        {
+            await Navigation.PushAsync(new ActualizarTransaccion(transaccion));
+        });
+        MessagingCenter.Subscribe<BottomSheetTransacciones>(this, "TransaccionEliminada", (sender) =>
+        {
+            CargarTransacciones();
+        });
+
+        CargarTransacciones();
     }
 
     private async void CargarTransacciones()
     {
         try
         {
+            IsLoading = true; // Mostrar loader
             // Obtener UsuarioID
             var usuarioIdString = await SecureStorage.GetAsync("UsuarioID");
             if (!int.TryParse(usuarioIdString, out int usuarioId))
@@ -51,9 +76,9 @@ public partial class PaginaTransacciones : ContentPage
             var req = new ReqTransaccionesPorUsuario
             {
                 UsuarioID = usuarioId,
-                FechaInicio = null, // Puedes ajustar para filtrar por fechas
+                FechaInicio = null,
                 FechaFin = null,
-                TipoTransaccion = null, // Puedes ajustar para filtrar por tipo
+                TipoTransaccion = null,
                 token = Preferences.Get("AuthToken", string.Empty)
             };
 
@@ -64,7 +89,6 @@ public partial class PaginaTransacciones : ContentPage
                 Transacciones.Clear();
                 foreach (var transaccion in response.transacciones)
                 {
-                    // Asegurar que el color sea correcto según el tipo
                     transaccion.ColorHex = transaccion.Tipo == "Ingreso" ? "#5EBF7E" : "#FF0000";
                     Transacciones.Add(transaccion);
                 }
@@ -80,29 +104,41 @@ public partial class PaginaTransacciones : ContentPage
             Debug.WriteLine($"Excepción en CargarTransacciones: {ex.Message}");
             await DisplayAlert("Error", "Error inesperado al cargar las transacciones", "OK");
         }
+        finally
+        {
+            IsLoading = false; // Ocultar loader
+        }
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        CargarTransacciones(); // Recargar transacciones al aparecer la página
+        // Recargar si no hay transacciones o si se agregó una nueva transacción
+        if (Transacciones == null || Transacciones.Count == 0 || TransaccionAgregada)
+        {
+            CargarTransacciones();
+            TransaccionAgregada = false; // Resetear la bandera
+        }
     }
 
-    private void Button_Clicked_1(object sender, EventArgs e)
+    protected override void OnDisappearing()
     {
-        var page = new BottomSheetTransacciones();
-
-        page.HasHandle = true;
-        page.HasBackdrop = true;
-        page.IsCancelable = true;
-        page.HandleColor = Colors.Gray;
-
-
-        page.ShowAsync(Window);
+        base.OnDisappearing();
+        // Desuscribirse para evitar memory leaks
+        //MessagingCenter.Unsubscribe<BottomSheetTransacciones, TransaccionDTO>(this, "EditarTransaccion");
+        //MessagingCenter.Unsubscribe<BottomSheetTransacciones>(this, "TransaccionEliminada");
     }
 
-    //public async Task ActualizarTransacciones()
-    //{
-    //    await CargarTransacciones();
-    //}
+    private async Task MostrarBottomSheet(TransaccionDTO transaccion)
+    {
+        var bottomSheet = new BottomSheetTransacciones(transaccion)
+        {
+            HasHandle = true,
+            HasBackdrop = true,
+            IsCancelable = true,
+            HandleColor = Colors.Gray
+        };
+        await bottomSheet.ShowAsync(Window);
+    }
+
 }
