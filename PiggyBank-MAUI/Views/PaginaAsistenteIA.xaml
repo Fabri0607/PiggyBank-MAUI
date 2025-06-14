@@ -9,7 +9,7 @@
         <Grid BackgroundColor="#00986C"
               HeightRequest="40"
               VerticalOptions="Start">
-            </Grid>
+        </Grid>
 
         <Grid Margin="0,40,0,0" VerticalOptions="FillAndExpand">
 
@@ -158,35 +158,59 @@
                            HorizontalOptions="Center"/>
 
                     <StackLayout>
+                        <Label Text="Rango de Fechas:" FontSize="14" TextColor="#666"/>
+                        <Picker x:Name="DateRangePicker"
+                                Title="Seleccione un rango"
+                                BackgroundColor="#F5F5F5"
+                                TextColor="#333"
+                                TitleColor="#999"
+                                Margin="0,0,0,10"
+                                
+                                SelectedIndexChanged="OnDateRangePickerSelectedIndexChanged">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Última semana</x:String>
+                                    <x:String>Último mes</x:String>
+                                    <x:String>Último año</x:String>
+                                    <x:String>Todos los tiempos</x:String>
+                                    <x:String>Personalizado</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </StackLayout>
+
+                    <StackLayout x:Name="CustomDateRangeLayout" IsVisible="False">
                         <Label Text="Fecha de Inicio:" FontSize="14" TextColor="#666"/>
                         <DatePicker x:Name="FechaInicioPicker"
                                     BackgroundColor="#F5F5F5"
                                     Format="dd/MM/yyyy"/>
                     </StackLayout>
 
-                    <StackLayout>
+                    <StackLayout x:Name="CustomDateRangeLayout2" IsVisible="False">
                         <Label Text="Fecha de Fin:" FontSize="14" TextColor="#666"/>
                         <DatePicker x:Name="FechaFinPicker"
                                     BackgroundColor="#F5F5F5"
                                     Format="dd/MM/yyyy"/>
                     </StackLayout>
 
-                    <!--<StackLayout>
-                        <Label Text="Contexto:" FontSize="14" TextColor="#666"/>
+                    <StackLayout>
+                        <Label Text="Modelo:" FontSize="14" TextColor="#666"/>
                         <Picker x:Name="ContextoPicker"
                                 BackgroundColor="#F5F5F5"
-                                Title="Seleccionar contexto"
+                                Title="Seleccionar modelo"
                                 ItemDisplayBinding="{Binding Nombre}"/>
-                    </StackLayout>-->
+                    </StackLayout>
 
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                         <Button Grid.Column="0"
                                 Text="Cancelar"
+                                x:Name="BotonCancelar"
                                 BackgroundColor="#E0E0E0"
                                 TextColor="#666"
                                 Clicked="OnCancelModalClicked"/>
                         <Button Grid.Column="1"
+                                x:Name="BotonEnviar"
                                 Text="Enviar"
                                 BackgroundColor="#00986C"
                                 TextColor="White"

@@ -28,7 +28,7 @@
 
                 <VerticalStackLayout Spacing="10">
                     <Label 
-                        Text="ID de Transacción"
+                        Text="Seleccionar Transacción"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         FontFamily="PoppinsRegular" />
@@ -37,44 +37,21 @@
                         StrokeThickness="0"
                         BackgroundColor="{StaticResource Verde-muy-claro}"
                         StrokeShape="RoundRectangle 20">
-                        <Entry
-                            x:Name="TransactionIdEntry"
-                            Placeholder="ID de la transacción"
-                            Keyboard="Numeric"
+                        <Picker
+                            x:Name="TransactionPicker"
+                            Title="Selecciona una transacción"
+                            FontFamily="PoppinsRegular"
                             BackgroundColor="Transparent"
                             TextColor="Black"
                             Margin="10,0"
-                            PlaceholderColor="Gray"
-                            FontFamily="PoppinsRegular" />
-                    </Border>
-                </VerticalStackLayout>
-
-                <VerticalStackLayout Spacing="10">
-                    <Label 
-                        Text="Monto Asignado"
-                        FontSize="Medium"
-                        FontAttributes="Bold"
-                        FontFamily="PoppinsRegular" />
-                    <Border
-                        Stroke="{StaticResource Verde-muy-claro}"
-                        StrokeThickness="0"
-                        BackgroundColor="{StaticResource Verde-muy-claro}"
-                        StrokeShape="RoundRectangle 20">
-                        <Entry
-                            x:Name="AssignedAmountEntry"
-                            Placeholder="Monto asignado"
-                            Keyboard="Numeric"
-                            BackgroundColor="Transparent"
-                            TextColor="Black"
-                            Margin="10,0"
-                            PlaceholderColor="Gray"
-                            FontFamily="PoppinsRegular" />
+                            ItemDisplayBinding="{Binding DisplayText}" />
                     </Border>
                 </VerticalStackLayout>
 
                 <Grid ColumnDefinitions="*,*">
                     <Button 
                         Grid.Column="0"
+                        x:Name="CancelButton"
                         Text="Cancelar"
                         FontFamily="PoppinsRegular"
                         BackgroundColor="{StaticResource Rojo-Cancelar}"
@@ -86,6 +63,7 @@
                         Clicked="CancelButton_Clicked" />
                     <Button 
                         Grid.Column="1"
+                        x:Name="AssignButton"
                         Text="Asignar"
                         FontFamily="PoppinsRegular"
                         BackgroundColor="{StaticResource Verde-background}"

@@ -224,19 +224,3 @@ namespace PiggyBank_MAUI.Models
         public List<Categoria> categorias { get; set; }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -167,7 +167,7 @@ namespace PiggyBank_MAUI.Models
 
     public class AnalisisDTO
     {
-        public int AnalisisId { get; set; }
+        public int AnalisisID { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public string Resumen { get; set; }
@@ -179,7 +179,7 @@ namespace PiggyBank_MAUI.Models
     public class MensajeDTO
     {
         public int MensajeID { get; set; }
-        public int AnalisisId { get; set; }
+        public int AnalisisID { get; set; }
         public string Role { get; set; } // 'user', 'assistant'
         public string Content { get; set; }
         public int Orden { get; set; } // Order of the message in the conversation
@@ -231,6 +231,9 @@ namespace PiggyBank_MAUI.Models
 
         public bool EsCompartido { get; set; }
         public int? GrupoID { get; set; }
+
+        // Add the missing property to fix CS1061  
+        public string DisplayText { get; set; }
     }
 
 }

@@ -20,16 +20,16 @@ public partial class PaginaAsistenteIA : ContentPage
         }
     }
 
-    //private ObservableCollection<ContextoDTO> _contextosList;
-    //public ObservableCollection<ContextoDTO> ContextosList
-    //{
-    //    get => _contextosList;
-    //    set
-    //    {
-    //        _contextosList = value;
-    //        OnPropertyChanged(nameof(ContextosList));
-    //    }
-    //}
+    private ObservableCollection<ContextoDTO> _contextosList;
+    public ObservableCollection<ContextoDTO> ContextosList
+    {
+        get => _contextosList;
+        set
+        {
+            _contextosList = value;
+            OnPropertyChanged(nameof(ContextosList));
+        }
+    }
 
     public ICommand ViewDetailsCommand { get; }
     public ICommand SendCommand { get; }
@@ -66,55 +66,57 @@ public partial class PaginaAsistenteIA : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
         _apiService = new ApiService();
         _analisisList = new ObservableCollection<AnalisisDTO>();
-        //_contextosList = new ObservableCollection<ContextoDTO>();
+        _contextosList = new ObservableCollection<ContextoDTO>();
         ViewDetailsCommand = new Command<AnalisisDTO>(async (analisis) => await OnViewDetails(analisis));
         BindingContext = this;
-        LoadAnalisis();
-        //LoadContextos();
+        
     }
 
-    //private async void LoadContextos()
-    //{
-    //    Debug.WriteLine("Iniciando LoadContextos");
-    //    try
-    //    {
-    //        var response = await _apiService.ObtenerTodosContexto();
-    //        Debug.WriteLine($"Respuesta de ObtenerTodosContexto: {response.resultado}");
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        LoadContextos();
+        LoadAnalisis();
+    }
 
-    //        if (response.resultado)
-    //        {
-    //            ContextosList.Clear();
-    //            if (response.Contextos != null)
-    //            {
-    //                foreach (var contexto in response.Contextos)
-    //                {
-    //                    ContextosList.Add(contexto);
-    //                }
-    //            }
-    //            ContextoPicker.ItemsSource = ContextosList;
-    //        }
-    //        else
-    //        {
-    //            await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al cargar los contextos", "OK");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Debug.WriteLine($"Exception in LoadContextos: {ex.Message}");
-    //        await DisplayAlert("Error", "Ocurrió un error inesperado al cargar los contextos.", "OK");
-    //    }
-    //}
+
+    private async void LoadContextos()
+    {
+        Debug.WriteLine("Iniciando LoadContextos");
+        try
+        {
+            var response = await _apiService.ObtenerTodosContexto();
+            Debug.WriteLine($"Respuesta de ObtenerTodosContexto: {response.resultado}");
+
+            if (response.resultado)
+            {
+                ContextosList.Clear();
+                if (response.Contextos != null)
+                {
+                    foreach (var contexto in response.Contextos)
+                    {
+                        ContextosList.Add(contexto);
+                    }
+                }
+                ContextoPicker.ItemsSource = ContextosList;
+            }
+            else
+            {
+                await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al cargar los contextos", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception in LoadContextos: {ex.Message}");
+            await DisplayAlert("Error", "Ocurrió un error inesperado al cargar los contextos.", "OK");
+        }
+    }
 
     private async Task OnViewDetails(AnalisisDTO analisis)
     {
         try
         {
-            string mensaje = $"Fecha Generación: {analisis.FechaGeneracion:dd/MM/yyyy HH:mm}\n" +
-                           $"Período: {analisis.FechaInicio:dd/MM/yyyy} - {analisis.FechaFin:dd/MM/yyyy}\n\n" +
-                           $"Contexto: {analisis.Contexto}\n\n" +
-                           $"Resumen: {analisis.Resumen}";
-
-            await DisplayAlert("Detalles del Análisis", mensaje, "OK");
+            await Navigation.PushAsync(new PaginaChat(analisis.AnalisisID));
         }
         catch (Exception ex)
         {
@@ -163,6 +165,7 @@ public partial class PaginaAsistenteIA : ContentPage
         {
             IsBusy = false;
         }
+        IsBusy = false;
     }
 
     private void OnSendClicked(object sender, EventArgs e)
@@ -175,6 +178,49 @@ public partial class PaginaAsistenteIA : ContentPage
         ModalOverlay.IsVisible = false;
     }
 
+    private void OnDateRangePickerSelectedIndexChanged(object sender, EventArgs e)
+    {
+        var picker = (Picker)sender;
+        int selectedIndex = picker.SelectedIndex;
+
+        if (selectedIndex != -1)
+        {
+            var selectedOption = (string)picker.ItemsSource[selectedIndex];
+            var today = DateTime.Today;
+
+            if (selectedOption == "Personalizado")
+            {
+                CustomDateRangeLayout.IsVisible = true;
+                CustomDateRangeLayout2.IsVisible = true;
+            }
+            else
+            {
+                CustomDateRangeLayout.IsVisible = false;
+                CustomDateRangeLayout2.IsVisible = false;
+
+                switch (selectedOption)
+                {
+                    case "Última semana":
+                        FechaInicioPicker.Date = today.AddDays(-7);
+                        FechaFinPicker.Date = today;
+                        break;
+                    case "Último mes":
+                        FechaInicioPicker.Date = today.AddMonths(-1);
+                        FechaFinPicker.Date = today;
+                        break;
+                    case "Último año":
+                        FechaInicioPicker.Date = today.AddYears(-1);
+                        FechaFinPicker.Date = today;
+                        break;
+                    case "Todos los tiempos":
+                        FechaInicioPicker.Date = new DateTime(2000, 1, 1);
+                        FechaFinPicker.Date = today;
+                        break;
+                }
+            }
+        }
+    }
+
     private async void OnConfirmModalClicked(object sender, EventArgs e)
     {
         if (IsBusy) return;
@@ -182,20 +228,27 @@ public partial class PaginaAsistenteIA : ContentPage
         try
         {
             IsBusy = true;
+            BotonEnviar.IsEnabled = false;
+            BotonCancelar.IsEnabled = false;
+            var selectedContexto = ContextoPicker.SelectedItem as ContextoDTO;
+            if (selectedContexto == null)
+            {
+                await DisplayAlert("Error", "Debe seleccionar un contexto.", "OK");
+                return;
+            }
+            if (FechaFinPicker.Date < FechaInicioPicker.Date)
+            {
+                await DisplayAlert("Error", "La fecha de fin debe ser posterior a la fecha de inicio.", "OK");
+                return;
+            }
 
-            //var selectedContexto = ContextoPicker.SelectedItem as ContextoDTO;
-            //if (selectedContexto == null)
-            //{
-            //    await DisplayAlert("Error", "Debe seleccionar un contexto.", "OK");
-            //    return;
-            //}
 
             var request = new ReqCrearAnalisis
             {
                 token = Preferences.Get("AuthToken", string.Empty),
                 FechaInicio = FechaInicioPicker.Date,
                 FechaFin = FechaFinPicker.Date,
-                //ContextoID = selectedContexto.ContextoID,
+                ContextoID = selectedContexto.ContextoID,
                 Consulta = MessageEntry.Text
             };
 
@@ -203,10 +256,17 @@ public partial class PaginaAsistenteIA : ContentPage
 
             if (response.resultado)
             {
-                await DisplayAlert("Éxito", "Análisis creado correctamente.", "OK");
                 ModalOverlay.IsVisible = false;
                 MessageEntry.Text = string.Empty;
-                LoadAnalisis(); // Recargar la lista de análisis
+                ContextoPicker.SelectedIndex = -1;
+                DateRangePicker.SelectedIndex = -1;
+                FechaInicioPicker.ClearValue(DatePicker.DateProperty);
+                FechaFinPicker.ClearValue(DatePicker.DateProperty);
+                CustomDateRangeLayout.IsVisible = false;
+                CustomDateRangeLayout2.IsVisible = false;
+                LoadAnalisis();
+                await Navigation.PushAsync(new PaginaChat(response.AnalisisID));
+                
             }
             else
             {
@@ -221,6 +281,9 @@ public partial class PaginaAsistenteIA : ContentPage
         finally
         {
             IsBusy = false;
+            BotonEnviar.IsEnabled = true;
+            BotonCancelar.IsEnabled = true;
+
         }
     }
 }
