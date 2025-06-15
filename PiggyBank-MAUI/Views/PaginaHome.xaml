@@ -35,6 +35,7 @@
                     FontFamily="Poppins-Regular"
                     HorizontalOptions="Center"/>
             </VerticalStackLayout>
+            
 
             <Border
                 BackgroundColor="White"

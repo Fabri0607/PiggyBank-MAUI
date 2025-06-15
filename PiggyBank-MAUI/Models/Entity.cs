@@ -236,6 +236,12 @@ namespace PiggyBank_MAUI.Models
         public string DisplayText { get; set; }
     }
 
+    public class ChartData
+    {
+        public string Tipo { get; set; }
+        public decimal Total { get; set; }
+    }
+
 }
 
     
