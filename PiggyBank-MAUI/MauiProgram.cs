@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using The49.Maui.BottomSheet;
 
 namespace PiggyBank_MAUI
@@ -11,6 +12,7 @@ namespace PiggyBank_MAUI
             builder
                 .UseMauiApp<App>()
                 .UseBottomSheet()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

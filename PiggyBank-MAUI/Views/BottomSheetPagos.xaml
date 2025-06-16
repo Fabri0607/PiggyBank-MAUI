@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                   xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
-                   x:Class="PiggyBank_MAUI.Views.BottomSheetTransacciones"
-                   Padding="16,32">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+             xmlns:local="clr-namespace:PiggyBank_MAUI.Converters" 
+             x:Class="PiggyBank_MAUI.Views.BottomSheetPagos"
+             Padding="16,32">
 
     <the49:BottomSheet.Detents>
         <the49:HeightDetent Height="450"/>
@@ -16,60 +17,69 @@
         <Color x:Key="Azul-Botones">#0068FF</Color>
         <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
         <Color x:Key="Rojo-Cancelar">#d20606</Color>
+
+        <local:EstadoToColorConverter x:Key="EstadoToColorConverter" />
+        <local:EstadoToTextColorConverter x:Key="EstadoToTextColorConverter" />
     </the49:BottomSheet.Resources>
 
     <VerticalStackLayout Spacing="15">
-        <Label Text="Detalles de la transacción"
+        <Label Text="Detalles del pago"
                FontFamily="PoppinsMedium"
                FontSize="20"
                HorizontalOptions="Center" />
 
-        <Grid ColumnDefinitions="0.6*,0.4*"
+        <Grid ColumnDefinitions="0.7*,0.3*"
               ColumnSpacing="20"
               HorizontalOptions="FillAndExpand">
             <VerticalStackLayout Grid.Column="0"
                                 HorizontalOptions="Start">
-                <Label Text="{Binding Transaccion.Titulo, FallbackValue='Sin título'}"
+                <Label Text="{Binding Pago.Titulo, FallbackValue='Sin título'}"
                        FontFamily="PoppinsMedium"
                        FontSize="Medium" />
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Column="1"
-                                HorizontalOptions="End">
-                <Label Text="{Binding Transaccion.Monto, StringFormat='₡{0:N0}'}"
-                       FontFamily="PoppinsRegular"
-                       FontSize="Medium"
-                       HorizontalTextAlignment="End"
-                       TextColor="{Binding Transaccion.ColorHex}"/>
+                                VerticalOptions="CenterAndExpand">
+                <Border StrokeShape="RoundRectangle 20,20,20,20"
+                        StrokeThickness="0"
+                        BackgroundColor="{Binding Pago.Estado, Converter={StaticResource EstadoToColorConverter}}"
+                        VerticalOptions="Center">
+                    <Label Text="{Binding Pago.Estado, FallbackValue='Sin estado'}"
+                           FontFamily="PoppinsRegular"
+                           FontSize="13"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           TextColor="{Binding Pago.Estado, Converter={StaticResource EstadoToTextColorConverter}}"/>
+                </Border>
             </VerticalStackLayout>
         </Grid>
 
         <Border StrokeThickness="0.3"/>
 
         <VerticalStackLayout>
-            <Label Text="Fecha"
+            <Label Text="Monto"
                    FontFamily="PoppinsRegular"
                    FontSize="Small" />
-            <Label Text="{Binding Transaccion.Fecha, StringFormat='{0:dd/MM/yyyy}', FallbackValue='Sin fecha'}"
+            <Label Text="{Binding Pago.Monto, StringFormat='₡{0:N0}', FallbackValue='₡0'}"
                    FontFamily="PoppinsRegular"
                    FontSize="18"
                    TextColor="Black" />
         </VerticalStackLayout>
 
         <VerticalStackLayout>
-            <Label Text="Descripción"
+            <Label Text="Fecha de vencimiento"
                    FontFamily="PoppinsRegular"
                    FontSize="Small" />
-            <Label Text="{Binding Transaccion.Descripcion, FallbackValue='Sin descripción'}"
+            <Label Text="{Binding Pago.Fecha_Vencimiento, StringFormat='{0:dd/MM/yyyy}', FallbackValue='Sin fecha'}"
                    FontFamily="PoppinsRegular"
                    FontSize="18"
                    TextColor="Black" />
         </VerticalStackLayout>
 
         <VerticalStackLayout>
-            <Label Text="Categoria"
+            <Label Text="Categoría"
                    FontFamily="PoppinsRegular"
                    FontSize="Small" />
-            <Label Text="{Binding Transaccion.Categoria, FallbackValue='Sin categoría'}"
+            <Label Text="{Binding Pago.Categoria, FallbackValue='Sin categoría'}"
                    FontFamily="PoppinsRegular"
                    FontSize="18"
                    TextColor="Black" />
@@ -97,4 +107,5 @@
                     Command="{Binding EliminarCommand}"/>
         </Grid>
     </VerticalStackLayout>
+
 </the49:BottomSheet>

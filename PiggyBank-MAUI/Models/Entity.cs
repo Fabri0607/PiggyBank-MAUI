@@ -242,6 +242,18 @@ namespace PiggyBank_MAUI.Models
         public decimal Total { get; set; }
     }
 
+    public class PagoDTO
+    {
+        public int PagoID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Titulo { get; set; }
+        public decimal Monto { get; set; }
+        public string Categoria { get; set; }
+        public DateTime Fecha_Vencimiento { get; set; }
+        public string Estado { get; set; }
+        public int CategoriaID { get; set; }
+    }
+
 }
 
     

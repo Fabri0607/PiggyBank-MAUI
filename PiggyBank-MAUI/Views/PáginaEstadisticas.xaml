@@ -241,7 +241,8 @@
                                                        FontSize="16"
                                                        Grid.Column="1"
                                                        TextColor="#991B1B"
-                                                       HorizontalOptions="End" />
+                                                       HorizontalOptions="End" 
+                                                       VerticalOptions="Center"/>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>

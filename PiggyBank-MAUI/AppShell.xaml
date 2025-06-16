@@ -58,8 +58,8 @@
             <ShellContent ContentTemplate="{DataTemplate views:PaginaTransacciones}" />
         </Tab>
 
-        <Tab Title="Estadísticas" Icon="estadisticas.png">
-            <ShellContent ContentTemplate="{DataTemplate views:PáginaEstadisticas}" />
+        <Tab Title="Pagos" Icon="calendario.png">
+            <ShellContent ContentTemplate="{DataTemplate views:PagosProgramados}" />
         </Tab>
 
         <Tab Title="Asistente" Icon="piggybank_ai.png">

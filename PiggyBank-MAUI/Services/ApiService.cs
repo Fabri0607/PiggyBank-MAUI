@@ -787,5 +787,105 @@ namespace PiggyBank_MAUI.Services
                 return new ResObtenerCategorias { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
             }
         }
+
+        public async Task<ResIngresarPagoProgramado> IngresarPagoProgramado(ReqIngresarPagoProgramado req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a pagos-programados con Titulo={req.Titulo}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("pagos/ingresar", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResIngresarPagoProgramado>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en IngresarPagoProgramado: {ex.Message}");
+                return new ResIngresarPagoProgramado { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResPagosPorUsuario> ListarPagosPorUsuario(ReqPagosPorUsuario req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a pagos-programados con UsuarioID={req.UsuarioID}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("pagos/listarPorUsuario", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResPagosPorUsuario>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ListarPagosPorUsuario: {ex.Message}");
+                return new ResPagosPorUsuario { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResObtenerDetallePago> ObtenerDetallePago(ReqObtenerDetallePago req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando POST a pagos-programados con PagoID={req.PagoID}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("pagos/obtenerDetalle", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResObtenerDetallePago>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ObtenerDetallePago: {ex.Message}");
+                return new ResObtenerDetallePago { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResActualizarPago> ActualizarPago(ReqActualizarPago req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando PUT a pagos-programados con Titulo={req.Titulo}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PutAsync("pagos/actualizar", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResActualizarPago>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en ActualizarPago: {ex.Message}");
+                return new ResActualizarPago { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<ResEliminarPago> EliminarPago(ReqEliminarPago req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                Debug.WriteLine($"Enviando DELETE a pagos-programados con PagoID={req.PagoID}");
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("pagos/eliminar", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta del servidor: {responseContent}");
+                return JsonSerializer.Deserialize<ResEliminarPago>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Excepción en EliminarPago: {ex.Message}");
+                return new ResEliminarPago { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
     }
 }

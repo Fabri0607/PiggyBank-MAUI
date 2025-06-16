@@ -21,15 +21,15 @@
             Margin="0,0,0,15"    
         />
 
-        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_pagos_perfil" Margin="0,0,0,10">
+        <Border Padding="0,2" StrokeThickness="0" x:Name="btn_pagos" Margin="0,0,0,10">
 
             <Border.GestureRecognizers>
-                <TapGestureRecognizer />
+                <TapGestureRecognizer Tapped="btn_estadisticas_Tapped"/>
             </Border.GestureRecognizers>
 
             <HorizontalStackLayout Spacing="10">
 
-                <Image Source="pagos.png"
+                <Image Source="estadisticas.png"
                        HeightRequest="26"
                        WidthRequest="26"
                        VerticalOptions="Center"
@@ -37,7 +37,7 @@
                 />
 
                 <Label 
-                     Text="Pagos programados"    
+                     Text="Estadísticas"    
                      FontFamily="PoppinsRegular"
                      FontSize="Medium"
                      VerticalOptions="Center"

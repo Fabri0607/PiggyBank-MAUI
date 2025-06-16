@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PiggyBank_MAUI.Converters" 
+             x:Class="PiggyBank_MAUI.Views.PagosProgramados"
+             Title="Pagos"
+             BackgroundColor="#f8f9fa">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            IconImageSource="add.png"
+            Clicked="ToolbarItem_Clicked"
+            />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Verde-Ingresos">#5EBF7E</Color>
+        <Color x:Key="Rojo-Pendiente">#991B1B</Color>
+        
+        <local:EstadoToColorConverter x:Key="EstadoToColorConverter" />
+        <local:EstadoToTextColorConverter x:Key="EstadoToTextColorConverter" />
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="Auto,*">
+        <!-- Encabezado -->
+        <VerticalStackLayout Grid.Row="0" Padding="20,20" Spacing="5">
+            <Frame HasShadow="True"
+                   Padding="15,13"
+                   CornerRadius="20"
+                   BorderColor="#f1f1f5">
+                <VerticalStackLayout>
+                    <Label Text="Pagos pendientes"
+                           FontFamily="PoppinsRegular"
+                           FontSize="Small"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding TotalPendiente, StringFormat='₡{0:N0}'}"
+                           FontFamily="PoppinsMedium"
+                           FontSize="20"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Rojo-Pendiente}"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+
+        <!-- Contenido desplazable -->
+        <Grid Grid.Row="1">
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                              IsVisible="{Binding IsLoading}"
+                              Color="{StaticResource Verde-Principal}"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center"
+                              HeightRequest="50"
+                              WidthRequest="50"/>
+            <ScrollView>
+                <VerticalStackLayout Padding="20,5" Spacing="12">
+                    <CollectionView x:Name="PagosCollectionView"
+                                    ItemsSource="{Binding Pagos}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout Padding="3,0">
+                                    <Frame HasShadow="True"
+                                       Padding="15,13"
+                                       CornerRadius="20"
+                                       BorderColor="#f1f1f5"
+                                       Margin="0,0,0,15">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.MostrarBottomSheetCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                                 CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                        <VerticalStackLayout>
+                                            <Grid ColumnDefinitions="0.7*,0.3*">
+                                                <VerticalStackLayout Grid.Column="0">
+                                                    <Label Text="{Binding Titulo, FallbackValue='Sin título'}"
+                                                           FontFamily="PoppinsRegular"
+                                                           FontSize="Medium"/>
+                                                    <Label Text="{Binding Categoria}"
+                                                           FontFamily="PoppinsRegular"
+                                                           TextColor="Gray"/>
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
+                                                    <Border StrokeShape="RoundRectangle 20,20,20,20"
+                                                            StrokeThickness="0"
+                                                            BackgroundColor="{Binding Estado, Converter={StaticResource EstadoToColorConverter}}"
+                                                            VerticalOptions="Center">
+                                                        <Label Text="{Binding Estado}"
+                                                               FontFamily="PoppinsRegular"
+                                                               FontSize="13"
+                                                               HorizontalOptions="Center"
+                                                               HorizontalTextAlignment="Center"
+                                                               TextColor="{Binding Estado, Converter={StaticResource EstadoToTextColorConverter}}"/>
+                                                    </Border>
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                            <Grid ColumnDefinitions="0.6*,0.4*" Margin="0,10,0,0">
+                                                <Label Grid.Column="0"
+                                                       Text="Monto: "
+                                                       FontFamily="PoppinsRegular"
+                                                       TextColor="Gray"/>
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Monto, StringFormat='₡{0:N0}'}"
+                                                       FontFamily="PoppinsMedium"
+                                                       HorizontalOptions="End"
+                                                       HorizontalTextAlignment="End"
+                                                       FontSize="15"/>
+                                            </Grid>
+                                            <Grid ColumnDefinitions="0.6*,0.4*">
+                                                <Label Grid.Column="0"
+                                                       Text="Fecha de vencimiento: "
+                                                       FontFamily="PoppinsRegular"
+                                                       TextColor="Gray"/>
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Fecha_Vencimiento, StringFormat='{0:dd/MM/yyyy}'}"
+                                                       FontFamily="PoppinsMedium"
+                                                       HorizontalOptions="End"
+                                                       HorizontalTextAlignment="End"
+                                                       FontSize="Small"/>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+
+</ContentPage>

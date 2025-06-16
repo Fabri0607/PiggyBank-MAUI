@@ -291,7 +291,44 @@ namespace PiggyBank_MAUI.Models
         public string? ColorHex { get; set; }
     }
 
+    public class ReqIngresarPagoProgramado : ReqBase
+    {
+        public int UsuarioID { get; set; }
+        public string Titulo { get; set; }
+        public decimal Monto { get; set; }
+        public DateTime Fecha_Vencimiento { get; set; }
+        public int CategoriaID { get; set; }
+    }
 
+    public class ReqPagosPorUsuario : ReqBase
+    {
+        public int UsuarioID { get; set; }
+        public DateTime? FechaInicio { get; set; }
+        public DateTime? FechaFin { get; set; }
+    }
+
+    public class ReqObtenerDetallePago : ReqBase
+    {
+        public int PagoID { get; set; }
+        public int UsuarioID { get; set; }
+    }
+
+    public class ReqActualizarPago : ReqBase
+    {
+        public int PagoID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Titulo { get; set; }
+        public decimal Monto { get; set; }
+        public DateTime Fecha_Vencimiento { get; set; }
+        public string Estado { get; set; }
+        public int CategoriaID { get; set; }
+    }
+
+    public class ReqEliminarPago : ReqBase
+    {
+        public int PagoID { get; set; }
+        public int UsuarioID { get; set; }
+    }
 }
 
 

@@ -15,4 +15,10 @@ public partial class MiBottomSheet: BottomSheet
 
 		await Shell.Current.Navigation.PushAsync(categoriasPage);
     }
+
+    private async void btn_estadisticas_Tapped(object sender, TappedEventArgs e)
+    {
+        var pagosPage = new PáginaEstadisticas();
+        await Shell.Current.Navigation.PushAsync(pagosPage);
+    }
 }

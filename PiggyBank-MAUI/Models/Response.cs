@@ -223,4 +223,36 @@ namespace PiggyBank_MAUI.Models
     {
         public List<Categoria> categorias { get; set; }
     }
+
+    public class ResIngresarPagoProgramado : ResBase
+    {
+
+    }
+
+    public class ResPagosPorUsuario : ResBase
+    {
+        public List<PagoDTO> Pagos { get; set; }
+    }
+
+    public class ResObtenerDetallePago : ResBase
+    {
+        public int PagoID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Titulo { get; set; }
+        public decimal Monto { get; set; }
+        public string NombreCategoria { get; set; }
+        public DateTime Fecha_Vencimiento { get; set; }
+        public string Estado { get; set; }
+        public int CategoriaID { get; set; }
+    }
+
+    public class ResActualizarPago : ResBase
+    {
+
+    }
+
+    public class ResEliminarPago : ResBase
+    {
+
+    }
 }

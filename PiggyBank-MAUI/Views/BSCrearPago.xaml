@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+             x:Class="PiggyBank_MAUI.Views.BSCrearPago"
+             Padding="16,32"
+             >
+
+    <the49:BottomSheet.Detents>
+        <the49:HeightDetent Height="500"/>
+    </the49:BottomSheet.Detents>
+
+    <the49:BottomSheet.Resources>
+        <Color x:Key="Verde-background">#00986C</Color>
+        <Color x:Key="Verde-muy-claro">#DFF7E2</Color>
+        <Color x:Key="Verde-Principal">#008259</Color>
+        <Color x:Key="Azul-Botones">#0068FF</Color>
+        <Color x:Key="Rojo-Cancelar">#d20606</Color>
+    </the49:BottomSheet.Resources>
+
+    <VerticalStackLayout Spacing="5">
+        <Label 
+            Text="Nuevo Pago Programado"    
+            FontFamily="PoppinsRegular"
+            FontSize="19"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Margin="0,0,0,5"
+        />
+
+        <VerticalStackLayout Margin="0,0,0,10">
+            <Label 
+                Text="Titulo"
+                FontFamily="PoppinsRegular"
+                FontSize="17"
+            />
+
+            <Entry 
+                BackgroundColor="#f2f2f2" 
+                Placeholder="Netflix, Alquiler, etc."
+                TextColor="Black"
+                PlaceholderColor="Gray"
+            />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Margin="0,0,0,10">
+            <Label 
+                Text="Monto"
+                FontFamily="PoppinsRegular"
+                FontSize="17"
+            />
+
+            <Entry 
+                BackgroundColor="#f2f2f2" 
+                Placeholder="5000"
+                TextColor="Black"
+                PlaceholderColor="Gray"
+            />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Margin="0,0,0,10">
+            <Label 
+                Text="Fecha de vencimiento"
+                FontFamily="PoppinsRegular"
+                FontSize="17"
+            />
+
+            <DatePicker x:Name="picker_fecha"
+                   BackgroundColor="#f2f2f2"
+                   TextColor="Black"
+                   Margin="10,0"  
+                   FontFamily="PoppinsRegular" />
+           
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Margin="0,0,0,10">
+            <Label 
+                Text="Categoria"
+                FontFamily="PoppinsRegular"
+                FontSize="17"
+            />
+
+            <Picker x:Name="CategoriaPicker"
+                 Title="Selecciona una categoría"
+                 TextColor="Black"
+                 Margin="10,0"
+                 TitleColor="Gray"
+                 FontFamily="PoppinsRegular"
+            />
+
+        </VerticalStackLayout>
+
+        <Button x:Name="Boton_GuardarPago"
+            Text="Guardar"
+            FontFamily="PoppinsRegular"
+            BackgroundColor="{StaticResource Verde-background}"
+            FontSize="Medium"
+            FontAttributes="Bold"
+            CornerRadius="40" 
+            Margin="0,15,0,0"
+            Clicked="Boton_GuardarPago_Clicked"
+/>
+    </VerticalStackLayout>
+
+</the49:BottomSheet>
