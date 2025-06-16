@@ -227,12 +227,15 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        <!--<Label Text="No hay transacciones disponibles"
+                        <!--<Label Text="Visualiza aqui tus últimas transacciones"
+                               HorizontalTextAlignment="End"
                                FontSize="Medium"
                                FontFamily="PoppinsRegular"
                                TextColor="Gray"
                                IsVisible="{Binding UltimasTransacciones, Converter={StaticResource EmptyCollectionToVisibilityConverter}}"
                                HorizontalOptions="Center" />-->
+                        <!-- Espaciador para llenar el espacio restante -->
+                        <BoxView BackgroundColor="Transparent" HeightRequest="50" IsVisible="{Binding UltimasTransacciones, Converter={StaticResource EmptyCollectionToVisibilityConverter}, ConverterParameter='true'}" />
                     </VerticalStackLayout>
 
 
