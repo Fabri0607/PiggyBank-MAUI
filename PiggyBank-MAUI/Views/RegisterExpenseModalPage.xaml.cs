@@ -1,7 +1,7 @@
 using PiggyBank_MAUI.Models;
 using PiggyBank_MAUI.Services;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace PiggyBank_MAUI.Views
@@ -10,17 +10,50 @@ namespace PiggyBank_MAUI.Views
     {
         private readonly ApiService _apiService;
         private readonly GrupoDTO _grupo;
+        private ObservableCollection<Categoria> _categorias;
 
         public RegisterExpenseModalPage(GrupoDTO grupo)
         {
             InitializeComponent();
             _apiService = new ApiService();
             _grupo = grupo;
+            _categorias = new ObservableCollection<Categoria>();
 
-            // Aquí puedes cargar las categorías desde una API o una lista estática
-            CategoryPicker.ItemsSource = new List<string> { "General", "Comida", "Transporte", "Entretenimiento" }; // Ejemplo estático
-            CategoryPicker.SelectedIndex = 0;
+            BindingContext = this;
+
+            // Set up StatusPicker
+            StatusPicker.ItemsSource = new List<string> { "Pendiente", "Pagado" }; // Adjust as needed
             StatusPicker.SelectedIndex = 0;
+
+            // Load categories
+            CargarCategorias();
+        }
+
+        private async void CargarCategorias()
+        {
+            try
+            {
+                var response = await _apiService.ListarCategorias();
+                if (response.resultado && response.categorias != null)
+                {
+                    _categorias.Clear();
+                    foreach (var categoria in response.categorias)
+                    {
+                        _categorias.Add(categoria);
+                    }
+                    CategoryPicker.ItemsSource = _categorias;
+                    CategoryPicker.ItemDisplayBinding = new Binding("Nombre");
+                    CategoryPicker.SelectedIndex = 0;
+                }
+                else
+                {
+                    await DisplayAlert("Error", "No se pudieron cargar las categorías", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Error al cargar las categorías: {ex.Message}", "OK");
+            }
         }
 
         private async void RegisterButton_Clicked(object sender, EventArgs e)
@@ -37,14 +70,21 @@ namespace PiggyBank_MAUI.Views
                 return;
             }
 
+            if (CategoryPicker.SelectedItem == null)
+            {
+                await DisplayAlert("Error", "La categoría es obligatoria", "OK");
+                return;
+            }
+
             var usuarioId = int.Parse(await SecureStorage.GetAsync("UsuarioID") ?? "0");
+            var categoriaSeleccionada = (Categoria)CategoryPicker.SelectedItem;
             var req = new ReqRegistrarGastoCompartido
             {
                 GrupoID = _grupo.GrupoID,
                 UsuarioID = usuarioId,
                 Monto = monto,
                 Estado = StatusPicker.SelectedItem?.ToString() ?? "Pendiente",
-                CategoriaID = CategoryPicker.SelectedIndex + 1, // Ajusta según tu lógica de categorías
+                CategoriaID = categoriaSeleccionada.CategoriaID, // Use the selected category's ID
                 Descripcion = DescriptionEntry.Text,
                 token = Preferences.Get("AuthToken", string.Empty)
             };

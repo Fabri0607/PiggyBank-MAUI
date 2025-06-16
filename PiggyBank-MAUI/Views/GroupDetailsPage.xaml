@@ -170,7 +170,7 @@
                                                     TextColor="Gray"
                                                     FontFamily="PoppinsRegular" />  
                                                 <Label 
-                                                    Text="{Binding Monto, StringFormat='{0:C}'}"
+                                                    Text="{Binding Monto, StringFormat='₡{0:N0}'}"
                                                     FontSize="Small"
                                                     TextColor="Gray"
                                                     FontFamily="PoppinsRegular" />
@@ -236,7 +236,7 @@
                                                 VerticalOptions="Center" />
                                             <Label 
                                                 Grid.Column="1"
-                                                Text="{Binding Saldo, StringFormat='{0:C}', FallbackValue='0.00'}"
+                                                Text="{Binding Saldo, StringFormat='₡{0:N0}', FallbackValue='0.00'}"
                                                 FontSize="Medium"
                                                 TextColor="{Binding Saldo, Converter={StaticResource BalanceColorConverter}}"
                                                 FontFamily="PoppinsRegular"

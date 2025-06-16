@@ -1,4 +1,4 @@
-using PiggyBank_MAUI.Models;
+锘縰sing PiggyBank_MAUI.Models;
 using PiggyBank_MAUI.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -31,7 +31,7 @@ namespace PiggyBank_MAUI.Views
                 var usuarioIdString = await SecureStorage.GetAsync("UsuarioID");
                 if (!int.TryParse(usuarioIdString, out int usuarioId))
                 {
-                    await DisplayAlert("Error", "Usuario no autenticado. Por favor, inicia sesi髇 nuevamente.", "OK");
+                    await DisplayAlert("Error", "Usuario no autenticado. Por favor, inicia sesi贸n nuevamente.", "OK");
                     await Navigation.PushAsync(new PaginaInicioDeSesion());
                     return;
                 }
@@ -39,7 +39,7 @@ namespace PiggyBank_MAUI.Views
                 var token = Preferences.Get("AuthToken", string.Empty);
                 if (string.IsNullOrEmpty(token))
                 {
-                    await DisplayAlert("Error", "Sesi髇 expirada. Por favor, inicia sesi髇 nuevamente.", "OK");
+                    await DisplayAlert("Error", "Sesi贸n expirada. Por favor, inicia sesi贸n nuevamente.", "OK");
                     await Navigation.PushAsync(new PaginaInicioDeSesion());
                     return;
                 }
@@ -61,13 +61,13 @@ namespace PiggyBank_MAUI.Views
 
                     foreach (var transaccion in orderedTransacciones)
                     {
-                        transaccion.DisplayText = $"{transaccion.Titulo} - {transaccion.Fecha:dd/MM/yyyy} - {transaccion.Monto:C}";
+                        transaccion.DisplayText = $"{transaccion.Titulo} - {transaccion.Fecha:dd/MM/yyyy} - 鈧transaccion.Monto:N2}";
                         _transacciones.Add(transaccion);
                     }
 
                     if (_transacciones.Count == 0)
                     {
-                        await DisplayAlert("Informaci髇", "No hay transacciones disponibles", "OK");
+                        await DisplayAlert("Informaci贸n", "No hay transacciones disponibles", "OK");
                     }
                 }
                 else
@@ -75,7 +75,7 @@ namespace PiggyBank_MAUI.Views
                     Debug.WriteLine($"Error al cargar transacciones: {response.error?.FirstOrDefault()?.Message}");
                     if (response.error?.FirstOrDefault()?.Message.Contains("token", StringComparison.OrdinalIgnoreCase) == true)
                     {
-                        await DisplayAlert("Error", "Sesi髇 no v醠ida. Por favor, inicia sesi髇 nuevamente.", "OK");
+                        await DisplayAlert("Error", "Sesi贸n no v谩lida. Por favor, inicia sesi贸n nuevamente.", "OK");
                         await Navigation.PushAsync(new PaginaInicioDeSesion());
                     }
                     else
@@ -86,7 +86,7 @@ namespace PiggyBank_MAUI.Views
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Excepci髇 en LoadTransactionsAsync: {ex.Message}");
+                Debug.WriteLine($"Excepci贸n en LoadTransactionsAsync: {ex.Message}");
                 await DisplayAlert("Error", "Error inesperado al cargar transacciones", "OK");
             }
         }
@@ -101,7 +101,7 @@ namespace PiggyBank_MAUI.Views
 
                     if (TransactionPicker.SelectedItem == null)
                     {
-                        await DisplayAlert("Error", "Por favor, selecciona una transacci髇", "OK");
+                        await DisplayAlert("Error", "Por favor, selecciona una transacci贸n", "OK");
                         button.IsEnabled = true;
                         return;
                     }
@@ -111,7 +111,7 @@ namespace PiggyBank_MAUI.Views
                     var usuarioIdString = await SecureStorage.GetAsync("UsuarioID");
                     if (!int.TryParse(usuarioIdString, out int usuarioId))
                     {
-                        await DisplayAlert("Error", "Usuario no autenticado. Por favor, inicia sesi髇 nuevamente.", "OK");
+                        await DisplayAlert("Error", "Usuario no autenticado. Por favor, inicia sesi贸n nuevamente.", "OK");
                         await Navigation.PushAsync(new PaginaInicioDeSesion());
                         button.IsEnabled = true;
                         return;
@@ -120,7 +120,7 @@ namespace PiggyBank_MAUI.Views
                     var token = Preferences.Get("AuthToken", string.Empty);
                     if (string.IsNullOrEmpty(token))
                     {
-                        await DisplayAlert("Error", "Sesi髇 expirada. Por favor, inicia sesi髇 nuevamente.", "OK");
+                        await DisplayAlert("Error", "Sesi贸n expirada. Por favor, inicia sesi贸n nuevamente.", "OK");
                         await Navigation.PushAsync(new PaginaInicioDeSesion());
                         button.IsEnabled = true;
                         return;
@@ -135,26 +135,26 @@ namespace PiggyBank_MAUI.Views
                         token = token
                     };
 
-                    Debug.WriteLine($"Asignando transacci髇: MetaID={req.MetaID}, TransaccionID={req.TransaccionID}, MontoAsignado={req.MontoAsignado}");
+                    Debug.WriteLine($"Asignando transacci贸n: MetaID={req.MetaID}, TransaccionID={req.TransaccionID}, MontoAsignado={req.MontoAsignado}");
                     var response = await _apiService.AsignarTransaccion(req);
 
                     if (response.resultado)
                     {
-                        Debug.WriteLine("Transacci髇 asignada exitosamente");
-                        await DisplayAlert("蓌ito", "Transacci髇 asignada correctamente", "OK");
+                        Debug.WriteLine("Transacci贸n asignada exitosamente");
+                        await DisplayAlert("脡xito", "Transacci贸n asignada correctamente", "OK");
                         await Navigation.PopModalAsync();
                     }
                     else
                     {
-                        Debug.WriteLine($"Error al asignar transacci髇: {response.error?.FirstOrDefault()?.Message}");
+                        Debug.WriteLine($"Error al asignar transacci贸n: {response.error?.FirstOrDefault()?.Message}");
                         if (response.error?.FirstOrDefault()?.Message.Contains("token", StringComparison.OrdinalIgnoreCase) == true)
                         {
-                            await DisplayAlert("Error", "Sesi髇 no v醠ida. Por favor, inicia sesi髇 nuevamente.", "OK");
+                            await DisplayAlert("Error", "Sesi贸n no v谩lida. Por favor, inicia sesi贸n nuevamente.", "OK");
                             await Navigation.PushAsync(new PaginaInicioDeSesion());
                         }
                         else
                         {
-                            await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al asignar la transacci髇", "OK");
+                            await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al asignar la transacci贸n", "OK");
                         }
                     }
 
@@ -163,8 +163,8 @@ namespace PiggyBank_MAUI.Views
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Excepci髇 en AssignButton_Clicked: {ex.Message}");
-                await DisplayAlert("Error", "Error inesperado al asignar la transacci髇", "OK");
+                Debug.WriteLine($"Excepci贸n en AssignButton_Clicked: {ex.Message}");
+                await DisplayAlert("Error", "Error inesperado al asignar la transacci贸n", "OK");
                 if (sender is Button button)
                 {
                     button.IsEnabled = true;
