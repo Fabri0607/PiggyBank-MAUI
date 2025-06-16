@@ -68,12 +68,12 @@
                                                 FontFamily="PoppinsRegular"
                                                 TextColor="Black"/>
                                             <Label 
-                                                Text="{Binding MontoObjetivo, StringFormat='Objetivo: {0:C}'}"
+                                                Text="{Binding MontoObjetivo, StringFormat='Objetivo: ₡{0:N0}'}"
                                                 FontSize="Small"
                                                 TextColor="Gray"
                                                 FontFamily="PoppinsRegular" />
                                             <Label 
-                                                Text="{Binding MontoActual, StringFormat='Actual: {0:C}'}"
+                                                Text="{Binding MontoActual, StringFormat='Actual: ₡{0:N0}'}"
                                                 FontSize="Small"
                                                 TextColor="Gray"
                                                 FontFamily="PoppinsRegular" />
