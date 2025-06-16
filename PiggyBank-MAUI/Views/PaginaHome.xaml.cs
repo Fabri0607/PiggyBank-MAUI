@@ -163,7 +163,8 @@ public partial class PaginaHome : ContentPage, INotifyPropertyChanged
             }
             else
             {
-                await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al cargar transacciones", "OK");
+                return;
+                //await DisplayAlert("Error", response.error?.FirstOrDefault()?.Message ?? "Error al cargar transacciones", "OK");
             }
         }
         catch (Exception ex)
