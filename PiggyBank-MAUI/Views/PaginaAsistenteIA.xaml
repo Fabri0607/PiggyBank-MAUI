@@ -27,7 +27,7 @@
                                      HorizontalOptions="Center"
                                      Spacing="20">
 
-                            <Image Source="piggybank_logo_new_white.png"
+                            <Image Source="piggybank_bienvenida.png"
                                    WidthRequest="300"
                                    HeightRequest="300"
                                    HorizontalOptions="Center"/>
