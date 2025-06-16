@@ -33,6 +33,18 @@ public partial class PaginaAsistenteIA : ContentPage
 
     public ICommand ViewDetailsCommand { get; }
     public ICommand SendCommand { get; }
+
+    private bool _isSending;
+    public bool IsSending
+    {
+        get => _isSending;
+        set
+        {
+            _isSending = value;
+            OnPropertyChanged(nameof(IsSending));
+        }
+    }
+
     private bool _isBusy;
     public bool IsBusy
     {
@@ -72,15 +84,15 @@ public partial class PaginaAsistenteIA : ContentPage
         
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        LoadContextos();
-        LoadAnalisis();
+        await LoadContextos();
+        await LoadAnalisis();
     }
 
 
-    private async void LoadContextos()
+    private async Task LoadContextos()
     {
         Debug.WriteLine("Iniciando LoadContextos");
         try
@@ -125,7 +137,7 @@ public partial class PaginaAsistenteIA : ContentPage
         }
     }
 
-    private async void LoadAnalisis()
+    private async Task LoadAnalisis()
     {
         if (IsBusy)
         {
@@ -165,7 +177,6 @@ public partial class PaginaAsistenteIA : ContentPage
         {
             IsBusy = false;
         }
-        IsBusy = false;
     }
 
     private void OnSendClicked(object sender, EventArgs e)
@@ -223,22 +234,22 @@ public partial class PaginaAsistenteIA : ContentPage
 
     private async void OnConfirmModalClicked(object sender, EventArgs e)
     {
-        if (IsBusy) return;
+        if (IsSending) return;
 
         try
         {
-            IsBusy = true;
-            BotonEnviar.IsEnabled = false;
-            BotonCancelar.IsEnabled = false;
+            IsSending = true;
             var selectedContexto = ContextoPicker.SelectedItem as ContextoDTO;
             if (selectedContexto == null)
             {
                 await DisplayAlert("Error", "Debe seleccionar un contexto.", "OK");
+                IsSending = false;
                 return;
             }
             if (FechaFinPicker.Date < FechaInicioPicker.Date)
             {
                 await DisplayAlert("Error", "La fecha de fin debe ser posterior a la fecha de inicio.", "OK");
+                IsSending = false;
                 return;
             }
 
@@ -256,6 +267,15 @@ public partial class PaginaAsistenteIA : ContentPage
 
             if (response.resultado)
             {
+                var newAnalisis = new AnalisisDTO
+                {
+                    AnalisisID = response.AnalisisID,
+                    Resumen = request.Consulta,
+                    FechaGeneracion = DateTime.Now
+                };
+                AnalisisList.Insert(0, newAnalisis);
+                IsEmptyState = false;
+
                 ModalOverlay.IsVisible = false;
                 MessageEntry.Text = string.Empty;
                 ContextoPicker.SelectedIndex = -1;
@@ -264,9 +284,8 @@ public partial class PaginaAsistenteIA : ContentPage
                 FechaFinPicker.ClearValue(DatePicker.DateProperty);
                 CustomDateRangeLayout.IsVisible = false;
                 CustomDateRangeLayout2.IsVisible = false;
-                LoadAnalisis();
+
                 await Navigation.PushAsync(new PaginaChat(response.AnalisisID));
-                
             }
             else
             {
@@ -280,10 +299,7 @@ public partial class PaginaAsistenteIA : ContentPage
         }
         finally
         {
-            IsBusy = false;
-            BotonEnviar.IsEnabled = true;
-            BotonCancelar.IsEnabled = true;
-
+            IsSending = false;
         }
     }
 }

@@ -28,8 +28,11 @@
                     <RoundRectangle CornerRadius="40,40,0,0" />
                 </Border.StrokeShape>
 
-                <ScrollView Padding="0,20,0,100">
-                    <CollectionView ItemsSource="{Binding Messages}">
+                <ScrollView x:Name="ChatScrollView" Padding="0,20,0,100">
+                    <CollectionView x:Name="MessagesCollectionView" ItemsSource="{Binding Messages}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Padding="10" HorizontalOptions="{Binding Role, Converter={StaticResource RoleToAlignmentConverter}}">
@@ -96,15 +99,21 @@
                                BackgroundColor="Transparent"
                                VerticalOptions="Center"
                                Margin="10,0"
+                               Text="{Binding MessageText, Mode=TwoWay}"
                                />
                     </Frame>
                     <Button Grid.Column="1"
                         Text="➤"  BackgroundColor="white"  TextColor="#00986C"
                         CornerRadius="25"  WidthRequest="36"  HeightRequest="36" FontSize="11"  HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                        Clicked="SendMessage_Clicked" />
                 </Grid>
             </Frame>
         </Grid>
+
+        <ActivityIndicator IsRunning="{Binding IsSendingMessage}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Color="#00986C"/>
     </Grid>
-    
 </ContentPage>
