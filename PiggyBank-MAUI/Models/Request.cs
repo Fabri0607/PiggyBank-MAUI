@@ -275,6 +275,8 @@ namespace PiggyBank_MAUI.Models
         public int AnalisisID { get; set; } // ID del análisis al que pertenece el mensaje
         public string Role { get; set; } // Rol del remitente (user o assistant)
         public string Content { get; set; } // Contenido del mensaje
+        public Sesion sesion { get; set; }
+        public string token { get; set; }
     }
 
     public class ReqCrearCategoria : ReqBase
@@ -330,12 +332,3 @@ namespace PiggyBank_MAUI.Models
         public int UsuarioID { get; set; }
     }
 }
-
-
-
-
-
-
-
-
-

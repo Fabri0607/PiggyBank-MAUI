@@ -198,12 +198,16 @@ namespace PiggyBank_MAUI.Models
     {
         public int AnalisisID { get; set; }
     }
-    public class ResInsertarMensaje : ResBase
+    public class ResInsertarMensajeChat : ResBase
     {
         public int MensajeConsultaID { get; set; }
         public int MensajeRespuestaID { get; set; }
     }
 
+    public class ResObtenerMensaje : ResBase
+    {
+        public MensajeDTO Mensaje { get; set; }
+    }
     public class ResCrearCategoria : ResBase
     {
 

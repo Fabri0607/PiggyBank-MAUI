@@ -730,6 +730,40 @@ namespace PiggyBank_MAUI.Services
             }
         }
 
+        public async Task<ResInsertarMensajeChat> InsertarMensaje(int analisisId, ReqInsertarMensajeChat req)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var json = JsonSerializer.Serialize(req);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync($"asistente/analisis/{analisisId}/mensaje", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<ResInsertarMensajeChat>(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return new ResInsertarMensajeChat { resultado = false, error = new List<Error> { new Error { Message = ex.Message } } };
+            }
+        }
+
+        public async Task<MensajeDTO> ObtenerMensaje(int mensajeId)
+        {
+            try
+            {
+                UpdateAuthenticationHeader();
+                var response = await _httpClient.GetAsync($"asistente/mensaje/{mensajeId}");
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<ResObtenerMensaje>(responseContent);
+                return result.resultado ? result.Mensaje : null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception in ObtenerMensaje: {ex.Message}");
+                return null;
+            }
+        }
+
         public async Task<ResObtenerDetalleTransaccion> ObtenerDetalleTransaccion(ReqObtenerDetalleTransaccion req)
         {
             try

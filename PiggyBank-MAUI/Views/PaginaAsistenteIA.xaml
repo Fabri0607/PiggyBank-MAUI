@@ -62,7 +62,6 @@
                                                      <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="40"/>
                                                     </Grid.ColumnDefinitions><StackLayout Grid.Column="0">
                                                         <Label Text="{Binding Resumen}"
                                                                FontSize="16"
@@ -73,14 +72,6 @@
                                                                TextColor="#666"/>
                                                     </StackLayout>
 
-                                                    <Button Grid.Column="1"
-                                                            Text="⋮"
-                                                            BackgroundColor="Transparent"
-                                                            TextColor="#666"
-                                                            FontSize="25"
-                                                            FontAttributes="Bold"
-                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=ViewDetailsCommand}"
-                                                            CommandParameter="{Binding}"/>
                                                 </Grid>
 
                                                 <Frame.GestureRecognizers>
@@ -209,12 +200,41 @@
                                 BackgroundColor="#E0E0E0"
                                 TextColor="#666"
                                 Clicked="OnCancelModalClicked"/>
-                        <Button Grid.Column="1"
-                                x:Name="BotonEnviar"
-                                Text="Enviar"
-                                BackgroundColor="#00986C"
-                                TextColor="White"
-                                Clicked="OnConfirmModalClicked"/>
+                        <Grid Grid.Column="1">
+                            <Button x:Name="BotonEnviar"
+                                    Text="Enviar"
+                                    BackgroundColor="#00986C"
+                                    TextColor="White"
+                                    Clicked="OnConfirmModalClicked">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button"
+                                                 Binding="{Binding IsSending}"
+                                                 Value="True">
+                                        <Setter Property="Text"
+                                                Value=""/>
+                                        <Setter Property="IsEnabled"
+                                                Value="False"/>
+                                        <Setter Property="BackgroundColor"
+                                                Value="#cccccc"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button"
+                                                 Binding="{Binding IsSending}"
+                                                 Value="False">
+                                        <Setter Property="Text"
+                                                Value="Enviar"/>
+                                        <Setter Property="IsEnabled"
+                                                Value="True"/>
+                                        <Setter Property="BackgroundColor"
+                                                Value="#00986C"/>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <ActivityIndicator IsRunning="{Binding IsSending}"
+                                               IsVisible="{Binding IsSending}"
+                                               Color="White"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                        </Grid>
                     </Grid>
                 </StackLayout>
             </Frame>
