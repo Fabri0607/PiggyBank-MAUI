@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1>PiggyBank MAUI - Frontend</h1>
+<h1>PiggyBank - Frontend</h1>
 
 <p><strong>Repositorio del Backend:</strong> <a href="https://github.com/Fabri0607/PiggyBank">PiggyBank</a></p>
 
