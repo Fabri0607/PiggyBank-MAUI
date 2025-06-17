@@ -193,20 +193,11 @@
   <li>Se maneja el almacenamiento local si es necesario</li>
 </ol>
 
-<h2>📱 Características Específicas por Plataforma</h2>
-<ul>
-  <li><strong>Android:</strong> Integración con sistema de notificaciones nativo</li>
-  <li><strong>iOS:</strong> Soporte para Face ID/Touch ID en autenticación</li>
-  <li><strong>Windows:</strong> Interfaz adaptada para mouse y teclado</li>
-  <li><strong>macOS:</strong> Menús nativos y atajos de teclado</li>
-</ul>
-
 <h2>📌 Notas de Desarrollo</h2>
 <ul>
   <li>La aplicación requiere conexión a internet para funcionalidad completa</li>
   <li>Los datos se almacenan localmente de forma temporal para mejorar la experiencia</li>
   <li>La autenticación JWT se maneja automáticamente en todas las requests</li>
-  <li>Las actualizaciones de la aplicación se realizan a través de las tiendas respectivas</li>
 </ul>
 
 <h2>🔮 Resumen de Funcionalidades</h2>
